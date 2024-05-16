@@ -1,0 +1,52 @@
+const mongoose =require ('mongoose');
+
+const joi = require ("joi")
+const { Schema } = mongoose;
+
+const invConsumeSchema = new Schema({
+  hourseId : {
+    type : mongoose.Types.ObjectId,
+    ref: "Hourse",
+    required: true,
+       },
+  invConsumedItemName: {
+    type: String,
+    required: true,
+    minlength: [2,"consumed item  Name is less than 2 character "],
+        maxlength: [20,"consumed item Name is longer than 20 character "]  
+  },
+  invConsumedQuantity: {
+    type: Number,
+    required: true,
+  },
+  invConsumedPrice: {
+    type: Number,
+    required: true,
+  },
+  invConsumedMeasure:{
+    type: String,
+    required: true,
+  },
+  date:{
+    type:String,
+    required:true
+  }
+}, { timestamps: true });
+
+const invConsume = mongoose.model('invConsume', invConsumeSchema);
+function createInvConsumeValidation(obj){
+  const schema =joi.object({
+    invConsumedItemName:joi.string().required(),
+    invConsumedQuantity:joi.number().required(),
+    invConsumedPrice : joi.number().required(),
+    invConsumedMeasure :joi.string().required(),
+    date: joi.string().required(), 
+    hourseId : joi.string().required(),
+
+  })
+  return schema.validate(obj)
+}
+module.exports ={
+    invConsume,
+    createInvConsumeValidation
+}
