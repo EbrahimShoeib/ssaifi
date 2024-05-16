@@ -36,9 +36,11 @@ const invmembershipRouter = require("./features/sales/InvMembership/router/invMe
 const familymembershipRouter = require("./features/sales/familyMembership/router/familyMembership")
 const medicineRouter = require("./features/medicine/router/medicine-router")
 const consumedMedicineRouter = require("./features/consumed-medicine/router/consumed-medicine-router")
+
 //ManagementPath
 const dailyRouter = require("./features/management/daily/router/dailyRoute")
 const schadualsRouter = require("./features/management/Scheduals/router/Scheduals")
+const invoiceRouter =require("./features/invoices/router/invoice-router")
 
 
 // cors libyrary
@@ -89,6 +91,7 @@ app.use("/api/medicine",verifyTokenAndAdmin,medicineRouter)
 app.use("/api/consumed-medicine",verifyTokenAndAdmin,consumedMedicineRouter)
 app.use("/api/daily",verifyTokenAndAdmin,dailyRouter)
 app.use("/api/schadual",verifyTokenAndAdmin,schadualsRouter)
+app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
 
 
 
