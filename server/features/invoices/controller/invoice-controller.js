@@ -83,9 +83,11 @@ class InvoiceController {
 
                 Invoice.find({
                   $or: [
-                    { username: { $regex: regexQuery } },
-                    { email: { $regex: regexQuery } },
-                    { phone: { $regex: regexQuery } }
+                    { clientName: { $regex: regexQuery } },
+                    { invoiceType: { $regex: regexQuery } },
+                    { status: { $regex: regexQuery } },
+                    { clientType: { $regex: regexQuery } }
+
                   ]
                 })
                   .select("-__v")
