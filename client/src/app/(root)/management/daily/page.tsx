@@ -26,7 +26,7 @@ function DailyPage() {
     console.log(response);
     
 
-    const isDataHere = Boolean(response?.caveteriaItems?.data) && isSuccess
+    const isDataHere = Boolean(response?.Daily?.data) && isSuccess
 
 
     const tableHeadCells = [
@@ -59,13 +59,15 @@ function DailyPage() {
         "note"
     ]
 
-    const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
+    const tableBodyItems = response?.Daily?.data.map((item:any) => ({
         ...item,
         courseDate:getReadableDate(item.courseDate),
         price:(<span className='text-right block w-full'>
             {priceFormatter(String(item.price))}
         </span>),
-
+        clientId:item?.clientId?.username ||"no-client",
+        hourseId:item?.hourseId?.hourseName ||"no-horse",
+        instractorId:item?.instractorId?.instractorName ||"no-instructor",
     }))   
 
     return (
@@ -90,8 +92,8 @@ function DailyPage() {
                 {
                     isDataHere ? (
                         <PaginationButtons
-                            maxPages={response.caveteriaItems.max_pages}
-                            currentPage={response.caveteriaItems.current_page}
+                            maxPages={response.Daily.max_pages}
+                            currentPage={response.Daily.current_page}
                         />
                     ): <></>
                 }

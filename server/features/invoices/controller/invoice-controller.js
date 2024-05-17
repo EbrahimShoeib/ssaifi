@@ -17,7 +17,7 @@ class InvoiceController {
           if (error) {
             res.status(400).json({
               status_code: ApiErrorCode.validation,
-              message:" Validation error",
+              message: error.message,
               data: null,
               error: {
                 message: error.message,

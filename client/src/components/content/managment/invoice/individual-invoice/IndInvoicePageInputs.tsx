@@ -21,8 +21,8 @@ function IndInvoicePageInputs({
     setEndDate
 }:IndInvoicePageInputsProps) {
     return (
-        <div className='w-full items-center flex'>
-            <img src="/svgs/logo.svg" className='w-[150px] block aspect-square' alt="logo" />
+        <div className='w-full h-[100px] items-center flex'>
+            <img src="/svgs/logo.svg" className='h-full block aspect-square' alt="logo" />
             <div className='flex-1 flex justify-between ml-5 h-[30px]'>
 
 

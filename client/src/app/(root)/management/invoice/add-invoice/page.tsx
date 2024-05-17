@@ -2,9 +2,16 @@
 
 import InvoicePageInputs from '@/components/content/managment/invoice/InvoicePageInputs'
 import PageHeader from '@/components/layout/PageHeader'
+import { invoiceRoute } from '@/constants/api'
+import { useFailedPopUp } from '@/hooks/useFailedPopUp'
 import { useGetClients } from '@/hooks/useGetClients'
+import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
+import { httpPostService } from '@/services/httpPostService'
+import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import { toNameAndId } from '@/utils/toNameAndId'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import { useMutation } from 'react-query'
 
 function AddInvoicePage() {
   
@@ -19,21 +26,46 @@ function AddInvoicePage() {
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
+    const body = {
+        invoiceType,
+        totalAmount,
+        invoiceDate:date,
+        status:membershipStatus?.name,
+        clientType:clientType?.name
+    }
+
     const {isLoading:isClientsLoading} = useGetClients({
         onSuccess:(res) =>{
             const clients = toNameAndId(res?.data?.client,"username","_id")
             setClients(clients)
         }
     })
+    const successPopUp = useSuccessPopUp()
+    const failedPopUp = useFailedPopUp()
+    const router = useRouter()
 
     useEffect(()=>{
         if (!isClientsLoading) 
             setIsLoading(false)
     },[isClientsLoading])
 
-    const handleSubmit = () => {
-
-    }
+    const {mutate} = useMutation({
+        mutationFn:async () => httpPostService(invoiceRoute,JSON.stringify(body)),
+        onSuccess:async(res)=> {
+            const status = statusCodeIndicator(res.status_code) === "success" 
+            
+            if (status) {
+                successPopUp("invoice added successfully")
+                router.push("/management/invoice")
+            
+            }else {
+                failedPopUp(res.message)
+            }
+        },
+        onError:()=> {
+            failedPopUp()
+        }
+    })
 
     return (
         <>
@@ -60,9 +92,11 @@ function AddInvoicePage() {
                 setMembershipStatus={setMembershipStatus}
                 clients={clients}
                 invoiceId={invoiceId}
-                onSubmit={handleSubmit}
+                onSubmit={mutate}
                 setInvoiceId={setInvoiceId}
                 submitButtonLabel='add invoice'
+                invoiceType={invoiceType}
+                setInvoiceType={setInvoiceType}
             />
         </>
     )

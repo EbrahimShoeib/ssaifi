@@ -12,17 +12,16 @@ const dailySchema = new mongoose.Schema({
     required: true,
   }, 
   course: {
-    type: String,
-    require: true,
-    minlength: [2, "course is less than 2 character "],
-    maxlength: [20, "course item Name is longer than 20 character "],
-    default:""
+    type: String || null,
+    require: false,
+    default: null
   },
   status: {
     type: String,
     enum: ["active", "inactive"],
     required: true,
-   
+    minlength: [2, "status is less than 2 character "],
+    maxlength: [20, "statusis longer than 20 character "],
     default:""
   },
   instractorId: {
@@ -83,7 +82,7 @@ function createNewDaily(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().required().min(2).max(20),
-    status:joi.string().required(),
+    status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),
@@ -102,7 +101,7 @@ function updateDaily(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().required().min(2).max(20),
-    status:joi.string().required(),
+    status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),

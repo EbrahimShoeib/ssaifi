@@ -52,3 +52,18 @@ type QueryReqResult = {
     refetch:any,
     isLoading:boolean
 }
+
+
+
+
+
+type ChartSubColumn = {
+    title:string,
+    value:number
+}
+
+
+type ChartMainColumn = {
+    total:number,
+    subCols:ChartSubColumn[]
+}

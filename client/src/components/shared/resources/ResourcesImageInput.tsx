@@ -21,10 +21,7 @@ function ResourcesImageInput({formDataFile,label,setFormDataFile}:ResourcesImage
                 <span>:</span>
             </div>
             <ImageUploadInput
-                className='border overflow-hidden truncate
-                border-solid flex justify-between bg-smokey-white items-center
-                text-dark-grey text-opacity-45 w-[calc(100%-170px)]
-                border-dark-grey border-opacity-40 rounded-lg text-md h-[35px] p-3' 
+                className='input w-[calc(100%-170px)]' 
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
             >

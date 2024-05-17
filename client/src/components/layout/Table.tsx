@@ -19,7 +19,15 @@ type TableProps = {
     route:string,
     refetch:()=> void
 }
-function Table({tableHeadCells,tableBodyItems,isCrud,tableBodyItemCellKeys,route,refetch}:TableProps) {
+function Table({
+    tableHeadCells,
+    tableBodyItems,
+    isCrud,
+    tableBodyItemCellKeys,
+    route,
+    refetch,
+    
+}:TableProps) {
 
     const pathname = usePathname()
 

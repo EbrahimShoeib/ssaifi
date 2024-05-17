@@ -17,11 +17,7 @@ function ResourcesInput({value,type,setValue,label,placeholder}:Input) {
             <Input
                 value={value} 
                 type={type}
-                className={` overflow-hidden truncate border border-solid 
-                focus:border-primary focus:border-opacity-100
-                placeholder:text-dark-grey placeholder:text-opacity-45 w-[calc(100%-170px)]
-                border-dark-grey border-opacity-40 rounded-lg 
-                text-md h-[35px] bg-transparent p-3 `}
+                className={`input w-[calc(100%-170px)]`}
                 placeholder={placeholder} 
                 setValue={setValue}
             />

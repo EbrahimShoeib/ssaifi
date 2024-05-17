@@ -63,3 +63,10 @@ input,textarea,select {
 .page_submit_button {
     @apply w-[350px] text-primary duration-300 hover:bg-primary hover:text-smokey-white font-semibold text-2xl uppercase rounded-2xl h-[60px] border border-primary
 }
+
+.input {
+    @apply border overflow-hidden truncate
+    border-solid flex justify-between bg-smokey-white items-center
+    text-dark-grey placeholder:text-opacity-45 focus:border-primary focus:border-opacity-100
+    border-dark-grey border-opacity-40 rounded-lg h-[35px] p-3
+}

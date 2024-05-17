@@ -22,9 +22,8 @@ function ResourcesDropList({listValue,setListValue,label,options,placeholder}:Re
                     setListValue={setListValue}
                     placeholder={placeholder}
                     options={options}
-                    placeholderClassName='border border-solid
-                     text-dark-grey border-dark-grey border-opacity-40
-                      rounded-lg text-md h-[35px] bg-transparent p-3'
+                    placeholderClassName='input'
+                
                 />
             </div>
             
