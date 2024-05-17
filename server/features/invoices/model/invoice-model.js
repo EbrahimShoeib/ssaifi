@@ -23,14 +23,14 @@ const InvoiceSchema = mongoose.Schema({
         required: true,
     },
     status : {
-        type : [String],
+        type : String,
         required: true,
         enum: ['active','inactive'], // Define your enum values here
     },
     clientType : {
-        type : [String],
+        type : String,
         required: true,
-        enum: ['premuim','basic'], // Defin
+        enum: ['premium','basic'], // Defin
     }
 })
 
@@ -45,7 +45,7 @@ function invoiceValidation(obj){
         totalAmount : joi.number().min(1),
         invoiceDate : joi.string().min(4).max(25),
         status : joi.string().valid('active','inactive').required(),
-        clientType : joi.string().valid('premuim','basic').required()
+        clientType : joi.string().valid('premium','basic').required()
     })
     return schema.validate(obj);
 }
