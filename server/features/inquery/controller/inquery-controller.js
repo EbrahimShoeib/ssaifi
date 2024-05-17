@@ -2,6 +2,7 @@ const path = require('path')
 const {Client} = require('../../client/models/client')
 const {Daily} = require('../../management/daily/model/dailyModel')
 const {Consume} = require('../../sales/consumeItem/model/consumeModel')
+const {InvMembership} = require('../../sales/InvMembership/model/invMembership')
 
 //import token
 const ApiErrorCode = require("../../../core/errors/apiError") 
@@ -22,9 +23,9 @@ class InqueryController {
                   .select("-__v")
                   .then(async (docs) => {
 
-                    const courses = await Daily.findOne({clientId : req.params.id})
-                    const cafateria = await Consume.findOne({clientId : req.params.id})
-
+                    const courses = await Daily.find({clientId : req.params.id})
+                    const cafateria = await Consume.find({clientId : req.params.id})
+                    const InvMembership = await InvMembership.findOne({clientId : req.params.id})
                     if(docs){
                         res.status(200).json({
                             status_code: 1,
@@ -32,7 +33,8 @@ class InqueryController {
                             data: {
                               client: docs,
                               courses: courses,
-                              cafateria : cafateria
+                              cafateria : cafateria,
+                              membershipStatus : InvMembership
                             },
                           });
                     }else {
@@ -72,7 +74,12 @@ class InqueryController {
         }
     }
 
-  
+    static async getInstructorInqueries (req, res) {
+    }
+
+    static async getHourseInqueries (req, res) {
+
+    }
 
 
 }
