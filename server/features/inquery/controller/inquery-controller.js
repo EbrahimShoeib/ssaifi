@@ -12,6 +12,7 @@ class InqueryController {
 
 
   
+  
 
     static async getClientInqueries (req, res) {
         try {
