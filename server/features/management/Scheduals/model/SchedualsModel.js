@@ -4,7 +4,7 @@ const SchadualSchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-    default:""
+    
   },
   clientId: {
     type: mongoose.Types.ObjectId,
@@ -14,13 +14,13 @@ const SchadualSchema = new mongoose.Schema({
   course: {
     type: String,
     require: false,
-    default:""
+    
   },
   status: {
     type: String,
     enum: ["Active", "Inactive"],
     required: true,
-    default:""
+   
   },
   instractorId: {
     type: mongoose.Types.ObjectId,
@@ -32,19 +32,17 @@ const SchadualSchema = new mongoose.Schema({
     require: true,
     enum: ["Paid", "Pending"],
     
-    default:""
+    
   },
   note: {
     type: String,
     require: true,
    
-    default: "",
   },
   courseTime: {
     type: String,
     require: true,
     
-    default: "",
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
@@ -59,18 +57,15 @@ const SchadualSchema = new mongoose.Schema({
   arena: {
     type:String,
     require:true,
-    default:""
   },
   membership: {
     type:String,
     enum :["Individual","Pamily"] ,
     require:true,
-    default:""
   },
   Confitmation: {
     type:String,
     require:true,
-    default:""
   },
 });
 

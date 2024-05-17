@@ -4,7 +4,7 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-    default:""
+  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
@@ -16,7 +16,7 @@ const dailySchema = new mongoose.Schema({
     require: true,
     minlength: [2, "course is less than 2 character "],
     maxlength: [20, "course item Name is longer than 20 character "],
-    default:""
+    
   },
   status: {
     type: String,
@@ -24,7 +24,7 @@ const dailySchema = new mongoose.Schema({
     required: true,
     minlength: [2, "status is less than 2 character "],
     maxlength: [20, "statusis longer than 20 character "],
-    default:""
+    
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
@@ -37,21 +37,21 @@ const dailySchema = new mongoose.Schema({
     enum: ["Paid", "Pending"],
     minlength: [2, "paid is less than 2 character "],
     maxlength: [20, "paid is longer than 20 character "],
-    default:""
+    
   },
   note: {
     type: String,
     require: true,
     minlength: [2, "noteis less than 2 character "],
     maxlength: [20, "note is longer than 20 character "],
-    default: "",
+   
   },
   courseTime: {
     type: String,
     require: true,
     minlength: [2, "courseTime is less than 2 character "],
     maxlength: [20, "courseTime is longer than 20 character "],
-    default: "",
+   
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
@@ -61,18 +61,18 @@ const dailySchema = new mongoose.Schema({
   price: {
     type:String ,
     require:true,
-    default:""
+  
   },
   arena: {
     type:String,
     require:true,
-    default:""
+   
   },
   membership: {
     type:String,
     enum :["Individual","Family"] ,
     require:true,
-    default:""
+ 
   },
 });
 
