@@ -4,7 +4,7 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-    default:""
+  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
@@ -12,14 +12,16 @@ const dailySchema = new mongoose.Schema({
     required: true,
   }, 
   course: {
-    type: String || null,
+    type: String,
     require: false,
-    default: null
+ 
+    
   },
   status: {
     type: String,
     enum: ["active", "inactive"],
     required: true,
+    
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
@@ -29,15 +31,23 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
+<<<<<<< HEAD
     enum: ["paid", "pending"]
     },
+=======
+    enum: ["Paid", "Pending"],
+   
+  },
+>>>>>>> 1821bcae1a9e4e60cecf3ff164535e4aad1e6fcf
   note: {
     type: String,
     require: true,
+   
   },
   courseTime: {
     type: String,
-    require: true
+    require: true,
+   
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
@@ -46,16 +56,24 @@ const dailySchema = new mongoose.Schema({
        },
   price: {
     type:String ,
-    require:true
-    },
+    require:true,
+  
+  },
   arena: {
     type:String,
-    require:true
+    require:true,
+   
   },
   membership: {
     type:String,
+<<<<<<< HEAD
     enum :["individual","family"] ,
     require:true
+=======
+    enum :["Individual","Family"] ,
+    require:true,
+ 
+>>>>>>> 1821bcae1a9e4e60cecf3ff164535e4aad1e6fcf
   },
 });
 
@@ -67,15 +85,15 @@ function createNewDaily(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().min(2).max(20),
-    status:joi.string().required().valid("Active", "Inactive"),
+    status:joi.string().required(),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required().valid("Paid","Pending"),
+    paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required().valid("Individual","Family"),
+    membership:joi.string().required(),
 
   });
   return schema.validate(obj);
@@ -86,7 +104,7 @@ function updateDaily(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().min(2).max(20),
-    status:joi.string().required().min(2).max(20),
+    status:joi.string().required(),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),

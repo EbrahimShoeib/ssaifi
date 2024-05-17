@@ -25,12 +25,12 @@ const InvoiceSchema = mongoose.Schema({
     status : {
         type : String,
         required: true,
-        enum: ['active','inactive'], // Define your enum values here
+        enum: ['active','inactive'],
     },
     clientType : {
         type : String,
         required: true,
-        enum: ['premium','basic'], // Defin
+        enum: ['premium','basic'],
     }
 })
 
