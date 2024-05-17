@@ -14,7 +14,7 @@ function BackButton() {
     }
 
     return (
-        <button className='w-[30px] hover:bg-primary duration-200 hover:text-smokey-white text-lg bg-opacity-60 text-dark-grey bg-zinc-300 rounded-full flex justify-center items-center aspect-square' onClick={handleGoBack}>
+        <button className='w-[30px] hover:bg-primary duration-100 hover:text-smokey-white text-lg bg-opacity-60 text-dark-grey bg-zinc-300 rounded-full flex justify-center items-center aspect-square' onClick={handleGoBack}>
             <IoIosArrowBack />
         </button>
     )

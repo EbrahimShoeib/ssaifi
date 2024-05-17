@@ -8,10 +8,15 @@ import ReactToastifyProvider from "@/components/providers/ReactToastifyProvider"
 import PopUpProvider from "@/context/PopUpContext";
 import { Poppins } from 'next/font/google'
 
+
+
 export const metadata: Metadata = {
     title: "Saifi Stable",
     description: "horses stable web application and system",
 };
+
+
+
 const poppins = Poppins({weight:"400",preload:false})
 
 export default function RootLayout({children}:RootLayoutProps) {

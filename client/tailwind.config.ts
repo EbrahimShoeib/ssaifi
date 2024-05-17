@@ -19,6 +19,9 @@ const config: Config = {
             },
             fontFamily:{
                 poppins:"var(--poppins)",
+            },
+            boxShadow:{
+                "center":"0 3px 7px 0px #00000029"
             }
         },
     },

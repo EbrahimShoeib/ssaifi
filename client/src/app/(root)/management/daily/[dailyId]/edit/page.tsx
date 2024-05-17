@@ -80,7 +80,7 @@ function EditDailyClassPage() {
             const status = statusCodeIndicator(res.status_code) === "success" 
             
             if (status) {
-                successPopUp("class added sucessfully")
+                successPopUp("class updated successfully")
                 router.push("/management/daily")
             
             }else {
