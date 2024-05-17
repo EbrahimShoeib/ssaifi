@@ -11,7 +11,6 @@ const InvoiceSchema = mongoose.Schema({
     invoiceType: {
         type: String,
         required: true,
-        enum: ['individual'], // Define your enum values here
     },
 
     totalAmount : {
@@ -42,7 +41,7 @@ const Invoice = mongoose.model("Invoice",InvoiceSchema)
 function invoiceValidation(obj){
     const schema = joi.object({
         clientId: joi.string().min(3).max(30),
-        invoiceType: joi.string().valid('individual').required(),
+        invoiceType: joi.string().required(),
         totalAmount : joi.number().min(1),
         invoiceDate : joi.string().min(4).max(25),
         status : joi.string().valid('active','inactive').required(),
