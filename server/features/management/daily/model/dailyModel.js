@@ -14,16 +14,13 @@ const dailySchema = new mongoose.Schema({
   course: {
     type: String,
     require: false,
-    minlength: [2, "course is less than 2 character "],
-    maxlength: [20, "course item Name is longer than 20 character "],
+ 
     
   },
   status: {
     type: String,
     enum: ["Active", "Inactive"],
     required: true,
-    minlength: [2, "status is less than 2 character "],
-    maxlength: [20, "statusis longer than 20 character "],
     
   },
   instractorId: {
@@ -35,22 +32,16 @@ const dailySchema = new mongoose.Schema({
     type: String,
     require: true,
     enum: ["Paid", "Pending"],
-    minlength: [2, "paid is less than 2 character "],
-    maxlength: [20, "paid is longer than 20 character "],
-    
+   
   },
   note: {
     type: String,
     require: true,
-    minlength: [2, "noteis less than 2 character "],
-    maxlength: [20, "note is longer than 20 character "],
    
   },
   courseTime: {
     type: String,
     require: true,
-    minlength: [2, "courseTime is less than 2 character "],
-    maxlength: [20, "courseTime is longer than 20 character "],
    
   },
   hourseId : {
