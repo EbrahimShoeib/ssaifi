@@ -41,6 +41,7 @@ const consumedMedicineRouter = require("./features/consumed-medicine/router/cons
 const dailyRouter = require("./features/management/daily/router/dailyRoute")
 const schadualsRouter = require("./features/management/Scheduals/router/Scheduals")
 const invoiceRouter =require("./features/invoices/router/invoice-router")
+const inqueryRouter =require("./features/inquery/router/inquery-router")
 
 
 // cors libyrary
@@ -92,6 +93,7 @@ app.use("/api/consumed-medicine",verifyTokenAndAdmin,consumedMedicineRouter)
 app.use("/api/daily",verifyTokenAndAdmin,dailyRouter)
 app.use("/api/schadual",verifyTokenAndAdmin,schadualsRouter)
 app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
+app.use("/api/inquery",verifyTokenAndAdmin,inqueryRouter)
 
 
 

@@ -22,7 +22,7 @@ router.get(
  */
 router.get(
     "hourse/:id",
-    InqueryController.updateClientById
+    InqueryController.getHourseInqueries
 );
 
 /**
@@ -33,7 +33,7 @@ router.get(
  */
 router.get(
     "instructor/:id",
-    InqueryController.updateClientById
+    InqueryController.getInstructorInqueries
 );
 
 
