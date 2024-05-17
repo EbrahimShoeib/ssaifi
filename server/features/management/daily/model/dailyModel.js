@@ -38,15 +38,13 @@ const dailySchema = new mongoose.Schema({
   note: {
     type: String,
     require: true,
-    minlength: [2, "noteis less than 2 character "],
-    maxlength: [20, "note is longer than 20 character "],
+    
     default: "",
   },
   courseTime: {
     type: String,
     require: true,
-    minlength: [2, "courseTime is less than 2 character "],
-    maxlength: [20, "courseTime is longer than 20 character "],
+   
     default: "",
   },
   hourseId : {
