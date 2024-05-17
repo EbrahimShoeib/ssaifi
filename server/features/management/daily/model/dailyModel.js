@@ -80,6 +80,7 @@ const Daily =  mongoose.model("Daily", dailySchema);
 
 function createNewDaily(obj) {
   const schema = joi.object({
+    
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().required().min(2).max(20),

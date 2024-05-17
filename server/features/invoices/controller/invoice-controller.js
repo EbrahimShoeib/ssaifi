@@ -26,7 +26,7 @@ class InvoiceController {
           } else {
              new Invoice({
 
-                clientName: req.body.clientName,
+                clientId: req.body.clientId,
                 invoiceType: req.body.invoiceType,
                 totalAmount : req.body.totalAmount,
                 invoiceDate : req.body.invoiceDate,
@@ -89,7 +89,7 @@ class InvoiceController {
                     { clientType: { $regex: regexQuery } }
 
                   ]
-                })
+                }).populate('clientId')
                   .select("-__v")
                   .skip(skip) // Skip documents
                   .limit(pageSize)

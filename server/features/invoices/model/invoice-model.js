@@ -2,9 +2,10 @@ const mongoose=require("mongoose")
 const joi = require("joi")
 
 const InvoiceSchema = mongoose.Schema({
-    clientName: {
-        type : String,
-        required:true,
+    clientId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Client",
+        required: true,
     },
     
     invoiceType: {
@@ -40,7 +41,7 @@ const Invoice = mongoose.model("Invoice",InvoiceSchema)
 
 function invoiceValidation(obj){
     const schema = joi.object({
-        clientName: joi.string().min(3).max(30),
+        clientId: joi.string().min(3).max(30),
         invoiceType: joi.string().valid('individual').required(),
         totalAmount : joi.number().min(1),
         invoiceDate : joi.string().min(4).max(25),

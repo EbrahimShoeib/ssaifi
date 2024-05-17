@@ -14,8 +14,6 @@ const SchadualSchema = new mongoose.Schema({
   course: {
     type: String,
     require: true,
-    minlength: [2, "course is less than 2 character "],
-    maxlength: [20, "course item Name is longer than 20 character "],
     default:""
   },
   status: {
