@@ -1,5 +1,5 @@
 const { Caveteria, createMenueItemValidation } = require("../model/caveteria");
-const ApiErrorCode = require("../../../../core/errors/` apiError");
+const ApiErrorCode = require("../../../../core/errors/apiError");
 class caveteriaController {
   static async getAllMenueItem(req, res) {
     // Pagination parameters

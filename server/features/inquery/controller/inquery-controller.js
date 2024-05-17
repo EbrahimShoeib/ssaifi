@@ -10,11 +10,6 @@ const ApiErrorCode = require("../../../core/errors/apiError")
 
 class InqueryController {
 
-
-
-  
-  
-
     static async getClientInqueries (req, res) {
         try {
             {
