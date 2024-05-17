@@ -13,7 +13,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   course: {
     type: String,
-    require: true,
+    require: false,
     default:""
   },
   status: {
