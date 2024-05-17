@@ -76,7 +76,7 @@ function createNewSchadual(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().min(2).max(20),
-    status:joi.string().required(),
+    status:joi.string().required().valid("Active", "Inactive"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),
