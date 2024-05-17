@@ -79,7 +79,7 @@ function DailyAddClassPage() {
             const status = statusCodeIndicator(res.status_code) === "success" 
             
             if (status) {
-                successPopUp("class added sucessfully")
+                successPopUp("class added successfully")
                 router.push("/management/daily")
             
             }else {

@@ -30,7 +30,7 @@ function DropDownList({options,placeholder,listValue,placeholderClassName,listCl
 
     return (
         <div className='w-full relative h-full'>
-            <div onClick={toggleList} className={`w-full cursor-pointer overflow-hidden truncate flex gap-1 justify-between items-center h-full ${placeholderClassName}`}>
+            <div role="button" onClick={toggleList} className={`w-full overflow-hidden truncate flex gap-1 justify-between items-center h-full ${placeholderClassName}`}>
                 <span className="truncate">{listValue?.name ? listValue.name : placeholder}</span>
                 <TiArrowSortedDown className={`text-md ${listValue?.name && "text-primary inline-block rotate-180"}`} />
             </div>

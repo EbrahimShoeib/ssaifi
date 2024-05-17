@@ -19,6 +19,8 @@ type InvoicePageInputsProps = {
     onSubmit:()=> void,
     clientType:NameAndId,
     setClientType:(newState:NameAndId) => void,
+    invoiceType:string,
+    setInvoiceType:(newState:string) => void,
 
 }
 
@@ -39,6 +41,8 @@ function InvoicePageInputs({
     clients,
     clientType,
     setClientType,
+    invoiceType,
+    setInvoiceType,
 }:InvoicePageInputsProps) {
     const dropDownLists:DropDownList[] = [
         {
@@ -84,7 +88,14 @@ function InvoicePageInputs({
             label:'Invoice Id',
             type:'text',
             placeholder:'Enter Invoice Id'
-        }
+        },
+        {
+            value:invoiceType,
+            setValue:setInvoiceType,
+            label:'invoice type',
+            type:'text',
+            placeholder:'Enter invoice type'
+        },
     ]
     return (
         <>

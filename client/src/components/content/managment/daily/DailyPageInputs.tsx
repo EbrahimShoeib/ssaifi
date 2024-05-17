@@ -118,7 +118,7 @@ function DailyPageInputs({
     const inputs:Input[] = [ 
         {
             label:'Date',
-            type:'datetime-local',
+            type:'date',
             value:date,
             setValue:setDate,
             placeholder:'Enter Date'
@@ -139,7 +139,7 @@ function DailyPageInputs({
         },
         {
             label:'time',
-            type:'date',
+            type:'text',
             value:time,
             setValue:setTime,
             placeholder:'Enter Time'

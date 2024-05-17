@@ -1,16 +1,12 @@
 "use client"
 
-import { useState } from "react"
-
 type InputProps = {
     value: string,
     setValue: (newValue:string) => void,
-    fallback?: any,
     regex?: RegExp,
     className?:string,
     type:"password"|"text"|"number"|"datetime-local"|"date",
     placeholder?:string,
-    setIsValueValid?:(newValue:boolean) => void,
     label?:string,
     labelClassName?:string
 }
@@ -18,34 +14,28 @@ type InputProps = {
 function Input({
     value,
     setValue,
-    fallback,
     regex,
     type,
     className,
     placeholder,
-    setIsValueValid,
     label,
     labelClassName
 }:InputProps) {
     
-    const [showFallback,setShowFallback] = useState<boolean>(false)
 
     const changeValue = (e:any) => {
         const newValue:string = e.target.value
-        setValue(newValue)
 
-        if (regex) {
-            if (!regex.test(newValue)) {
-                setShowFallback(true)
-                if (setIsValueValid) {
-                    setIsValueValid(false)
-                }
-            } else {
-                setShowFallback(false)
-                if (setIsValueValid) {
-                    setIsValueValid(true)
-                }
+        if (type === "number") {
+            if (/^\d*\.?\d*$/.test(newValue)) {
+                setValue(newValue);
             }
+        } else if (regex) {
+            if (regex.test(newValue)) {
+                setValue(newValue);
+            }
+        } else {
+            setValue(newValue);
         }
     }
     
@@ -65,15 +55,12 @@ function Input({
                 value={value}
                 className={`${className ? className : ''} bg-transparent`}
                 onChange={changeValue}
-                type={type}
+                type={type === "number" ? "text" : type}
                 placeholder={placeholder ? placeholder : ''}
             >
 
             </input>
-            
-            {
-                showFallback ? fallback : <></>
-            }
+
         </>
     )
 }

@@ -2,11 +2,18 @@
 
 import SchedulePageInputs from "@/components/content/managment/schedule/SchedulePageInputs"
 import PageHeader from "@/components/layout/PageHeader"
+import { scheduleRoute } from "@/constants/api"
+import { useFailedPopUp } from "@/hooks/useFailedPopUp"
 import { useGetClients } from "@/hooks/useGetClients"
 import { useGetHorses } from "@/hooks/useGetHorses"
 import { useGetInstructors } from "@/hooks/useGetInstructors"
+import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
+import { httpPatchService } from "@/services/httpPatchService"
+import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
 import { toNameAndId } from "@/utils/toNameAndId"
+import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useMutation } from "react-query"
 
 function EditScheduleClassPage() {
 
@@ -28,11 +35,26 @@ function EditScheduleClassPage() {
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
+    const {scheduleId}= useParams()
+    const scheduleIdRoute = `${scheduleRoute}/${scheduleId}`
 
-    useEffect(()=>{
-        if (Boolean(instructors.length && clients.length && horses.length))
-            setIsLoading(false)
-    },[instructors,clients,horses])
+    const body = {
+        courseDate:date,
+        courseTime:time,
+        note,
+        arena,
+        price,
+        status:membershipStatus?.id,
+        clientId:client?.id,
+        instractorId:instructor?.id,
+        hourseId:horse?.id,
+        membership:membership?.id,
+        paid:payment?.id,
+    }
+
+    const failedPopUp = useFailedPopUp()
+    const successPopUp = useSuccessPopUp()
+    const router = useRouter()
 
     useGetInstructors({
         onSuccess: async (res) => {
@@ -54,9 +76,24 @@ function EditScheduleClassPage() {
             setHorses(horses)            
         }
     })
-    const addNewItem = () => {
-
-    }
+    
+    const {mutate} = useMutation({
+        mutationFn:async () => httpPatchService(scheduleIdRoute,JSON.stringify(body)),
+        onSuccess:async(res)=> {
+            const status = statusCodeIndicator(res.status_code) === "success" 
+            
+            if (status) {
+                successPopUp("class updated successfully")
+                router.push("/management/daily")
+            
+            }else {
+                failedPopUp(res.message)
+            }
+        },
+        onError:()=> {
+            failedPopUp()
+        }
+    })
     return (
         <>
             <PageHeader
@@ -93,7 +130,7 @@ function EditScheduleClassPage() {
                 instructors={instructors}
                 horse={horse}
                 setHorse={setHorse}
-                onSubmit={addNewItem}
+                onSubmit={mutate}
                 price={price}
                 setPrice={setPrice}                
                 submitButtonLabel="save class"
