@@ -3,22 +3,28 @@ const joi = require("joi");
 const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
-    required: true
-    },
+    required: true,
+    default:""
+  },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
   }, 
   course: {
-    type: String || null,
-    require: false,
-    default: null
+    type: String,
+    require: true,
+    minlength: [2, "course is less than 2 character "],
+    maxlength: [20, "course item Name is longer than 20 character "],
+    default:""
   },
   status: {
     type: String,
     enum: ["Active", "Inactive"],
     required: true,
+    minlength: [2, "status is less than 2 character "],
+    maxlength: [20, "statusis longer than 20 character "],
+    default:""
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
@@ -28,15 +34,24 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["Paid", "Pending"]
-    },
+    enum: ["Paid", "Pending"],
+    minlength: [2, "paid is less than 2 character "],
+    maxlength: [20, "paid is longer than 20 character "],
+    default:""
+  },
   note: {
     type: String,
     require: true,
+    minlength: [2, "noteis less than 2 character "],
+    maxlength: [20, "note is longer than 20 character "],
+    default: "",
   },
   courseTime: {
     type: String,
-    require: true
+    require: true,
+    minlength: [2, "courseTime is less than 2 character "],
+    maxlength: [20, "courseTime is longer than 20 character "],
+    default: "",
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
@@ -45,16 +60,19 @@ const dailySchema = new mongoose.Schema({
        },
   price: {
     type:String ,
-    require:true
-    },
+    require:true,
+    default:""
+  },
   arena: {
     type:String,
-    require:true
+    require:true,
+    default:""
   },
   membership: {
     type:String,
     enum :["Individual","Family"] ,
-    require:true
+    require:true,
+    default:""
   },
 });
 
@@ -62,18 +80,20 @@ const Daily =  mongoose.model("Daily", dailySchema);
 
 function createNewDaily(obj) {
   const schema = joi.object({
+    
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
-    status:joi.string().required().valid("Active", "Inactive"),
+    course:joi.string().required().min(2).max(20),
+    status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required().valid("Paid","Pending"),
+    paid:joi.string().required().min(2).max(20),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required().valid("Individual","Family"),
+    membership:joi.string().required().min(2).max(20),
+
   });
   return schema.validate(obj);
 }
@@ -82,16 +102,16 @@ function updateDaily(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
+    course:joi.string().required().min(2).max(20),
     status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required(),
+    paid:joi.string().required().min(2).max(20),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required(),
+    membership:joi.string().required().min(2).max(20),
 
   });
   return schema.validate(obj);

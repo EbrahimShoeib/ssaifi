@@ -88,17 +88,17 @@ class dailyController {
       });
   }
   static async createNewDaily(req, res) {
-    // const { error } = createNewDaily(req.body);
-    // if (error) {
-    //   res.status(400).json({
-    //     status_code: ApiErrorCode.validation,
-    //     message: error.message,
-    //     data: null,
-    //     error: {
-    //       message: error.message,
-    //     },
-    //   });
-    // } else {
+    const { error } = createNewDaily(req.body);
+    if (error) {
+      res.status(400).json({
+        status_code: ApiErrorCode.validation,
+        message: error.message,
+        data: null,
+        error: {
+          message: error.message,
+        },
+      });
+    } else {
       const daily = await Daily.findOne({ course: req.body.course });
       if (daily) {
         res.status(402).json({
@@ -151,7 +151,7 @@ class dailyController {
             });
           });
       }
-    // }
+    }
   }
   static async updateDaily(req, res) {
     const { error } = updateDaily(req.body);

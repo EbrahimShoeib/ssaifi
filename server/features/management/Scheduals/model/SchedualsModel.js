@@ -18,7 +18,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: ["Active", "Inactive"],
     required: true,
     default:""
   },
@@ -30,7 +30,7 @@ const SchadualSchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["paid", "pending"],
+    enum: ["Paid", "Pending"],
     
     default:""
   },
@@ -63,7 +63,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["individual","family"] ,
+    enum :["Individual","Pamily"] ,
     require:true,
     default:""
   },
