@@ -18,7 +18,7 @@ const dailySchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: ["Active", "Inactive"],
     required: true,
   },
   instractorId: {
@@ -29,7 +29,7 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["paid", "pending"]
+    enum: ["Paid", "Pending"]
     },
   note: {
     type: String,
@@ -54,7 +54,7 @@ const dailySchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["individual","family"] ,
+    enum :["Individual","Family"] ,
     require:true
   },
 });
