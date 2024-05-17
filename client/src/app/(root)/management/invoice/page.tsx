@@ -20,29 +20,38 @@ function InvoicePage() {
 
     const {data:response,isSuccess,refetch}:any = useQuery({
         queryFn:async () => httpGetServices(`${invoiceRoute}?page=${pageNumber}`),
-        queryKey:["management","schedule",'page',pageNumber]
-    })   //keys are not valid   //keys are not valid
+        queryKey:["management","invoice",'page',pageNumber]
+        
+    })   
+    
     const pathname = usePathname()
-    const isDataHere = Boolean(response?.caveteriaItems?.data) && isSuccess
+    const isDataHere = Boolean(response?.data?.client) && isSuccess
 
 
     const tableHeadCells = [
-        "menu item name",
-        "quantity",
-        "type",
-        "price",
-        "date"   //keys are not valid   //keys are not valid
+        "invoice id",
+        "client name",
+        "invoice type",
+        "total amount",
+        "invoice date",
+        "status",
+        "client type"   
     ]
 
     const tableBodyItemCellKeys = [
         "menuItemName",
-        "quantity",
-        "type",
-        "price",   //keys are not valid   //keys are not valid
-        "date"
+        "clientId",
+        "invoiceType",
+        "totalAmount",   
+        "invoiceDate",
+        "status",
+        "clientType"
     ]
 
-    const tableBodyItems = response?.caveteriaItems?.data
+    const tableBodyItems = response?.data?.client?.map((item:any) => ({
+        ...item,
+        clientId:item?.clientId?.username
+    }))
 
     return (
         <Suspense>
@@ -72,7 +81,7 @@ function InvoicePage() {
                             tableBodyItems={tableBodyItems} 
                             tableHeadCells={tableHeadCells} 
                             isCrud={true}
-                            refetch={refetch}   //keys are not valid   //keys are not valid
+                            refetch={refetch}   
                             route={invoiceRoute}
                         />
                     </Loader>
@@ -80,9 +89,8 @@ function InvoicePage() {
                 {
                     isDataHere ? (
                         <PaginationButtons
-                            maxPages={response.caveteriaItems.max_pages}
-                            currentPage={response.caveteriaItems.current_page}
-   //keys are not valid   //keys are not valid
+                            maxPages={response.data.max_pages}
+                            currentPage={response.data.current_page}
                         />
                     ): <></>
                 }
