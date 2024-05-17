@@ -3,9 +3,8 @@ const joi = require("joi");
 const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
-    required: true,
-    default:""
-  },
+    required: true
+    },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
@@ -63,7 +62,6 @@ const Daily =  mongoose.model("Daily", dailySchema);
 
 function createNewDaily(obj) {
   const schema = joi.object({
-    
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().min(2).max(20),
@@ -76,7 +74,6 @@ function createNewDaily(obj) {
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().required().valid("Individual","Family"),
-
   });
   return schema.validate(obj);
 }
