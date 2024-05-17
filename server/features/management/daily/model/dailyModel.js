@@ -20,8 +20,6 @@ const dailySchema = new mongoose.Schema({
     type: String,
     enum: ["active", "inactive"],
     required: true,
-    
-    default:""
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
@@ -31,21 +29,15 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["paid", "pending"],
-    
-    default:""
-  },
+    enum: ["paid", "pending"]
+    },
   note: {
     type: String,
     require: true,
-    
-    default: "",
   },
   courseTime: {
     type: String,
-    require: true,
-   
-    default: "",
+    require: true
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
@@ -54,19 +46,16 @@ const dailySchema = new mongoose.Schema({
        },
   price: {
     type:String ,
-    require:true,
-    default:""
-  },
+    require:true
+    },
   arena: {
     type:String,
-    require:true,
-    default:""
+    require:true
   },
   membership: {
     type:String,
     enum :["individual","family"] ,
-    require:true,
-    default:""
+    require:true
   },
 });
 
