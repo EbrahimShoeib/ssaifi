@@ -45,10 +45,11 @@ const inqueryRouter =require("./features/inquery/router/inquery-router")
 
 
 // cors libyrary
-app.use(cors({
-    origin: 'http://localhost:3000',
-    allowedHeaders: ['Content-Type', 'Authorization', 'token'] // Add 'token' to the allowed headers
-}));
+// app.use(cors({
+//     origin: 'http://localhost:3000',
+//     allowedHeaders: ['Content-Type', 'Authorization', 'token'] // Add 'token' to the allowed headers
+// }));
+app.use(cors({origin: '*'}));
 
 // Error handling
 app.use((req, res, next) => {
