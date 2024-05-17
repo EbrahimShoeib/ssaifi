@@ -77,13 +77,13 @@ function createNewDaily(obj) {
     course:joi.string().min(2).max(20),
     status:joi.string().required(),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required().min(2).max(20),
+    paid:joi.string().required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required().min(2).max(20),
+    membership:joi.string().required(),
 
   });
   return schema.validate(obj);
