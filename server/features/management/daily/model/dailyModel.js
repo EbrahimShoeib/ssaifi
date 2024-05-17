@@ -20,7 +20,7 @@ const dailySchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: ["Active", "Inactive"],
     required: true,
     minlength: [2, "status is less than 2 character "],
     maxlength: [20, "statusis longer than 20 character "],
@@ -34,7 +34,7 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["paid", "pending"],
+    enum: ["Paid", "Pending"],
     minlength: [2, "paid is less than 2 character "],
     maxlength: [20, "paid is longer than 20 character "],
     default:""
@@ -70,7 +70,7 @@ const dailySchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["individual","family"] ,
+    enum :["Individual","Family"] ,
     require:true,
     default:""
   },
