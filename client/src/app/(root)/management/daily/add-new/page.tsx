@@ -77,6 +77,7 @@ function DailyAddClassPage() {
         mutationFn:async () => httpPostService(dailyRoute,JSON.stringify(body)),
         onSuccess:async(res)=> {
             const status = statusCodeIndicator(res.status_code) === "success" 
+            console.log(res);
             
             if (status) {
                 successPopUp("class added successfully")

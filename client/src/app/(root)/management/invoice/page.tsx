@@ -27,9 +27,10 @@ function InvoicePage() {
     const pathname = usePathname()
     const isDataHere = Boolean(response?.data?.client) && isSuccess
 
+console.log(response);
 
     const tableHeadCells = [
-        "invoice id",
+        //"invoice id",
         "client name",
         "invoice type",
         "total amount",
@@ -39,7 +40,7 @@ function InvoicePage() {
     ]
 
     const tableBodyItemCellKeys = [
-        "menuItemName",
+        //"invoiceId",
         "clientId",
         "invoiceType",
         "totalAmount",   
@@ -80,7 +81,7 @@ function InvoicePage() {
                             tableBodyItemCellKeys={tableBodyItemCellKeys} 
                             tableBodyItems={tableBodyItems} 
                             tableHeadCells={tableHeadCells} 
-                            isCrud={true}
+                            isCrud={false}
                             refetch={refetch}   
                             route={invoiceRoute}
                         />
