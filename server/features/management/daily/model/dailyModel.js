@@ -79,7 +79,7 @@ function createNewDaily(obj) {
     
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().required().min(2).max(20),
+    course:joi.string().min(2).max(20),
     status:joi.string().required(),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
@@ -98,7 +98,7 @@ function updateDaily(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().required().min(2).max(20),
+    course:joi.string().min(2).max(20),
     status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required(),
