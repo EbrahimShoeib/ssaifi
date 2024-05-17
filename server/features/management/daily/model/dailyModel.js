@@ -17,7 +17,7 @@ const dailySchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Active", "Inactive"],
+    enum: ["active", "inactive"],
     required: true,
   },
   instractorId: {
