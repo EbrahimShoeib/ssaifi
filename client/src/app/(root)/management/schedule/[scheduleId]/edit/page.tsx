@@ -8,7 +8,11 @@ import { useGetClients } from "@/hooks/useGetClients"
 import { useGetHorses } from "@/hooks/useGetHorses"
 import { useGetInstructors } from "@/hooks/useGetInstructors"
 import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
+import { httpGetServices } from "@/services/httpGetService"
 import { httpPatchService } from "@/services/httpPatchService"
+import { getCafeteriaPayment } from "@/utils/getCafeteriaPayment"
+import { getMembershipStatus } from "@/utils/getMembershipStatus"
+import { getMembershipType } from "@/utils/getMembershipType"
 import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
 import { toNameAndId } from "@/utils/toNameAndId"
 import { useParams, useRouter } from "next/navigation"
@@ -55,6 +59,41 @@ function EditScheduleClassPage() {
     const failedPopUp = useFailedPopUp()
     const successPopUp = useSuccessPopUp()
     const router = useRouter()
+
+
+    useEffect(()=>{
+        const fetchDailyData = async () => {
+            const res = await httpGetServices(scheduleIdRoute)
+            const data = res.data
+            if (Boolean(data)) {
+                setDate(data?.courseDate)
+                setTime(data?.courseTime)
+                setNote(data?.note)
+                setArena(data?.arena)
+                setPrice(data?.price)
+                setMembershipStatus(getMembershipStatus(data?.status))
+                const client = Boolean(data?.clientId) ? ({
+                    name:data?.clientId?.username,
+                    id:data?.clientId?._id
+                }) : null
+                setClient(client)
+                const instructor = Boolean(data?.instractorId) ? ({
+                    name:data?.instractorId?.instractorName,
+                    id:data?.instructorId?._id
+                }) : null
+                setInstructor(instructor)
+                const horse = Boolean(data?.hourseId) ? ({
+                    name:data?.hourseId?.hourseName,
+                    id:data?.hourseId?._id
+                }) : null
+                setHorse(horse)
+                setMembership(getMembershipType(data?.membership))
+                setPayment(getCafeteriaPayment(data?.paid))
+                setConfirmation(data?.Confitmation)
+            }
+        }
+        fetchDailyData()
+    },[])
 
     useGetInstructors({
         onSuccess: async (res) => {
