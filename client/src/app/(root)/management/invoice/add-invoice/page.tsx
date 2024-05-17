@@ -31,7 +31,8 @@ function AddInvoicePage() {
         totalAmount,
         invoiceDate:date,
         status:membershipStatus?.name,
-        clientType:clientType?.name
+        clientType:clientType?.name,
+        clientId:client?.id
     }
 
     const {isLoading:isClientsLoading} = useGetClients({
@@ -53,6 +54,7 @@ function AddInvoicePage() {
         mutationFn:async () => httpPostService(invoiceRoute,JSON.stringify(body)),
         onSuccess:async(res)=> {
             const status = statusCodeIndicator(res.status_code) === "success" 
+            console.log(res);
             
             if (status) {
                 successPopUp("invoice added successfully")

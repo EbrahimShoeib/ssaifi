@@ -136,7 +136,7 @@ function SchedulePageInputs({
         },
         {
             label:'price',
-            type:'text',
+            type:'number',
             value:price,
             setValue:setPrice,
             placeholder:'Enter Price'

@@ -79,16 +79,16 @@ function InvoicePageInputs({
             value:totalAmount,
             setValue:setTotalAmount,
             label:'Total Amount',
-            type:'text',
+            type:'number',
             placeholder:'Enter Total Amount'
         },
-        {
-            value:invoiceId,
-            setValue:setInvoiceId,
-            label:'Invoice Id',
-            type:'text',
-            placeholder:'Enter Invoice Id'
-        },
+        // {
+        //     value:invoiceId,
+        //     setValue:setInvoiceId,
+        //     label:'Invoice Id',
+        //     type:'text',
+        //     placeholder:'Enter Invoice Id'
+        // },
         {
             value:invoiceType,
             setValue:setInvoiceType,
