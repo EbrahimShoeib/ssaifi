@@ -22,6 +22,11 @@ class dailyController {
     .populate("instractorId") 
         .skip(skip) // Skip documents
       .limit(pageSize)
+=======
+    .populate("instractorId")
+    .skip(skip) // Skip documents
+    .limit(pageSize)
+>>>>>>> df8bd163498cd0e1e7ac0422d064fece3ef15813
 
       .then(async (docs) => {
         if (docs) {
@@ -30,7 +35,7 @@ class dailyController {
           const maxPages = Math.ceil(totalRecords / pageSize);
 
           res.status(200).json({
-            status_code: 0,
+            status_code: 1,
             message: "Success to Get All Daily ",
             Daily: {
               current_page: parseInt(req.query.page) || 1,
@@ -68,7 +73,7 @@ class dailyController {
       .then((docs) => {
         if (docs) {
           res.status(200).json({
-            status_code: 0,
+            status_code: 1,
             message: "Success to get daily By Id",
             data: docs,
           });
@@ -103,14 +108,7 @@ class dailyController {
         },
       });
     } else {
-      const daily = await Daily.findOne({ course: req.body.course });
-      if (daily) {
-        res.status(402).json({
-          status_code: ApiErrorCode.internalError,
-          message: " Course is already defind",
-          data: daily,
-        });
-      } else {
+      
         new Daily({
           courseDate: req.body.courseDate,
           clientId: req.body.clientId,
@@ -134,7 +132,7 @@ class dailyController {
                 data: docs,
               });
             } else {
-              res.status(402).json({
+              res.status(404).json({
                 status_code: ApiErrorCode.notFound,
                 message: error.message,
                 data: null,
@@ -145,7 +143,7 @@ class dailyController {
             }
           })
           .catch((error) => {
-            res.status(400).json({
+            res.status(500).json({
               status_code: ApiErrorCode.internalError,
               message: error.message,
               data: null,
@@ -154,7 +152,7 @@ class dailyController {
               },
             });
           });
-      }
+      
     }
   }
   static async updateDaily(req, res) {
