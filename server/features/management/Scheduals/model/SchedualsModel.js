@@ -13,7 +13,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   course: {
     type: String,
-    require: false,
+    require: true,
     
   },
   status: {
@@ -75,7 +75,7 @@ function createNewSchadual(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).required().max(20),
+    course:joi.string().required(),
     status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().valid("paid", "pending").required(),
@@ -96,7 +96,7 @@ function updateSchadual(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().required().min(2).max(20),
+    course:joi.string().required(),
     status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required().min(2).max(20),
