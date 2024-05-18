@@ -32,6 +32,7 @@ function AddScheduleClassPage() {
     const [clients,setClients] = useState<NameAndId[]|[]>([])
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [instructors,setInstructors] = useState<NameAndId[]|[]>([])
+    const [course,setCourse] = useState<NameAndId>(null)
 
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
@@ -42,12 +43,14 @@ function AddScheduleClassPage() {
         note,
         arena,
         price,
-        status:membershipStatus?.id,
+        status:membershipStatus?.name,
         clientId:client?.id,
         instractorId:instructor?.id,
         hourseId:horse?.id,
-        membership:membership?.id,
-        paid:payment?.id,
+        membership:membership?.name,
+        paid:payment?.name,
+        course:course?.name,
+
     }
 
     const failedPopUp = useFailedPopUp()
@@ -134,7 +137,8 @@ function AddScheduleClassPage() {
                 submitButtonLabel="add class"
                 confirmation={confirmation}
                 setConfirmation={setConfirmation}
-                
+                course={course}
+                setCourse={setCourse}
             />
         </>
     )

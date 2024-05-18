@@ -13,7 +13,7 @@ const dailySchema = new mongoose.Schema({
   }, 
   course: {
     type: String,
-    require: false,
+    required: false,
  
     
   },
@@ -31,6 +31,7 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
+
     enum: ["paid", "pending"],
    
   },
@@ -60,7 +61,9 @@ const dailySchema = new mongoose.Schema({
   membership: {
     type:String,
     enum :["individual","family"] ,
-    require:true,
+    require:true
+
+
   },
 });
 

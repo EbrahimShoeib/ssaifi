@@ -7,6 +7,7 @@ import PaginationButtons from "@/components/layout/PaginationButtons"
 import Table from "@/components/layout/Table"
 import { invoiceRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
+import { getReadableDate } from "@/utils/getReadableDate"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
 import { Suspense } from "react"
@@ -18,7 +19,7 @@ function InvoicePage() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
 
-    const {data:response,isSuccess,refetch}:any = useQuery({
+    const {data:response,isSuccess}:any = useQuery({
         queryFn:async () => httpGetServices(`${invoiceRoute}?page=${pageNumber}`),
         queryKey:["management","invoice",'page',pageNumber]
         
@@ -27,7 +28,6 @@ function InvoicePage() {
     const pathname = usePathname()
     const isDataHere = Boolean(response?.data?.client) && isSuccess
 
-console.log(response);
 
     const tableHeadCells = [
         //"invoice id",
@@ -51,7 +51,8 @@ console.log(response);
 
     const tableBodyItems = response?.data?.client?.map((item:any) => ({
         ...item,
-        clientId:item?.clientId?.username
+        clientId:item?.clientId?.username || "no-client",
+        invoiceDate:getReadableDate(item?.invoiceDate)
     }))
 
     return (
@@ -82,8 +83,6 @@ console.log(response);
                             tableBodyItems={tableBodyItems} 
                             tableHeadCells={tableHeadCells} 
                             isCrud={false}
-                            refetch={refetch}   
-                            route={invoiceRoute}
                         />
                     </Loader>
                 </PageContent>
