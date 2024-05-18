@@ -19,7 +19,8 @@ class dailyController {
     })
     .populate("hourseId")
     .populate("clientId")
-    .populate("instractorId")      .skip(skip) // Skip documents
+    .populate("instractorId") 
+        .skip(skip) // Skip documents
       .limit(pageSize)
 
       .then(async (docs) => {

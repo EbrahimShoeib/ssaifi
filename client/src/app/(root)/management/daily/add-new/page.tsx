@@ -130,9 +130,8 @@ function DailyAddClassPage() {
                 setHorse={setHorse}
                 onSubmit={mutate}
                 price={price}
-                setPrice={setPrice}                
+                setPrice={setPrice}
                 submitButtonLabel="add class"
-                
             />
         </>
     )
