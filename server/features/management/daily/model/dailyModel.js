@@ -4,22 +4,18 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
-  }, 
+  },
   course: {
     type: String,
     require: false,
- 
-    
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
     required: true,
     
   },
@@ -31,7 +27,6 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["Paid", "Pending"],
    
   },
   note: {
@@ -61,9 +56,7 @@ const dailySchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["Individual","Family"] ,
     require:true,
- 
   },
 });
 
