@@ -10,7 +10,7 @@ const InqueryController = require("../controller/inquery-controller")
  * @access private
  */
 router.get(
-    "client/:id",
+    "/client/:id",
     InqueryController.getClientInqueries
 );
 
@@ -21,7 +21,7 @@ router.get(
  * @access private
  */
 router.get(
-    "hourse/:id",
+    "/hourse/:id",
     InqueryController.getHourseInqueries
 );
 
@@ -32,7 +32,7 @@ router.get(
  * @access private
  */
 router.get(
-    "instructor/:id",
+    "/instructor/:id",
     InqueryController.getInstructorInqueries
 );
 
