@@ -114,7 +114,8 @@ class packageController {
           startDate: req.body.startDate,
           endDate: req.body.endDate,
           status: req.body.status,
-        
+          name: req.body.name,
+
         })
           .save()
           .then((docs) => {
@@ -169,7 +170,7 @@ class packageController {
                   startDate: req.body.startDate,
                   endDate: req.body.endDate,
                   status: req.body.status,
-         
+                  name: req.body.name,
 
                 },
               },
