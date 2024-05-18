@@ -75,17 +75,17 @@ function createNewSchadual(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
+    course:joi.string().min(2).required().max(20),
     status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().valid("paid", "pending").required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
-    price:joi.number().required().min(2).max(20),
+    price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().valid("individual","family").required(),
-    Confitmation:joi.string().required().min(2).max(20),
+    confitmation:joi.string().required().min(2).max(20),
 
 
   });
@@ -103,10 +103,10 @@ function updateSchadual(obj) {
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
-    price:joi.number().required().min(2).max(20),
+    price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().required().min(2).max(20),
-    Confitmation:joi.string().required().min(2).max(20),
+    confitmation:joi.string().required().min(2).max(20),
   });
   return schema.validate(obj);
 }
