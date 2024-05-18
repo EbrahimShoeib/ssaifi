@@ -22,11 +22,10 @@ class dailyController {
     .populate("instractorId") 
         .skip(skip) // Skip documents
       .limit(pageSize)
-=======
+
     .populate("instractorId")
     .skip(skip) // Skip documents
     .limit(pageSize)
->>>>>>> df8bd163498cd0e1e7ac0422d064fece3ef15813
 
       .then(async (docs) => {
         if (docs) {

@@ -14,8 +14,7 @@ const dailySchema = new mongoose.Schema({
   course: {
     type: String,
     require: false,
- 
-    
+
   },
   status: {
     type: String,
