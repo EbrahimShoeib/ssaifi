@@ -60,7 +60,10 @@ class dailyController {
       });
   }
   static async getDailyById(req, res) {
-    await Daily.findById(req.params.id)
+     Daily.findById(req.params.id)
+    .populate("hourseId")
+    .populate("clientId")
+    .populate("instractorId") 
       .then((docs) => {
         if (docs) {
           res.status(200).json({
@@ -99,14 +102,7 @@ class dailyController {
         },
       });
     } else {
-      const daily = await Daily.findOne({ course: req.body.course });
-      if (daily) {
-        res.status(402).json({
-          status_code: ApiErrorCode.internalError,
-          message: " Course is already defind",
-          data: daily,
-        });
-      } else {
+      
         new Daily({
           courseDate: req.body.courseDate,
           clientId: req.body.clientId,
@@ -150,7 +146,7 @@ class dailyController {
               },
             });
           });
-      }
+      
     }
   }
   static async updateDaily(req, res) {

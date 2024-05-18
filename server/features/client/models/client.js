@@ -5,14 +5,12 @@ const ClientSchema = mongoose.Schema({
     username: {
         type : String,
         required:true,
-        minlength: [2,"username is less than 2 character "],
-        maxlength: [20,"Password is longer than 20 character "]
+        
     },
     email: {
         type : String,
         required:true,
-        minlength: [2,"email is less than 2 character "],
-        minlength: [20,"email is longer than 50 character "]
+        
     },
     phone:{
         type : String,
@@ -57,12 +55,12 @@ const Client = mongoose.model("Client",ClientSchema)
 function clientValidation(obj){
     const schema = joi.object({
         username : joi.string().required().min(2).max(20),
-        email : joi.string().required().min(7).max(50),
-        phone : joi.string().required().min(4).max(25),
+        email : joi.string().required().min(7),
+        phone : joi.string().required().min(4),
         gender : joi.string().valid('male', 'female').required(),
         membershipStatus : joi.string().valid('active', 'inactive').required(),
         membershipType : joi.string().valid('family', 'individual').required(),
-        age: joi.number().required().min(1).max(100),
+        age: joi.number().required().min(1),
     })
     return schema.validate(obj);
 }
