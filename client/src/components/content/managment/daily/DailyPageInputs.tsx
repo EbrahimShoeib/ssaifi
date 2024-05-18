@@ -1,5 +1,6 @@
 import PageInputsHolder from '@/components/layout/PageInputsHolder'
 import { cafeteriaPayments } from '@/constants/cafeteriaPayments'
+import { courseTypes } from '@/constants/courseType'
 import { memberShipStatuses } from '@/constants/memberShipStatuses'
 import { memberShipTypes } from '@/constants/memberShipTypes'
 import React from 'react'
@@ -33,7 +34,9 @@ type DailyPageInputsProps = {
     children?:React.ReactNode,
     isLoading:boolean,
     submitButtonLabel:string,
-    setPrice:(newState:string) => void
+    setPrice:(newState:string) => void,
+    course:NameAndId,
+    setCourse:(newState:NameAndId) => void,
 } 
 function DailyPageInputs({
     children,
@@ -64,7 +67,9 @@ function DailyPageInputs({
     setMembership,
     onSubmit,
     submitButtonLabel,
-    setPrice
+    setPrice,
+    course,
+    setCourse
 }:DailyPageInputsProps) {
 
 
@@ -111,6 +116,13 @@ function DailyPageInputs({
             options:cafeteriaPayments,
             placeholder:'Select payment status',
             label:'payment'
+        },
+        {
+            listValue:course,
+            setListValue:setCourse,
+            options:courseTypes,
+            placeholder:'Select course',
+            label:'course'
         },
     ]
 

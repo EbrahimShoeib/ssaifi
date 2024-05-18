@@ -31,14 +31,9 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-<<<<<<< HEAD
-    enum: ["paid", "pending"]
-    },
-=======
     enum: ["Paid", "Pending"],
    
   },
->>>>>>> 1821bcae1a9e4e60cecf3ff164535e4aad1e6fcf
   note: {
     type: String,
     require: true,
@@ -66,14 +61,9 @@ const dailySchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-<<<<<<< HEAD
     enum :["individual","family"] ,
     require:true
-=======
-    enum :["Individual","Family"] ,
-    require:true,
- 
->>>>>>> 1821bcae1a9e4e60cecf3ff164535e4aad1e6fcf
+
   },
 });
 
