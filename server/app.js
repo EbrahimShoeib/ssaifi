@@ -49,7 +49,9 @@ const inqueryRouter =require("./features/inquery/router/inquery-router")
 //     origin: 'http://localhost:3000',
 //     allowedHeaders: ['Content-Type', 'Authorization', 'token'] // Add 'token' to the allowed headers
 // }));
-app.use(cors({origin: '*'}));
+app.use(cors({
+    origin: '*'
+}));
 
 // Error handling
 app.use((req, res, next) => {
@@ -69,7 +71,7 @@ app.use((req, res, next) => {
     next();
 });
 
-        //>>>>>>>>>>>>>>>>>>>>>>>Routes<<<<<<<<<<<<<<<<<
+//>>>>>>>>>>>>>>>>>>>>>>> Routes <<<<<<<<<<<<<<<<<
 
 //Sourcess
 app.use("/api/auth", authRouter)
@@ -80,6 +82,7 @@ app.use("/api/membership-status",verifyTokenAndAdmin,membershipStatusRouter)
 app.use("/api/hourse-category",verifyTokenAndAdmin,hourseCategoryRouter)
 app.use("/api/instractor",verifyTokenAndAdmin,instractorRouter)
 app.use("/api/gender",verifyTokenAndAdmin,gendersRouter)
+
 
 //Salles
 app.use("/api/caveteria/menuitem",verifyTokenAndAdmin,menuItemRouter)
@@ -96,8 +99,15 @@ app.use("/api/schadual",verifyTokenAndAdmin,schadualsRouter)
 app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
 app.use("/api/inquery",verifyTokenAndAdmin,inqueryRouter)
 
-
-
+app.use("/api/rashad", (req,res) => {
+    res.status(error.status || 500).json({
+        status_code : 0,
+        message : "There was an error",
+        error : {
+            message : error.message
+        }
+    })
+})
 
 
 //MiddelWere

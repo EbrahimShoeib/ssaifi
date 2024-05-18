@@ -20,8 +20,13 @@ class InqueryController {
 
                     const courses = await Daily.find({clientId : req.params.id})
                     const cafateria = await Consume.find({clientId : req.params.id})
-                    const InvMembership = await InvMembership.find({clientId : req.params.id})
+                    const InvMembership = await InvMembership.findOne({clientId : req.params.id})
                     if(docs){
+
+                        const courses = await Daily.find({clientId : req.params.id})
+                        const cafateria = await Consume.find({clientId : req.params.id})
+                        const invMembership = await InvMembership.findOne({clientId : req.params.id})
+                        
                         res.status(200).json({
                             status_code: 1,
                             message: "Got the clients successfuly",
@@ -29,9 +34,10 @@ class InqueryController {
                               client: docs,
                               courses: courses,
                               cafateria : cafateria,
-                              membershipStatus : InvMembership
+                              membershipStatus : invMembership
                             },
-                          });
+                        });
+                        
                     }else {
                         res.status(404).json({
                             status_code: ApiErrorCode.notFound,
@@ -69,64 +75,7 @@ class InqueryController {
         }
     }
 
-    static async getInstructorInqueries (req, res) {
-      try {
-        {
-
-            Client.findOneById(req.params.id)
-              .select("-__v")
-              .then(async (docs) => {
-
-                const courses = await Daily.find({clientId : req.params.id})
-                const cafateria = await Consume.find({clientId : req.params.id})
-                const InvMembership = await InvMembership.findOne({clientId : req.params.id})
-                if(docs){
-                    res.status(200).json({
-                        status_code: 1,
-                        message: "Got the clients successfuly",
-                        data: {
-                          client: docs,
-                          courses: courses,
-                          cafateria : cafateria,
-                          membershipStatus : InvMembership
-                        },
-                      });
-                }else {
-                    res.status(404).json({
-                        status_code: ApiErrorCode.notFound,
-                        message: "Clinet not found",
-                        data: null,
-                        error : {
-                            message : "Clinet not found"
-                        }
-                    });
-                }
-                
-               
-              })
-              .catch((error) => {
-                res.status(500).json({
-                  status_code: ApiErrorCode.internalError,
-                  message:
-                    "There was an error when getting the client, please try again",
-                  data: null,
-                  error: {
-                    message: error.message,
-                  },
-                });
-              });
-          }
-    } catch (error) {
-      res.status(500).json({
-        status_code: ApiErrorCode.internalError,
-        message: "There was a server internal error, please try again",
-        data: null,
-        error: {
-          message: error.message,
-        },
-      });
-    }
-    }
+    static async getInstructorInqueries (req, res) {}
 
     static async getHourseInqueries (req, res) {
 
