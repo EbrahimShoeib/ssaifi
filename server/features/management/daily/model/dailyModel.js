@@ -4,18 +4,22 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
+  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
-  },
+  }, 
   course: {
     type: String,
     require: false,
+ 
+    
   },
   status: {
     type: String,
+    enum: ["active", "inactive"],
     required: true,
     
   },
@@ -27,6 +31,7 @@ const dailySchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
+    enum: ["paid", "pending"],
    
   },
   note: {
@@ -47,15 +52,14 @@ const dailySchema = new mongoose.Schema({
   price: {
     type:String ,
     require:true,
-  
   },
   arena: {
     type:String,
     require:true,
-   
   },
   membership: {
     type:String,
+    enum :["individual","family"] ,
     require:true,
   },
 });
@@ -77,7 +81,6 @@ function createNewDaily(obj) {
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().required().valid("individual","family"),
-
   });
   return schema.validate(obj);
 }
