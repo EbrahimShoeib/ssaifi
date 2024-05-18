@@ -4,24 +4,20 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
-  }, 
+  },
   course: {
     type: String,
     require: false,
- 
-    
   },
   status: {
     type: String,
     enum: ["active", "inactive"],
     required: true,
-    
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
