@@ -13,6 +13,7 @@ const dailySchema = new mongoose.Schema({
   course: {
     type: String,
     require: true,
+    ref:"Package"
   },
   status: {
     type: String,
