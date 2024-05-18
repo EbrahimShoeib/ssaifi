@@ -106,14 +106,7 @@ class SchedualsController {
         },
       });
     } else {
-      const schadual = await Schadual.findOne({ course: req.body.course });
-      if (schadual) {
-        res.status(402).json({
-          status_code: ApiErrorCode.internalError,
-          message: " Course is already defind",
-          data: schadual,
-        });
-      } else {
+      
         new Schadual({
           courseDate: req.body.courseDate,
           clientId: req.body.clientId,
@@ -158,7 +151,7 @@ class SchedualsController {
               },
             });
           });
-      }
+      
     }
   }
   static async updateScheduals(req, res) {
