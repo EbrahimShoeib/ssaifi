@@ -16,8 +16,8 @@ type TableProps = {
     tableBodyItems:any[],
     isCrud:boolean,
     tableBodyItemCellKeys:string[],
-    route:string,
-    refetch:()=> void
+    route?:string,
+    refetch?:()=> void
 }
 function Table({
     tableHeadCells,
@@ -36,7 +36,7 @@ function Table({
         onSuccess:async (res) => {
             const status = statusCodeIndicator(res.status_code) === "success" 
             if (status) {
-                refetch()
+                refetch && refetch()
                 popUp({
                     popUpMessage:"item deleted successfully",
                     popUpTitle:"item deleted",

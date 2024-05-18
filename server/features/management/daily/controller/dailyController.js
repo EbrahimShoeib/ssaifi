@@ -171,7 +171,7 @@ class dailyController {
         {
           $set: {
             courseDate: req.body.courseDate,
-            clientId: req.body.clientName,
+            clientId: req.body.clientId,
             course: req.body.course,
             status: req.body.status,
             instractorId: req.body.instractor,

@@ -10,12 +10,13 @@ import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { httpGetServices } from '@/services/httpGetService'
 import { httpPatchService } from '@/services/httpPatchService'
 import { getCafeteriaPayment } from '@/utils/getCafeteriaPayment'
+import { getCourseType } from '@/utils/getCourseType'
 import { getMembershipStatus } from '@/utils/getMembershipStatus'
 import { getMembershipType } from '@/utils/getMembershipType'
 import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import { toNameAndId } from '@/utils/toNameAndId'
 import { useParams } from 'next/navigation'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 
@@ -34,6 +35,7 @@ function EditDailyClassPage() {
     const [clients,setClients] = useState<NameAndId[]|[]>([])
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [instructors,setInstructors] = useState<NameAndId[]|[]>([])
+    const [course,setCourse] = useState<NameAndId>(null)
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const {dailyId} = useParams()
@@ -45,12 +47,13 @@ function EditDailyClassPage() {
         note,
         arena,
         price,
-        status:membershipStatus?.id,
+        status:membershipStatus?.name,
         clientId:client?.id,
         instractorId:instructor?.id,
         hourseId:horse?.id,
-        membership:membership?.id,
-        paid:payment?.id,
+        membership:membership?.name,
+        paid:payment?.name,
+        course:course?.name,
     }
 
     const failedPopUp = useFailedPopUp()
@@ -105,6 +108,8 @@ function EditDailyClassPage() {
                 setTime(data?.courseTime)
                 setNote(data?.note)
                 setArena(data?.arena)
+                console.log(data);
+                
                 setPrice(data?.price)
                 setMembershipStatus(getMembershipStatus(data?.status))
                 const client = Boolean(data?.clientId) ? ({
@@ -114,7 +119,7 @@ function EditDailyClassPage() {
                 setClient(client)
                 const instructor = Boolean(data?.instractorId) ? ({
                     name:data?.instractorId?.instractorName,
-                    id:data?.instructorId?._id
+                    id:data?.instractorId?._id
                 }) : null
                 setInstructor(instructor)
                 const horse = Boolean(data?.hourseId) ? ({
@@ -124,6 +129,8 @@ function EditDailyClassPage() {
                 setHorse(horse)
                 setMembership(getMembershipType(data?.membership))
                 setPayment(getCafeteriaPayment(data?.paid))
+                setCourse(getCourseType(data?.course))
+                setIsLoading(false)
             }
         }
         fetchDailyData()
@@ -170,6 +177,8 @@ function EditDailyClassPage() {
                 price={price}
                 setPrice={setPrice}                
                 submitButtonLabel="edit class"
+                course={course}
+                setCourse={setCourse}
                 
             />
         </>

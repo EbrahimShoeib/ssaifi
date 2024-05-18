@@ -31,6 +31,7 @@ function DailyAddClassPage() {
     const [clients,setClients] = useState<NameAndId[]|[]>([])
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [instructors,setInstructors] = useState<NameAndId[]|[]>([])
+    const [course,setCourse] = useState<NameAndId>(null)
 
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
@@ -40,13 +41,29 @@ function DailyAddClassPage() {
         note,
         arena,
         price,
-        status:membershipStatus?.id,
+        status:membershipStatus?.name,
         clientId:client?.id,
         instractorId:instructor?.id,
         hourseId:horse?.id,
-        membership:membership?.id,
-        paid:payment?.id,
+        membership:membership?.name,
+        paid:payment?.name,
+        course:course?.name,
     }
+    
+        // "courseDate": "12-12-2024",
+        // "clientId": "6644c9cad6b3d14f801fa7a5",
+        // "course": "Riding",
+        // "status": "active",
+        // "instractorId": "6643a5dc99148615e936ea55",
+        // "paid": "paid",
+        // "note": "no",
+        // "courseTime": "food",
+        // "hourseId": "663bb8a2391f23b547e0751f",
+        // "price": "12",
+        // "arena": "inactive",
+        // "membership": "family"
+
+ 
 
     const failedPopUp = useFailedPopUp()
     const successPopUp = useSuccessPopUp()
@@ -132,6 +149,12 @@ function DailyAddClassPage() {
                 price={price}
                 setPrice={setPrice}
                 submitButtonLabel="add class"
+<<<<<<< HEAD
+=======
+                course={course}
+                setCourse={setCourse}
+                
+>>>>>>> 02587c3c10884a78eeba9760edde004a259f485b
             />
         </>
     )

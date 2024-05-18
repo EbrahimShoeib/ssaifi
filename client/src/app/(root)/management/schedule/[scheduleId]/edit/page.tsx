@@ -11,6 +11,7 @@ import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
 import { httpGetServices } from "@/services/httpGetService"
 import { httpPatchService } from "@/services/httpPatchService"
 import { getCafeteriaPayment } from "@/utils/getCafeteriaPayment"
+import { getCourseType } from "@/utils/getCourseType"
 import { getMembershipStatus } from "@/utils/getMembershipStatus"
 import { getMembershipType } from "@/utils/getMembershipType"
 import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
@@ -36,6 +37,7 @@ function EditScheduleClassPage() {
     const [clients,setClients] = useState<NameAndId[]|[]>([])
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [instructors,setInstructors] = useState<NameAndId[]|[]>([])
+    const [course,setCourse] = useState<NameAndId>(null)
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
@@ -48,12 +50,14 @@ function EditScheduleClassPage() {
         note,
         arena,
         price,
-        status:membershipStatus?.id,
+        status:membershipStatus?.name,
         clientId:client?.id,
         instractorId:instructor?.id,
         hourseId:horse?.id,
-        membership:membership?.id,
-        paid:payment?.id,
+        membership:membership?.name,
+        paid:payment?.name,
+        course:course?.name,
+
     }
 
     const failedPopUp = useFailedPopUp()
@@ -64,7 +68,9 @@ function EditScheduleClassPage() {
     useEffect(()=>{
         const fetchDailyData = async () => {
             const res = await httpGetServices(scheduleIdRoute)
+            console.log(res);
             const data = res.data
+            
             if (Boolean(data)) {
                 setDate(data?.courseDate)
                 setTime(data?.courseTime)
@@ -79,8 +85,9 @@ function EditScheduleClassPage() {
                 setClient(client)
                 const instructor = Boolean(data?.instractorId) ? ({
                     name:data?.instractorId?.instractorName,
-                    id:data?.instructorId?._id
+                    id:data?.instractorId?._id
                 }) : null
+                
                 setInstructor(instructor)
                 const horse = Boolean(data?.hourseId) ? ({
                     name:data?.hourseId?.hourseName,
@@ -90,6 +97,9 @@ function EditScheduleClassPage() {
                 setMembership(getMembershipType(data?.membership))
                 setPayment(getCafeteriaPayment(data?.paid))
                 setConfirmation(data?.Confitmation)
+                setCourse(getCourseType(data?.course))
+                setIsLoading(false)
+
             }
         }
         fetchDailyData()
@@ -175,7 +185,8 @@ function EditScheduleClassPage() {
                 submitButtonLabel="save class"
                 confirmation={confirmation}
                 setConfirmation={setConfirmation}
-                
+                course={course}
+                setCourse={setCourse}
             />
         </>
     )

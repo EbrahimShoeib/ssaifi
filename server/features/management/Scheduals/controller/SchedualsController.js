@@ -175,7 +175,7 @@ class SchedualsController {
         {
           $set: {
             courseDate: req.body.courseDate,
-            clientName: req.body.clientName,
+            clientId: req.body.clientId,
             course: req.body.course,
             status: req.body.status,
             instractorId: req.body.instractor,
