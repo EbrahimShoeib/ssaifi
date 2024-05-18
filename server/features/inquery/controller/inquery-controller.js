@@ -10,7 +10,7 @@ const {instractor} = require('../../instractor/model/instractor')
 const {invConsume} = require('../../sales/invConsume/model/invConsum')
 
 
-//import token
+//import error
 const ApiErrorCode = require("../../../core/errors/apiError") 
 
 
