@@ -112,7 +112,7 @@ function updateSchadual(obj) {
 }
 
 module.exports = {
-    Schadual,
+  Schadual,
   createNewSchadual,
   updateSchadual
 };
