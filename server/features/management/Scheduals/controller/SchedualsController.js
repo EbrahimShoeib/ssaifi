@@ -124,7 +124,7 @@ class SchedualsController {
           price: req.body.price,
           arena: req.body.arena,
           membership: req.body.membership,
-          Confitmation: req.body.Confitmation,
+          confitmation: req.body.confitmation,
         })
           .save()
           .then((docs) => {
@@ -186,7 +186,7 @@ class SchedualsController {
             price: req.body.price,
             arena: req.body.arena,
             membership: req.body.membership,
-            Confitmation: req.body.Confitmation,
+            confitmation: req.body.confitmation,
           },
         },
         { new: true }
