@@ -18,7 +18,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Active", "Inactive"],
+    enum: ["active", "inactive"],
     required: true,
    
   },
@@ -30,7 +30,7 @@ const SchadualSchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["Paid", "Pending"],
+    enum: ["paid", "pending"],
     
     
   },
@@ -60,7 +60,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["Individual","Pamily"] ,
+    enum :["individual","family"] ,
     require:true,
   },
   Confitmation: {
@@ -76,15 +76,15 @@ function createNewSchadual(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().min(2).max(20),
-    status:joi.string().required().valid("Active", "Inactive"),
+    status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required(),
+    paid:joi.string().valid("paid", "pending").required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(2).max(20),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required(),
+    membership:joi.string().valid("individual","family").required(),
     Confitmation:joi.string().required().min(2).max(20),
 
 
