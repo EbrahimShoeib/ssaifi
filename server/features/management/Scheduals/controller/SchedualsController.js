@@ -65,6 +65,9 @@ class SchedualsController {
   }
   static async getSchedualsById(req, res) {
     await Schadual.findById(req.params.id)
+      .populate("hourseId")
+      .populate("clientId")
+      .populate("instractorId")
       .then((docs) => {
         if (docs) {
           res.status(200).json({
