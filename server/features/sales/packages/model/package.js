@@ -52,7 +52,6 @@ function updatePackage(obj) {
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","unexpired").min(1).max(20),
-    clientId:joi.string().required(),
     name:joi.string().required(),
   });
   return schema.validate(obj);
