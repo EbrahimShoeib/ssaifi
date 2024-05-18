@@ -14,19 +14,15 @@ class InqueryController {
         try {
             {
 
-                Client.findOneById(req.params.id)
+                Client.findById(req.params.id)
                   .select("-__v")
                   .then(async (docs) => {
 
-                    const courses = await Daily.find({clientId : req.params.id})
-                    const cafateria = await Consume.find({clientId : req.params.id})
-                    const InvMembership = await InvMembership.findOne({clientId : req.params.id})
                     if(docs){
 
                         const courses = await Daily.find({clientId : req.params.id})
                         const cafateria = await Consume.find({clientId : req.params.id})
-                        const invMembership = await InvMembership.findOne({clientId : req.params.id})
-                        
+                        const invMembership = await InvMembership.findOne({clientId : req.params.id}) 
                         res.status(200).json({
                             status_code: 1,
                             message: "Got the clients successfuly",
@@ -37,7 +33,7 @@ class InqueryController {
                               membershipStatus : invMembership
                             },
                         });
-                        
+
                     }else {
                         res.status(404).json({
                             status_code: ApiErrorCode.notFound,
