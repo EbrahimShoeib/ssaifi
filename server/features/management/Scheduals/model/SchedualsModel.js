@@ -63,7 +63,7 @@ const SchadualSchema = new mongoose.Schema({
     enum :["individual","family"] ,
     require:true,
   },
-  Confitmation: {
+  confitmation: {
     type:String,
     require:true,
   },
