@@ -60,7 +60,10 @@ class dailyController {
       });
   }
   static async getDailyById(req, res) {
-    await Daily.findById(req.params.id)
+     Daily.findById(req.params.id)
+    .populate("hourseId")
+    .populate("clientId")
+    .populate("instractorId") 
       .then((docs) => {
         if (docs) {
           res.status(200).json({

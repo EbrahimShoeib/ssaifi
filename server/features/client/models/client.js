@@ -12,7 +12,7 @@ const ClientSchema = mongoose.Schema({
         type : String,
         required:true,
         minlength: [2,"email is less than 2 character "],
-        minlength: [20,"email is longer than 50 character "]
+        maxlength: [20,"email is longer than 50 character "]
     },
     phone:{
         type : String,
