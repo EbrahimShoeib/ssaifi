@@ -19,8 +19,9 @@ class dailyController {
     })
     .populate("hourseId")
     .populate("clientId")
-    .populate("instractorId")      .skip(skip) // Skip documents
-      .limit(pageSize)
+    .populate("instractorId")
+    .skip(skip) // Skip documents
+    .limit(pageSize)
 
       .then(async (docs) => {
         if (docs) {
@@ -29,7 +30,7 @@ class dailyController {
           const maxPages = Math.ceil(totalRecords / pageSize);
 
           res.status(200).json({
-            status_code: 0,
+            status_code: 1,
             message: "Success to Get All Daily ",
             Daily: {
               current_page: parseInt(req.query.page) || 1,
@@ -67,7 +68,7 @@ class dailyController {
       .then((docs) => {
         if (docs) {
           res.status(200).json({
-            status_code: 0,
+            status_code: 1,
             message: "Success to get daily By Id",
             data: docs,
           });
@@ -126,7 +127,7 @@ class dailyController {
                 data: docs,
               });
             } else {
-              res.status(402).json({
+              res.status(404).json({
                 status_code: ApiErrorCode.notFound,
                 message: error.message,
                 data: null,
@@ -137,7 +138,7 @@ class dailyController {
             }
           })
           .catch((error) => {
-            res.status(400).json({
+            res.status(500).json({
               status_code: ApiErrorCode.internalError,
               message: error.message,
               data: null,
