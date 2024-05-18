@@ -7,8 +7,13 @@ const packageSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
-    minlength: [2,"cliend is less than 2 character "],
-    maxlength: [40,"client Name is longer than 20 character "]    },
+  },
+  instructorId: {
+    type: mongoose.Types.ObjectId,
+    ref: "instractor",
+    required: true,
+  },
+
   category: {
     type: String,
     required: true,
@@ -41,7 +46,8 @@ function createNewPackage(obj) {
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","unexpired").min(1).max(20),
-    clientId:joi.string().required()
+    clientId:joi.string().required(),
+    instructorId: joi.string().required()
   })
   return schema.validate(obj);
 }
@@ -53,7 +59,8 @@ function updatePackage(obj) {
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","unexpired").min(1).max(20),
-    clientId:joi.string().required()
+    clientId:joi.string().required(),
+    instructorId: joi.string().required()
 
   });
   return schema.validate(obj);
