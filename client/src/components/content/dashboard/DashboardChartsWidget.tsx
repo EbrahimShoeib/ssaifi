@@ -11,9 +11,8 @@ function DashboardChartsWidget() {
             <div className='h-[35px] w-full flex justify-between items-center'>
                 <p className='text-2xl text-dark-grey font-semibold'>sales</p>
             </div>
-            <div className="flex-1">
-                <Chart/>
-                
+            <div className="flex-1 w-3/4">
+                <Chart/>  
             </div>
         </div>
     )

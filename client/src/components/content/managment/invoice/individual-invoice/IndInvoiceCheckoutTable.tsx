@@ -1,5 +1,7 @@
+import Loader from '@/components/layout/Loader'
 import DropDownList from '@/components/shared/all/DropDownList'
 import Input from '@/components/shared/all/Input'
+import { getPercentAmt } from '@/utils/getPercentageAmt'
 import React from 'react'
 
 
@@ -16,6 +18,7 @@ type IndInvoiceCheckoutTableProps = {
     courses:any[],
     discount:string,
     setDiscount:(newState:string)=> void,
+    isClientCoursesLoading:boolean,
 }
 function IndInvoiceCheckoutTable({
     horses,
@@ -30,16 +33,24 @@ function IndInvoiceCheckoutTable({
     courses,
     discount,
     setDiscount,
+    isClientCoursesLoading,
 }:IndInvoiceCheckoutTableProps) {
-    const coursesTotal:number = courses.reduce((acc:any,curr:any)=> +acc.price + +curr.price,0)
+    let coursesTotal:number = courses?.
+    map(curr => +curr?.price)?.
+    reduce((acc:any,curr:any)=> acc + curr,0)
+    
+
+    if (+discount && Boolean(coursesTotal)) {
+        coursesTotal = coursesTotal * (+discount / 100)
+    }
 
     const cells = [
         {
             title:"lessons",
-            value:courses.length
+            value:courses?.length
         },
         {
-            title:"discount",
+            title:"discount (%)",
             value:<Input
                     type='number'
                     value={discount}
@@ -49,15 +60,15 @@ function IndInvoiceCheckoutTable({
         },
         {
             title:"Sub-Total",
-            value:(coursesTotal * 84 ) / 100
+            value:getPercentAmt(coursesTotal,84)
         },
         {
             title:"tax 16(%)",
-            value:(coursesTotal * 16 ) / 100,
+            value:getPercentAmt(coursesTotal,16),
         },
         {
             title:"Total",
-            value:coursesTotal
+            value:coursesTotal - getPercentAmt(coursesTotal,+discount)
         }
     ]
 
@@ -112,15 +123,19 @@ function IndInvoiceCheckoutTable({
                 </div>
 
             </div>
-            <div className='h-[150px] items-center grid grid-cols-[repeat(5,1fr)] p-7 bg-light-grey bg-opacity-30 rounded-2xl'>
-                {
-                    cells.map((cell:any,idx:number)=> (
-                        <div key={idx} className='flex w-full gap-6 flex-col items-center'>
-                            <p>{cell.title}</p>
-                            <div>{cell.value}</div>
-                        </div>
-                    ))
-                }
+            <div className='h-[150px] bg-light-grey bg-opacity-30 rounded-2xl'>
+                <Loader isLoading={isClientCoursesLoading}>
+                    <div className='items-center p-7 grid grid-cols-[repeat(5,1fr)]'>
+                        {
+                            cells.map((cell:any,idx:number)=> (
+                                <div key={idx} className='flex w-full h-[70px] gap-6 flex-col items-center'>
+                                    <p>{cell.title}</p>
+                                    <div>{cell.value}</div>
+                                </div>
+                            )) 
+                        }
+                    </div>
+                </Loader>
             </div>
         </div>
     )

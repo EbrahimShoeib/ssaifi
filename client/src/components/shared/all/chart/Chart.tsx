@@ -16,6 +16,7 @@ function Chart() {
         "2"
     ]
 
+    
     const ChartMainColumns: ChartMainColumn[] = [
        
         {
@@ -23,24 +24,28 @@ function Chart() {
             subCols:[
                 {
                     title:"individual",
-                    value:80
+                    value:100,
+                    color:"red"
                 },
                 {
                     title:"individual",
-                    value:300
+                    value:300,
+                    color:"blue"
                 },
             ]
         },
         {
-            total:0,
+            total:600,
             subCols:[
                 {
                     title:"individual",
-                    value:400
+                    value:600,
+                    color:"green"
                 },
                 {
                     title:"individual",
-                    value:300
+                    value:400,
+                    color:"orange"
                 },
             ]
         },
