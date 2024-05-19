@@ -145,14 +145,16 @@ class InqueryController {
 
                 if(docs){
 
-                    const InvConsume = await invConsume.find({clientId : req.params.id})
-                    
+                    const InvConsume = await invConsume.find({hourseId : req.params.id})
+                    const daily = await Daily.find({hourseId : req.params.id})
+
                     res.status(200).json({
                         status_code: 1,
                         message: "Got the hourse successfuly",
                         data: {
                           hourse: docs,
-                          invConsume : InvConsume
+                          invConsume : InvConsume,
+                          courses : daily
                         },
                     });
 
