@@ -13,7 +13,7 @@ class InqueryController {
     static async getClientInqueries (req, res) {
         try {
             {
-
+  
                 Client.findOneById(req.params.id)
                   .select("-__v")
                   .then(async (docs) => {

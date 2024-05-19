@@ -46,6 +46,26 @@ type DropDownList = {
     label?:string
 }
 
+type DropDownLink = {
+    name:string,
+    href:string
+}
+
+type DropDownLinksProps = {
+    options:DropDownLink[]|[],
+    placeholder:string,
+    placeholderClassName?:string,
+    listClassName?:string
+}
+
+type QueryReqResult = {
+    response:any,
+    isSuccess:boolean,
+    refetch:any,
+    isLoading:boolean
+}
+
+
 type QueryReqResult = {
     response:any,
     isSuccess:boolean,
@@ -66,4 +86,14 @@ type ChartSubColumn = {
 type ChartMainColumn = {
     total:number,
     subCols:ChartSubColumn[]
+}
+
+type InquiryLayoutItemInfos = {
+
+    itemData:any,
+    title:string,
+    itemDataSubTitles:Record<string, string>,
+    avatarUrl:string,
+    role:string
+    
 }

@@ -18,9 +18,8 @@ type PackagesInputsProps = {
     setEndDate:(newState:string) => void,
     status:NameAndId,
     setStatus:(newState:NameAndId) => void,
-    clients:NameAndId[]|[],
-    client:NameAndId,
-    setClient:(newState:NameAndId) => void,
+    name:string,
+    setName:(newState:string) => void,
     submitButtonLabel:string
 }
 function PackagesInputs({
@@ -36,9 +35,8 @@ function PackagesInputs({
     setEndDate,
     status,
     setStatus,
-    clients,
-    client,
-    setClient,
+    name,
+    setName,
     submitButtonLabel
 
 }:PackagesInputsProps) {
@@ -46,13 +44,7 @@ function PackagesInputs({
         <PageContent>
             <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
 
-                <ResourcesDropList
-                    listValue={client} 
-                    setListValue={setClient}
-                    placeholder="select client Name"
-                    options={clients}
-                    label='client name'
-                />
+                
                 <ResourcesDropList
                     listValue={category} 
                     setListValue={setCategory}
@@ -73,6 +65,13 @@ function PackagesInputs({
                     placeholder="Enter Start Date"
                     label='start date'
                     type='datetime-local'
+                />
+                <ResourcesInput
+                    value={name} 
+                    setValue={setName}
+                    placeholder="Enter name "
+                    label='name'
+                    type='text'
                 />
                 <ResourcesInput
                     value={endDate} 

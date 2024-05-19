@@ -37,6 +37,7 @@ function InstructorsPageContent({isDataHere,response,refetch}:ClientsPageProps) 
                                             _id={instructor._id}
                                             imgUrl={instructor.avatar}
                                             route={instructorsRoute}
+                                            inquiryRoute="instructor"
                                         />
                                     ))
                                 }

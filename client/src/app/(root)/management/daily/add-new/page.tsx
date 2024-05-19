@@ -47,21 +47,10 @@ function DailyAddClassPage() {
         hourseId:horse?.id,
         membership:membership?.name,
         paid:payment?.name,
-        course:course?.name,
+        course:course?.id,
     }
     
-        // "courseDate": "12-12-2024",
-        // "clientId": "6644c9cad6b3d14f801fa7a5",
-        // "course": "Riding",
-        // "status": "active",
-        // "instractorId": "6643a5dc99148615e936ea55",
-        // "paid": "paid",
-        // "note": "no",
-        // "courseTime": "food",
-        // "hourseId": "663bb8a2391f23b547e0751f",
-        // "price": "12",
-        // "arena": "inactive",
-        // "membership": "family"
+   
 
  
 

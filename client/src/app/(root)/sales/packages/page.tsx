@@ -25,7 +25,7 @@ function PackagesPage() {
 
 
     const tableHeadCells = [
-        "client name",
+        "name",
         "category",
         "lessons",
         "start date",
@@ -34,7 +34,7 @@ function PackagesPage() {
     ]
 
     const tableBodyItemCellKeys = [
-        "clientId",
+        "name",
         "category",
         "lessons",
         "startDate",
@@ -44,7 +44,6 @@ function PackagesPage() {
 
     const tableBodyItems = response?.Packages?.data.map((item:any) => ({
         ...item,
-        clientId:item.clientId?.username || "no-client",
         startDate:getReadableDate(item.startDate),
         endDate:getReadableDate(item.endDate),
     }))

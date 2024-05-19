@@ -68,6 +68,8 @@ function DailyPage() {
         clientId:item?.clientId?.username ||"no-client",
         hourseId:item?.hourseId?.hourseName ||"no-horse",
         instractorId:item?.instractorId?.instractorName ||"no-instructor",
+        course:item?.course?.name || "no-course",
+
     }))   
 
     return (
