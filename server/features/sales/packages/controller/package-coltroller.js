@@ -1,5 +1,5 @@
 const ApiErrorCode = require("../../../../core/errors/apiError");
-const {Client} = require("../../../client/routers/clients")
+const {Daily} = require("../../../management/daily/model/dailyModel")
 const {
   Package,
   createNewPackage,
@@ -242,13 +242,13 @@ class packageController {
   }
   static async getCoursesById (req,res) {
 
-    await Package.findOne({clientId:req.params._id})
+    await Daily.find({clientId:req.params._id})
     .then((docs)=>{
       if(docs){
         res.status(200).json({
           status_code:0,
           message:"success to get client Course",
-          data:docs,
+          Courses :{data:docs},
         })
       }else{
         res.status(404).json({
