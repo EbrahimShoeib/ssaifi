@@ -6,7 +6,7 @@ import NoDataFound from '@/components/shared/all/NoDataFound'
 import { useGetHorses } from '@/hooks/useGetHorses'
 import React, { useState } from 'react'
 
-function page() {
+function HorseInquiry() {
 
     const [horses,setHorses] = useState<DropDownLink[]>([])
 
@@ -36,4 +36,4 @@ function page() {
     )
 }
 
-export default page
+export default HorseInquiry

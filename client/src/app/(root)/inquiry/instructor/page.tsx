@@ -6,7 +6,7 @@ import NoDataFound from '@/components/shared/all/NoDataFound'
 import { useGetInstructors } from '@/hooks/useGetInstructors'
 import React, { useState } from 'react'
 
-function page() {
+function InstructorInquiry() {
 
     const [instructors,setInstructors] = useState<DropDownLink[]>([])
 
@@ -38,4 +38,4 @@ function page() {
     )
 }
 
-export default page
+export default InstructorInquiry
