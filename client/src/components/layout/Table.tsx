@@ -18,6 +18,7 @@ type TableProps = {
     tableBodyItemCellKeys:string[],
     route?:string,
     refetch?:()=> void,
+    viewItemRoute?:string
 }
 function Table({
     tableHeadCells,
@@ -26,6 +27,7 @@ function Table({
     tableBodyItemCellKeys,
     route,
     refetch,
+    viewItemRoute
     
 }:TableProps) {
 
@@ -95,6 +97,9 @@ function Table({
                         {
                             isCrud ? (<th className="w-[100px] px-5"></th>) :<></>
                         }
+                        {
+                            viewItemRoute ? (<th className="w-[100px] px-5"></th>) : <></>
+                        }
                     </tr>
                 </thead>
 
@@ -130,6 +135,16 @@ function Table({
                                                                 
                                                         </td>
                                                     ): <></>
+                                                }
+
+                                                {
+                                                    viewItemRoute ? (
+                                                        <td className="px-5">
+                                                            <div className="flex w-fit gap-2 ml-auto h-[40px] items-center text-xl">
+                                                                <Link className="text-primary text-xl" href={`${viewItemRoute}/${tableItem._id}`}>view</Link>
+                                                            </div>
+                                                        </td>
+                                                    ) : <></>
                                                 }
                                             </tr>
                                         )
