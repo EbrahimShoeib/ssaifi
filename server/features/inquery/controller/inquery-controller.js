@@ -28,8 +28,12 @@ class InqueryController {
 
                       const daily = await Daily.find({clientId : req.params.id})
                       const cafateria = await Consume.find({clientId : req.params.id})
+<<<<<<< HEAD
                       const invMembership = await InvMembership.findOne({clientId : req.params.id})
 
+=======
+                        const invMembership = await InvMembership.find({clientId : req.params.id}) 
+>>>>>>> 72dc6f6055a481f7537ca60d7ea3085431a89d56
                         res.status(200).json({
                             status_code: 1,
                             message: "Got the clients successfuly",
@@ -144,14 +148,16 @@ class InqueryController {
 
                 if(docs){
 
-                    const InvConsume = await invConsume.find({clientId : req.params.id})
-                    
+                    const InvConsume = await invConsume.find({hourseId : req.params.id})
+                    const daily = await Daily.find({hourseId : req.params.id})
+
                     res.status(200).json({
                         status_code: 1,
                         message: "Got the hourse successfuly",
                         data: {
                           hourse: docs,
-                          invConsume : InvConsume
+                          invConsume : InvConsume,
+                          courses : daily
                         },
                     });
 
