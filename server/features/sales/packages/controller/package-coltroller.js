@@ -242,7 +242,7 @@ class packageController {
   }
   static async getCoursesById (req,res) {
 
-    await Package.findById({clientId:req.params.id})
+    await Package.findById({id:req.params.id})
     .then((docs)=>{
       if(docs){
         res.status(200).json({
@@ -252,7 +252,7 @@ class packageController {
         })
       }else{
         res.status(404).json({
-          status_code:0,
+          status_code:ApiErrorCode.notFound,
           message:"Client Id Is Not Found",
           data:null,
         })
@@ -260,7 +260,7 @@ class packageController {
     })
     .catch((error)=>{
       res.status(500).json({
-        status_code:0,
+        status_code:ApiErrorCode.internalError,
         message:"Internal Server Error , Please try again",
         data:null,
         error:{
