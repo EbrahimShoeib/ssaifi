@@ -36,5 +36,16 @@ router.get(
     InqueryController.getInstructorInqueries
 );
 
+/**
+ * @desc get instructor in
+ * @route api/client/:id
+ * @method get
+ * @access private
+ */
+router.get(
+    "/dashboard",
+    InqueryController.getDashboard
+);
+
 
 module.exports = router;
