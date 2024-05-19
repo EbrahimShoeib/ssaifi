@@ -69,6 +69,7 @@ class dailyController {
       .populate("hourseId")
       .populate("clientId")
       .populate("instractorId")
+      .populate("course")
       .then((docs) => {
         if (docs) {
           res.status(200).json({

@@ -26,6 +26,7 @@ class SchedualsController {
       .populate("hourseId")
       .populate("clientId")
       .populate("instractorId")
+      .populate("course")
       .then(async (docs) => {
         if (docs) {
           const totalRecords = await Schadual.countDocuments();
@@ -65,9 +66,10 @@ class SchedualsController {
   }
   static async getSchedualsById(req, res) {
     await Schadual.findById(req.params.id)
-      .populate("hourseId")
-      .populate("clientId")
-      .populate("instractorId")
+    .populate("hourseId")
+    .populate("clientId")
+    .populate("instractorId")
+    .populate("course")
       .then((docs) => {
         if (docs) {
           res.status(200).json({
