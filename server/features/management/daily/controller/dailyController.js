@@ -11,17 +11,20 @@ class dailyController {
 
     const regexQuery = new RegExp(req.query.query, "i"); // Case-insensitive regex query
 
-    Daily.find({
+   await Daily.find({
       $or: [
-        { type: { $regex: regexQuery } },
-        { course: { $regex: regexQuery } },
+        { note: { $regex: regexQuery } },
       ],
     })
-    .populate("hourseId")
-    .populate("clientId")
-    .populate("instractorId")
-    .skip(skip) // Skip documents
-    .limit(pageSize)
+      
+      .skip(skip) // Skip documents
+      .limit(pageSize)
+      .skip(skip) // Skip documents
+      .limit(pageSize)
+      .populate("hourseId")
+      .populate("clientId")
+      .populate("instractorId")
+      .populate("course")
 
       .then(async (docs) => {
         if (docs) {
@@ -61,10 +64,11 @@ class dailyController {
       });
   }
   static async getDailyById(req, res) {
-     Daily.findById(req.params.id)
-    .populate("hourseId")
-    .populate("clientId")
-    .populate("instractorId") 
+    Daily.findById(req.params.id)
+      .populate("hourseId")
+      .populate("clientId")
+      .populate("instractorId")
+      .populate("course")
       .then((docs) => {
         if (docs) {
           res.status(200).json({
@@ -103,51 +107,49 @@ class dailyController {
         },
       });
     } else {
-      
-        new Daily({
-          courseDate: req.body.courseDate,
-          clientId: req.body.clientId,
-          course: req.body.course,
-          status: req.body.status,
-          instractorId: req.body.instractorId,
-          paid: req.body.paid,
-          note: req.body.note,
-          courseTime: req.body.courseTime,
-          hourseId: req.body.hourseId,
-          price: req.body.price,
-          arena: req.body.arena,
-          membership: req.body.membership,
-        })
-          .save()
-          .then((docs) => {
-            if (docs) {
-              res.status(200).json({
-                status_code: 1,
-                message: " Success to create New daily  ",
-                data: docs,
-              });
-            } else {
-              res.status(404).json({
-                status_code: ApiErrorCode.notFound,
-                message: error.message,
-                data: null,
-                error: {
-                  message: error.message,
-                },
-              });
-            }
-          })
-          .catch((error) => {
-            res.status(500).json({
-              status_code: ApiErrorCode.internalError,
+      new Daily({
+        courseDate: req.body.courseDate,
+        clientId: req.body.clientId,
+        course: req.body.course,
+        status: req.body.status,
+        instractorId: req.body.instractorId,
+        paid: req.body.paid,
+        note: req.body.note,
+        courseTime: req.body.courseTime,
+        hourseId: req.body.hourseId,
+        price: req.body.price,
+        arena: req.body.arena,
+        membership: req.body.membership,
+      })
+        .save()
+        .then((docs) => {
+          if (docs) {
+            res.status(200).json({
+              status_code: 1,
+              message: " Success to create New daily  ",
+              data: docs,
+            });
+          } else {
+            res.status(404).json({
+              status_code: ApiErrorCode.notFound,
               message: error.message,
               data: null,
               error: {
                 message: error.message,
               },
             });
+          }
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status_code: ApiErrorCode.internalError,
+            message: error.message,
+            data: null,
+            error: {
+              message: error.message,
+            },
           });
-      
+        });
     }
   }
   static async updateDaily(req, res) {
@@ -167,14 +169,14 @@ class dailyController {
         {
           $set: {
             courseDate: req.body.courseDate,
-            clientId: req.body.clientName,
+            clientId: req.body.clientId,
             course: req.body.course,
             status: req.body.status,
-            instractorId: req.body.instractor,
+            instractorId: req.body.instractorId,
             paid: req.body.paid,
             note: req.body.note,
             courseTime: req.body.courseTime,
-            hourseId: req.body.hourseName,
+            hourseId: req.body.hourseId,
             price: req.body.price,
             arena: req.body.arena,
             membership: req.body.membership,

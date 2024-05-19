@@ -17,8 +17,7 @@ class SchedualsController {
 
     Schadual.find({
       $or: [
-        { type: { $regex: regexQuery } },
-        { course: { $regex: regexQuery } },
+        { note: { $regex: regexQuery } },
       ],
     })
       .skip(skip) // Skip documents
@@ -26,6 +25,7 @@ class SchedualsController {
       .populate("hourseId")
       .populate("clientId")
       .populate("instractorId")
+      .populate("course")
       .then(async (docs) => {
         if (docs) {
           const totalRecords = await Schadual.countDocuments();
@@ -65,6 +65,10 @@ class SchedualsController {
   }
   static async getSchedualsById(req, res) {
     await Schadual.findById(req.params.id)
+    .populate("hourseId")
+    .populate("clientId")
+    .populate("instractorId")
+    .populate("course")
       .then((docs) => {
         if (docs) {
           res.status(200).json({
@@ -103,14 +107,7 @@ class SchedualsController {
         },
       });
     } else {
-      const schadual = await Schadual.findOne({ course: req.body.course });
-      if (schadual) {
-        res.status(402).json({
-          status_code: ApiErrorCode.internalError,
-          message: " Course is already defind",
-          data: schadual,
-        });
-      } else {
+      
         new Schadual({
           courseDate: req.body.courseDate,
           clientId: req.body.clientId,
@@ -124,7 +121,7 @@ class SchedualsController {
           price: req.body.price,
           arena: req.body.arena,
           membership: req.body.membership,
-          Confitmation: req.body.Confitmation,
+          confitmation: req.body.confitmation,
         })
           .save()
           .then((docs) => {
@@ -155,7 +152,7 @@ class SchedualsController {
               },
             });
           });
-      }
+      
     }
   }
   static async updateScheduals(req, res) {
@@ -175,18 +172,18 @@ class SchedualsController {
         {
           $set: {
             courseDate: req.body.courseDate,
-            clientName: req.body.clientName,
+            clientId: req.body.clientId,
             course: req.body.course,
             status: req.body.status,
-            instractorId: req.body.instractor,
+            instractorId: req.body.instractorId,
             paid: req.body.paid,
             note: req.body.note,
             courseTime: req.body.courseTime,
-            hourseName: req.body.hourseName,
+            hourseId: req.body.hourseId,
             price: req.body.price,
             arena: req.body.arena,
             membership: req.body.membership,
-            Confitmation: req.body.Confitmation,
+            confitmation: req.body.confitmation,
           },
         },
         { new: true }

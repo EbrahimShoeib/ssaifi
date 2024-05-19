@@ -3,12 +3,11 @@ const joi = require("joi");
 
 
 const packageSchema = mongoose.Schema({
-  clientId: {
-    type: mongoose.Types.ObjectId,
-    ref: "Client",
+  name: {
+    type: String,
     required: true,
-    minlength: [2,"cliend is less than 2 character "],
-    maxlength: [40,"client Name is longer than 20 character "]    },
+  },
+
   category: {
     type: String,
     required: true,
@@ -41,7 +40,7 @@ function createNewPackage(obj) {
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","unexpired").min(1).max(20),
-    clientId:joi.string().required()
+    name:joi.string().required(),
   })
   return schema.validate(obj);
 }
@@ -53,8 +52,7 @@ function updatePackage(obj) {
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","unexpired").min(1).max(20),
-    clientId:joi.string().required()
-
+    name:joi.string().required(),
   });
   return schema.validate(obj);
 }

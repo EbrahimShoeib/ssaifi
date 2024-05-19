@@ -4,24 +4,21 @@ const dailySchema = new mongoose.Schema({
   courseDate: {
     type: String,
     required: true,
-  
   },
   clientId: {
     type : mongoose.Types.ObjectId,
     ref: "Client",
     required: true,
-  }, 
+  },
   course: {
-    type: String,
-    required: false,
- 
-    
+    type : mongoose.Types.ObjectId,
+    require: true,
+    ref:"Package"
   },
   status: {
     type: String,
     enum: ["active", "inactive"],
     required: true,
-    
   },
   instractorId: {
     type : mongoose.Types.ObjectId,
@@ -71,10 +68,10 @@ const Daily =  mongoose.model("Daily", dailySchema);
 
 function createNewDaily(obj) {
   const schema = joi.object({
-    
+
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
+    course:joi.string().required(),
     status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required().valid("pending","paid"),
@@ -92,7 +89,7 @@ function updateDaily(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
+    course:joi.string().required(),
     status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required().valid("pending","paid"),

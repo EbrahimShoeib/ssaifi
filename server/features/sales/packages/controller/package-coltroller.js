@@ -22,7 +22,6 @@ class packageController {
     })
       .skip(skip) // Skip documents
       .limit(pageSize)
-      .populate("clientId")
       .then(async (docs) => {
         if (docs) {
           const totalRecords = await Package.countDocuments();
@@ -61,7 +60,6 @@ class packageController {
   }
   static async getPackageById(req, res) {
     Package.findById(req.params.id)
-      .populate("clientId")
       .then((docs) => {
         if (docs) {
           res.status(200).json({
@@ -114,7 +112,8 @@ class packageController {
           startDate: req.body.startDate,
           endDate: req.body.endDate,
           status: req.body.status,
-          clientId: req.body.clientId,
+          name: req.body.name,
+
         })
           .save()
           .then((docs) => {
@@ -169,7 +168,8 @@ class packageController {
                   startDate: req.body.startDate,
                   endDate: req.body.endDate,
                   status: req.body.status,
-                  clientId: req.body.clientId,
+                  name: req.body.name,
+
                 },
               },
               { new: true }

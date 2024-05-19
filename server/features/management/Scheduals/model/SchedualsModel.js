@@ -12,13 +12,13 @@ const SchadualSchema = new mongoose.Schema({
     required: true,
   },
   course: {
-    type: String,
-    require: false,
-    
+    type : mongoose.Types.ObjectId,
+    require: true,
+    ref:"Package"
   },
   status: {
     type: String,
-    enum: ["Active", "Inactive"],
+    enum: ["active", "inactive"],
     required: true,
    
   },
@@ -30,7 +30,7 @@ const SchadualSchema = new mongoose.Schema({
   paid: {
     type: String,
     require: true,
-    enum: ["Paid", "Pending"],
+    enum: ["paid", "pending"],
     
     
   },
@@ -60,10 +60,10 @@ const SchadualSchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["Individual","Pamily"] ,
+    enum :["individual","family"] ,
     require:true,
   },
-  Confitmation: {
+  confitmation: {
     type:String,
     require:true,
   },
@@ -75,17 +75,17 @@ function createNewSchadual(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().min(2).max(20),
-    status:joi.string().required().valid("Active", "Inactive"),
+    course:joi.string().required(),
+    status:joi.string().required().valid("active", "inactive"),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required(),
+    paid:joi.string().valid("paid", "pending").required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
-    price:joi.number().required().min(2).max(20),
+    price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required(),
-    Confitmation:joi.string().required().min(2).max(20),
+    membership:joi.string().valid("individual","family").required(),
+    confitmation:joi.string().required().min(2).max(20),
 
 
   });
@@ -96,23 +96,23 @@ function updateSchadual(obj) {
   const schema = joi.object({
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
-    course:joi.string().required().min(2).max(20),
+    course:joi.string().required(),
     status:joi.string().required().min(2).max(20),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().required().min(2).max(20),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
-    price:joi.number().required().min(2).max(20),
+    price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().required().min(2).max(20),
-    Confitmation:joi.string().required().min(2).max(20),
+    confitmation:joi.string().required().min(2).max(20),
   });
   return schema.validate(obj);
 }
 
 module.exports = {
-    Schadual,
+  Schadual,
   createNewSchadual,
   updateSchadual
 };
