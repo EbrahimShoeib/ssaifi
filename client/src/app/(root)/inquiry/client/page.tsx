@@ -6,7 +6,7 @@ import NoDataFound from '@/components/shared/all/NoDataFound'
 import { useGetClients } from '@/hooks/useGetClients'
 import React, { useState } from 'react'
 
-function page() {
+function ClientInquiry() {
 
     const [clients,setClients] = useState<DropDownLink[]>([])
 
@@ -36,4 +36,4 @@ function page() {
     )
 }
 
-export default page
+export default ClientInquiry
