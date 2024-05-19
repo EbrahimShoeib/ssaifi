@@ -21,34 +21,56 @@ function SchedulePage() {
     const {data:response,isSuccess,refetch}:any = useQuery({
         queryFn:async () => httpGetServices(`${scheduleRoute}?page=${pageNumber}`),
         queryKey:["management","schedule",'page',pageNumber]
-    })   //keys are not valid   //keys are not valid
+    })   
+    console.log(response);
     
-    const isDataHere = Boolean(response?.caveteriaItems?.data) && isSuccess
+    const isDataHere = Boolean(response?.Schadual?.data) && isSuccess
 
 
+    
     const tableHeadCells = [
         "course date",
         "course time",
         "client name",
         "horse name",
-        "course"   //keys are not valid   //keys are not valid
+        "course",
+        "price",
+        "status",
+        "arena",
+        "instructor name",
+        "membership",
+        "paid",
+        "note",
+        "confirmation",
     ]
 
     const tableBodyItemCellKeys = [
-        "menuItemName",
-        "quantity",
-        "type",
-        "price",   //keys are not valid   //keys are not valid
-        "date"
+        "courseDate",
+        "courseTime",   
+        "clientId",
+        "hourseId",
+        "course",
+        "price",
+        "status",
+        "arena",
+        "instractorId",
+        "membership",
+        "paid",
+        "note",
+        "confitmation"
     ]
 
-    const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
+    const tableBodyItems = response?.Schadual?.data.map((item:any) => ({
         ...item,
-        date:getReadableDate(item.date),
+        courseDate:getReadableDate(item.courseDate),
         price:(<span className='text-right block w-full'>
             {priceFormatter(String(item.price))}
-        </span>)
-    }))   //keys are not valid   //keys are not valid
+        </span>),
+        clientId:item?.clientId?.username ||"no-client",
+        hourseId:item?.hourseId?.hourseName ||"no-horse",
+        instractorId:item?.instractorId?.instractorName || "no-instructor",
+        course:item?.course?.name || "no-course",
+    }))    
 
     return (
         <Suspense>
@@ -64,7 +86,7 @@ function SchedulePage() {
                             tableBodyItems={tableBodyItems} 
                             tableHeadCells={tableHeadCells} 
                             isCrud={true}
-                            refetch={refetch}   //keys are not valid   //keys are not valid
+                            refetch={refetch}  
                             route={scheduleRoute}
                         />
                     </Loader>
@@ -72,9 +94,8 @@ function SchedulePage() {
                 {
                     isDataHere ? (
                         <PaginationButtons
-                            maxPages={response.caveteriaItems.max_pages}
-                            currentPage={response.caveteriaItems.current_page}
-   //keys are not valid   //keys are not valid
+                            maxPages={response.Schadual.max_pages}
+                            currentPage={response.Schadual.current_page}
                         />
                     ): <></>
                 }

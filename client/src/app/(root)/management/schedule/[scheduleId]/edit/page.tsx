@@ -11,7 +11,6 @@ import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
 import { httpGetServices } from "@/services/httpGetService"
 import { httpPatchService } from "@/services/httpPatchService"
 import { getCafeteriaPayment } from "@/utils/getCafeteriaPayment"
-import { getCourseType } from "@/utils/getCourseType"
 import { getMembershipStatus } from "@/utils/getMembershipStatus"
 import { getMembershipType } from "@/utils/getMembershipType"
 import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
@@ -56,7 +55,8 @@ function EditScheduleClassPage() {
         hourseId:horse?.id,
         membership:membership?.name,
         paid:payment?.name,
-        course:course?.name,
+        course:course?.id,
+        confitmation:confirmation
 
     }
 
@@ -93,11 +93,15 @@ function EditScheduleClassPage() {
                     name:data?.hourseId?.hourseName,
                     id:data?.hourseId?._id
                 }) : null
+                const course = Boolean(data?.course) ? ({
+                    name:data?.course?.name,
+                    id:data?.course?._id
+                }) : null
+                setCourse(course)
                 setHorse(horse)
                 setMembership(getMembershipType(data?.membership))
                 setPayment(getCafeteriaPayment(data?.paid))
-                setConfirmation(data?.Confitmation)
-                setCourse(getCourseType(data?.course))
+                setConfirmation(data?.confitmation)
                 setIsLoading(false)
 
             }
@@ -133,7 +137,7 @@ function EditScheduleClassPage() {
             
             if (status) {
                 successPopUp("class updated successfully")
-                router.push("/management/daily")
+                router.push("/management/schedule")
             
             }else {
                 failedPopUp(res.message)

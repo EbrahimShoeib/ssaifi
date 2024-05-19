@@ -1,9 +1,14 @@
+"use client"
 import PageInputsHolder from '@/components/layout/PageInputsHolder'
+import { packagesRoute } from '@/constants/api'
 import { cafeteriaPayments } from '@/constants/cafeteriaPayments'
 import { courseTypes } from '@/constants/courseType'
 import { memberShipStatuses } from '@/constants/memberShipStatuses'
 import { memberShipTypes } from '@/constants/memberShipTypes'
-import React from 'react'
+import { httpGetServices } from '@/services/httpGetService'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
+import { useQuery } from 'react-query'
 
 type SchedulePageInputsProps = {
     date:string,
@@ -76,7 +81,15 @@ function SchedulePageInputs({
     setCourse,
 }:SchedulePageInputsProps) {
 
-
+    const [packages,setPackages] = useState<NameAndId[]|[]>([])
+    useQuery({
+        queryKey:['packages'],
+        queryFn:async() => httpGetServices(packagesRoute),
+        onSuccess(res) {
+            const packages = toNameAndId(res?.Packages?.data,"name","_id")
+            setPackages(packages)
+        }
+    })
 
     const dropDownLists:DropDownList[] = [
         {
@@ -134,7 +147,7 @@ function SchedulePageInputs({
     const inputs:Input[] = [ 
         {
             label:'Date',
-            type:'datetime-local',
+            type:'date',
             value:date,
             setValue:setDate,
             placeholder:'Enter Date'

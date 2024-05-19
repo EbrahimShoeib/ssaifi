@@ -49,8 +49,8 @@ function AddScheduleClassPage() {
         hourseId:horse?.id,
         membership:membership?.name,
         paid:payment?.name,
-        course:course?.name,
-
+        course:course?.id,
+        confitmation:confirmation
     }
 
     const failedPopUp = useFailedPopUp()
@@ -85,7 +85,7 @@ function AddScheduleClassPage() {
             
             if (status) {
                 successPopUp("class added successfully")
-                router.push("/management/daily")
+                router.push("/management/schedule")
             
             }else {
                 failedPopUp(res.message)

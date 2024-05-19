@@ -21,9 +21,10 @@ export type ResourcesCardProps = {
     titles:any,
     _id:string,
     route:string,
-    refetch: () => void
+    refetch: () => void,
+    inquiryRoute:string
 }
-function ResourcesCard({imgUrl,title,titles,_id,route,refetch}:ResourcesCardProps) {
+function ResourcesCard({imgUrl,title,titles,_id,route,refetch,inquiryRoute}:ResourcesCardProps) {
     
     const titlesKeys = Object.keys(titles)    
     const pathName = usePathname()
@@ -112,11 +113,11 @@ function ResourcesCard({imgUrl,title,titles,_id,route,refetch}:ResourcesCardProp
                     </Link>
                 </div>
 
-                <button className='flex h-[30px] w-[110px] justify-center gap-2 capitalize items-center text-sm p-2 rounded-lg border text-primary border-primary duration-300 hover:bg-primary hover:text-smokey-white'>
+                <Link href={`/inquiry/${inquiryRoute}/${_id}`} className='flex h-[30px] w-[110px] justify-center gap-2 capitalize items-center text-sm p-2 rounded-lg border text-primary border-primary duration-300 hover:bg-primary hover:text-smokey-white'>
                     <span>see more</span>
                     <HiMiniArrowLongRight className='text-sm'/>
 
-                </button>
+                </Link>
             </div>
         </div>
     )
