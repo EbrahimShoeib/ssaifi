@@ -1,4 +1,5 @@
 const ApiErrorCode = require("../../../../core/errors/apiError");
+const {Client} = require("../../../client/routers/clients")
 const {
   Package,
   createNewPackage,
@@ -238,6 +239,35 @@ class packageController {
           },
         });
       });
+  }
+  static async getCoursesById (req,res) {
+
+    await Package.findOne({clientId:req.params._id})
+    .then((docs)=>{
+      if(docs){
+        res.status(200).json({
+          status_code:0,
+          message:"success to get client Course",
+          data:docs,
+        })
+      }else{
+        res.status(404).json({
+          status_code:ApiErrorCode.notFound,
+          message:"Client Id Is Not Found",
+          data:null,
+        })
+      }
+    })
+    .catch((error)=>{
+      res.status(500).json({
+        status_code:ApiErrorCode.internalError,
+        message:"Internal Server Error , Please try again",
+        data:null,
+        error:{
+          error:error.message
+        }
+    })
+    })
   }
 }
 
