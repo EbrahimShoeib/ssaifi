@@ -20,7 +20,7 @@ const SchadualSchema = new mongoose.Schema({
     type: String,
     enum: ["active", "inactive"],
     required: true,
-   
+
   },
   instractorId: {
     type: mongoose.Types.ObjectId,
