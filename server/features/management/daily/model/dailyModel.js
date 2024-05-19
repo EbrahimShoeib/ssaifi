@@ -11,7 +11,7 @@ const dailySchema = new mongoose.Schema({
     required: true,
   },
   course: {
-    type: String,
+    type : mongoose.Types.ObjectId,
     require: true,
     ref:"Package"
   },

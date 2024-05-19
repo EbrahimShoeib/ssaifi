@@ -11,21 +11,21 @@ class dailyController {
 
     const regexQuery = new RegExp(req.query.query, "i"); // Case-insensitive regex query
 
-    Daily.find({
+   await Daily.find({
       $or: [
         { type: { $regex: regexQuery } },
         { course: { $regex: regexQuery } },
       ],
     })
+      
+      .skip(skip) // Skip documents
+      .limit(pageSize)
+      .skip(skip) // Skip documents
+      .limit(pageSize)
       .populate("hourseId")
       .populate("clientId")
       .populate("instractorId")
       .populate("course")
-
-      .skip(skip) // Skip documents
-      .limit(pageSize)
-      .skip(skip) // Skip documents
-      .limit(pageSize)
 
       .then(async (docs) => {
         if (docs) {
