@@ -137,7 +137,7 @@ function SchedulePageInputs({
         {
             listValue:course,
             setListValue:setCourse,
-            options:courseTypes,
+            options:packages,
             placeholder:'Select course',
             label:'course'
         },
