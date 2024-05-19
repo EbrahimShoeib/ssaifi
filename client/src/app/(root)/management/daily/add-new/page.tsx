@@ -138,12 +138,8 @@ function DailyAddClassPage() {
                 price={price}
                 setPrice={setPrice}
                 submitButtonLabel="add class"
-<<<<<<< HEAD
-=======
                 course={course}
                 setCourse={setCourse}
-                
->>>>>>> 02587c3c10884a78eeba9760edde004a259f485b
             />
         </>
     )
