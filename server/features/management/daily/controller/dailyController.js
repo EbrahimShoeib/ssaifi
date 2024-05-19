@@ -13,8 +13,7 @@ class dailyController {
 
    await Daily.find({
       $or: [
-        { type: { $regex: regexQuery } },
-        { course: { $regex: regexQuery } },
+        { note: { $regex: regexQuery } },
       ],
     })
       
