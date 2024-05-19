@@ -17,8 +17,7 @@ class SchedualsController {
 
     Schadual.find({
       $or: [
-        { type: { $regex: regexQuery } },
-        { course: { $regex: regexQuery } },
+        { note: { $regex: regexQuery } },
       ],
     })
       .skip(skip) // Skip documents
