@@ -54,9 +54,9 @@ const Client = mongoose.model("Client",ClientSchema)
 
 function clientValidation(obj){
     const schema = joi.object({
-        username : joi.string().required().min(2).max(20),
-        email : joi.string().required().min(7),
-        phone : joi.string().required().min(4),
+        username : joi.string().required().min(2),
+        email : joi.string().required().min(2),
+        phone : joi.string().required().min(2),
         gender : joi.string().valid('male', 'female').required(),
         membershipStatus : joi.string().valid('active', 'inactive').required(),
         membershipType : joi.string().valid('family', 'individual').required(),
@@ -74,9 +74,9 @@ function pageValidation(obj){
 
 function updateValidation(obj){
     const schema = joi.object({
-        username : joi.string().min(3).max(20),
-        email : joi.string().min(7).max(40),
-        phone : joi.string().min(4).max(25),
+        username : joi.string().min(2),
+        email : joi.string().min(2),
+        phone : joi.string().min(2),
         gender : joi.string().valid('male', 'female').required(),
         membershipStatus : joi.string().valid('active', 'inactive').required(),
         membershipType : joi.string().valid('family', 'individual').required(),
