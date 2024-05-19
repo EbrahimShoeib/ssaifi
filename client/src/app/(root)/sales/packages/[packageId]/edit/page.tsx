@@ -5,7 +5,6 @@ import PageHeader from '@/components/layout/PageHeader'
 import { packagesRoute } from '@/constants/api'
 import { useFailedPopUp } from '@/hooks/useFailedPopUp'
 import { useGetClients } from '@/hooks/useGetClients'
-import { usePopUp } from '@/hooks/usePopUp'
 import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { httpGetServices } from '@/services/httpGetService'
 import { httpPatchService } from '@/services/httpPatchService'
@@ -16,8 +15,6 @@ import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import { toNameAndId } from '@/utils/toNameAndId'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { MdErrorOutline } from 'react-icons/md'
 import { useMutation } from 'react-query'
 
 function PackageEditPage() {
@@ -28,8 +25,7 @@ function PackageEditPage() {
     const [status,setStatus] = useState<NameAndId>(null)
     const [category,setCategory] = useState<NameAndId>(null)
 
-    const [client,setClient] = useState<NameAndId>(null)
-    const [clients , setClients] = useState<NameAndId[]|[]>([])
+    const [name,setName] = useState<string>("")
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
@@ -46,7 +42,7 @@ function PackageEditPage() {
             startDate,
             endDate,
             status:status?.name,
-            clientId:client?.id
+            name
         })),
         onSuccess:(res) => {
             const status = statusCodeIndicator(res.status_code) === "success" 
@@ -61,32 +57,22 @@ function PackageEditPage() {
         onError: () => failedPopUp()
     })
 
-    useGetClients({
-        onSuccess:(res)=>{
-            const clients = toNameAndId(res?.data?.client,"username","_id")            
-            setClients(clients)
-        }
-    })
+
 
     useEffect(()=>{
         const fetchPackageItem = async () => {
             const res = await httpGetServices(packageIdRoute)
             console.log(res);
             
-            const itemData = res?.data?.packages
+            const itemData = res?.Packages?.data
             
             if (Boolean(itemData)) {
-                setCategory(getPackageCategory(itemData.category))
-                setStatus(getPackageStatus(itemData.status))
-                
-                const client = itemData.clientId ? ({
-                    name:itemData.clientId.username,
-                    id:itemData.clientId._id
-                }) : null
-                setClient(client)
-                setStartDate(getIsoDate(itemData.startDate))
-                setEndDate(getIsoDate(itemData.endDate))
-                setLessons(itemData.lessons)
+                setCategory(getPackageCategory(itemData?.category))
+                setStatus(getPackageStatus(itemData?.status))
+                setName(itemData?.name)
+                setStartDate(getIsoDate(itemData?.startDate))
+                setEndDate(getIsoDate(itemData?.endDate))
+                setLessons(itemData?.lessons)
                 setIsLoading(false)
             }
         }
@@ -108,9 +94,8 @@ function PackageEditPage() {
             <PackagesInputs
                 category={category}
                 setCategory={setCategory}
-                clients={clients}
-                setClient={setClient}
-                client={client}
+                name={name}
+                setName={setName}
                 setEndDate={setEndDate}
                 setLessons={setLessons}
                 setStartDate={setStartDate}

@@ -41,6 +41,7 @@ function ClientsPageContent({ isDataHere, response ,refetch}:ClientsPageProps) {
                                                     title={client.username}
                                                     _id={client._id}
                                                     imgUrl={client.avatar}
+                                                    inquiryRoute={'client'}
                                                 />
                                             ))
                                         }

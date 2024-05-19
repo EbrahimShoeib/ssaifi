@@ -38,6 +38,7 @@ function HorsesPageContent({isDataHere,response,refetch}:HorsesPageProps) {
                                             title={horse.hourseName}
                                             _id={horse._id}
                                             imgUrl={horse.avatar}
+                                            inquiryRoute="horse"
                                         />
                                     ))
                                 }

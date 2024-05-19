@@ -26,6 +26,12 @@ export const dailyRoute = "/daily"
 export const scheduleRoute  = "/schadual"
 export const invoiceRoute = "/invoice"
 
+export const inquiryRoute = "/inquery"
+export const clientInquiryRoute = `${inquiryRoute}/client`
+export const horseInquiryRoute = `${inquiryRoute}/hourse`
+export const instructorInquiryRoute = `${inquiryRoute}/instructor`
+
+
 export const clientImageUploadRoute = `${clientsRoute}/upload-image`
 export const userAvatarUploadRoute = `${authRoute}/uploads`
 export const horsesImageUploadRoute = `${horsesRoute}/upload-image`

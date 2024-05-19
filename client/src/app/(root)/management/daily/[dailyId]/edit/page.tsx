@@ -10,7 +10,6 @@ import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { httpGetServices } from '@/services/httpGetService'
 import { httpPatchService } from '@/services/httpPatchService'
 import { getCafeteriaPayment } from '@/utils/getCafeteriaPayment'
-import { getCourseType } from '@/utils/getCourseType'
 import { getMembershipStatus } from '@/utils/getMembershipStatus'
 import { getMembershipType } from '@/utils/getMembershipType'
 import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
@@ -53,7 +52,7 @@ function EditDailyClassPage() {
         hourseId:horse?.id,
         membership:membership?.name,
         paid:payment?.name,
-        course:course?.name,
+        course:course?.id,
     }
 
     const failedPopUp = useFailedPopUp()
@@ -126,10 +125,14 @@ function EditDailyClassPage() {
                     name:data?.hourseId?.hourseName,
                     id:data?.hourseId?._id
                 }) : null
+                const course = Boolean(data?.course) ? ({
+                    name:data?.course?.name,
+                    id:data?.course?._id
+                }) : null
+                setCourse(course)
                 setHorse(horse)
                 setMembership(getMembershipType(data?.membership))
                 setPayment(getCafeteriaPayment(data?.paid))
-                setCourse(getCourseType(data?.course))
                 setIsLoading(false)
             }
         }

@@ -30,6 +30,7 @@ class InqueryController {
                       .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                       const cafateria = await Consume.find({clientId : req.params.id})
                       const invMembership = await InvMembership.findOne({clientId : req.params.id})
@@ -94,6 +95,7 @@ class InqueryController {
                     .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                     res.status(200).json({
                         status_code: 1,
@@ -156,6 +158,7 @@ class InqueryController {
                     .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                     res.status(200).json({
                         status_code: 1,
@@ -192,16 +195,40 @@ class InqueryController {
                 });
               });
           }
-    } catch (error) {
-      res.status(500).json({
-        status_code: ApiErrorCode.internalError,
-        message: "There was a server internal error, please try again",
-        data: null,
-        error: {
-          message: error.message,
-        },
-      });
+      } catch (error) {
+        res.status(500).json({
+          status_code: ApiErrorCode.internalError,
+          message: "There was a server internal error, please try again",
+          data: null,
+          error: {
+            message: error.message,
+          },
+        });
+      }
     }
+
+    static async getDashboard(req,res){
+      try {
+        res.status(200).json({
+          status_code: 1,
+          message: "Got the hourse successfuly",
+          data: {
+            hourse: docs,
+            invConsume : InvConsume,
+            courses : daily
+          },
+      });
+
+      } catch (error) {
+        res.status(500).json({
+          status_code: ApiErrorCode.internalError,
+          message: "There was a server internal error, please try again",
+          data: null,
+          error: {
+            message: error.message,
+          },
+        });
+      }
     }
 
 

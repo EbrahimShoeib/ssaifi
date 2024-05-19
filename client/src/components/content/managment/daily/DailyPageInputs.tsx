@@ -1,9 +1,15 @@
+"use client"
+
 import PageInputsHolder from '@/components/layout/PageInputsHolder'
+import { packagesRoute } from '@/constants/api'
 import { cafeteriaPayments } from '@/constants/cafeteriaPayments'
 import { courseTypes } from '@/constants/courseType'
 import { memberShipStatuses } from '@/constants/memberShipStatuses'
 import { memberShipTypes } from '@/constants/memberShipTypes'
-import React from 'react'
+import { httpGetServices } from '@/services/httpGetService'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
+import { useQuery } from 'react-query'
 
 type DailyPageInputsProps = {
     date:string,
@@ -72,6 +78,15 @@ function DailyPageInputs({
     setCourse
 }:DailyPageInputsProps) {
 
+    const [packages,setPackages] = useState<NameAndId[]|[]>([])
+    useQuery({
+        queryKey:['packages'],
+        queryFn:async() => httpGetServices(packagesRoute),
+        onSuccess(res) {
+            const packages = toNameAndId(res?.Packages?.data,"name","_id")
+            setPackages(packages)
+        }
+    })
 
 
     const dropDownLists:DropDownList[] = [
@@ -120,7 +135,7 @@ function DailyPageInputs({
         {
             listValue:course,
             setListValue:setCourse,
-            options:courseTypes,
+            options:packages,
             placeholder:'Select course',
             label:'course'
         },

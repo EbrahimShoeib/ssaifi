@@ -97,7 +97,7 @@ function SettingsPageContent({
                         <div className='border-primary border-4 relative aspect-square rounded-full w-[120px]'>
                             <ImageUploadInput onChange={changeAvatar} formDataFile={image} setFormDataFile={setImage}>
                                 {
-                                    avatar ? 
+                                    Boolean(avatar) ? 
                                     (<img className=' w-full block object-cover aspect-square rounded-full overflow-hidden' src={avatar}/>) :
                                     (<FaUserCircle className='w-full text-light-grey h-full'/>)
                                 }

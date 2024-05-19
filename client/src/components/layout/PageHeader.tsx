@@ -6,6 +6,7 @@ import { GrAdd } from 'react-icons/gr'
 import DropDownList from '../shared/all/DropDownList'
 import BackButton from '../shared/all/BackButton'
 import { usePathname } from 'next/navigation'
+import DropDownLinks from '../shared/all/DropDownLinks'
 
 
 type PageHeaderProps = {
@@ -19,9 +20,13 @@ type PageHeaderProps = {
     addNewButtonLabel?:string,
     title:any,
     showBackButton?:boolean,
-    children?:any
+    children?:any,
+    dropDownLinks?:{
+        options:DropDownLink[],
+        placeholder:string
+    }
 }
-function PageHeader({dropDown,children,addNewButtonLabel,title,showBackButton}:PageHeaderProps) {
+function PageHeader({dropDown,dropDownLinks,children,addNewButtonLabel,title,showBackButton}:PageHeaderProps) {
 
     const pathname = usePathname()
     
@@ -52,6 +57,19 @@ function PageHeader({dropDown,children,addNewButtonLabel,title,showBackButton}:P
                                             />
                                         </div>
                                     ) :<></>
+                                }
+
+                                {
+                                    Boolean(dropDownLinks) ? (
+                                        <div className='h-[30px] border-primary rounded-lg border'>
+                                            <DropDownLinks
+                                                placeholder={dropDownLinks?.placeholder||""}
+                                                options={dropDownLinks?.options||[]}
+                                                placeholderClassName={`min-w-[100px] px-4 py-2 text-smokey-white`}
+
+                                            />
+                                        </div>
+                                    ) : <></>
                                 }
 
                                 {

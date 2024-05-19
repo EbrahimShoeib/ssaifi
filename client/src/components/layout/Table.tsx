@@ -17,7 +17,7 @@ type TableProps = {
     isCrud:boolean,
     tableBodyItemCellKeys:string[],
     route?:string,
-    refetch?:()=> void
+    refetch?:()=> void,
 }
 function Table({
     tableHeadCells,
@@ -80,7 +80,8 @@ function Table({
     }
     
     return (
-        <div className="overflow-auto relative min-w-[800px] w-full h-full">
+        <div
+            className="overflow-auto relative min-w-[400px] w-full h-full">
             <table className='w-full capitalize mt-5 table-auto border-collapse'>
                 <thead className="h-[50px] border-dark-grey border-b-[2px] border-opacity-40 relative">
                     <tr>
@@ -135,7 +136,7 @@ function Table({
                                     })
                                 }
                             </tbody>
-                        ) : (<div className="w-full bottom-0 left-0 absolute h-full">
+                        ) : (<div className="w-full -bottom-[60px] left-0 absolute h-full">
                             <NoDataFound message="no data in the table to show"/>
                         </div>)
                     }

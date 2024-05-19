@@ -24,8 +24,7 @@ function AddNewPackagePage() {
     const [status,setStatus] = useState<NameAndId>(null)
     const [category,setCategory] = useState<NameAndId>(null)
 
-    const [client,setClient] = useState<NameAndId>(null)
-    const [clients , setClients] = useState<NameAndId[]|[]>([])
+    const [name,setName] = useState<string>("")
 
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
@@ -40,7 +39,7 @@ function AddNewPackagePage() {
             startDate,
             endDate,
             status:status?.name,
-            clientId:client?.id
+            name
         })),
         onSuccess:async (res) => {
             const status = statusCodeIndicator(res.status_code) === "success" 
@@ -56,12 +55,7 @@ function AddNewPackagePage() {
         onError: () => failedPopUp()
     })
 
-    useGetClients({
-        onSuccess:(res)=>{
-            const clients = toNameAndId(res?.data?.client,"username","_id")            
-            setClients(clients)
-        }
-    })
+   
 
     return (
         <>
@@ -77,9 +71,8 @@ function AddNewPackagePage() {
             <PackagesInputs
                 category={category}
                 setCategory={setCategory}
-                clients={clients}
-                setClient={setClient}
-                client={client}
+                setName={setName}
+                name={name}
                 setEndDate={setEndDate}
                 setLessons={setLessons}
                 setStartDate={setStartDate}
