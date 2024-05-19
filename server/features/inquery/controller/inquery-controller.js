@@ -19,13 +19,8 @@ class InqueryController {
     static async getClientInqueries (req, res) {
         try {
             {
-<<<<<<< HEAD
-  
-                Client.findOneById(req.params.id)
-=======
 
                 Client.findById(req.params.id)
->>>>>>> 5ffafe4f4a363a9c2c408851fd9140adfb55b366
                   .select("-__v")
                   .then(async (docs) => {
 
