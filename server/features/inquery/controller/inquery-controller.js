@@ -30,6 +30,7 @@ class InqueryController {
                       .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                       const cafateria = await Consume.find({clientId : req.params.id})
                       const invMembership = await InvMembership.findOne({clientId : req.params.id})
@@ -94,6 +95,7 @@ class InqueryController {
                     .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                     res.status(200).json({
                         status_code: 1,
@@ -156,6 +158,7 @@ class InqueryController {
                     .populate("clientId")
                       .populate("instractorId")
                       .populate("hourseId")
+                      .populate("course")
 
                     res.status(200).json({
                         status_code: 1,
