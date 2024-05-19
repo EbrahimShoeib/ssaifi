@@ -242,8 +242,9 @@ class packageController {
   }
   static async getCoursesById (req,res) {
 
-    await Daily.find({clientId:req.params._id})
+    await Daily.find({clientId:req.params.id})
     .then((docs)=>{
+      console.log({clientId:req.params.id})
       if(docs){
         res.status(200).json({
           status_code:0,
