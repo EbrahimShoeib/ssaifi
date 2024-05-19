@@ -28,7 +28,7 @@ class InqueryController {
 
                       const daily = await Daily.find({clientId : req.params.id})
                       const cafateria = await Consume.find({clientId : req.params.id})
-                        const invMembership = await InvMembership.findOne({clientId : req.params.id}) 
+                        const invMembership = await InvMembership.find({clientId : req.params.id}) 
                         res.status(200).json({
                             status_code: 1,
                             message: "Got the clients successfuly",
