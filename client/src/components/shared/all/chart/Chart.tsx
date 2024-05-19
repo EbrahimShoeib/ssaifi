@@ -12,8 +12,8 @@ function Chart() {
     ]
 
     const xTitles = [
-        "fuck",
-        "lol"
+        " 1",
+        "2"
     ]
 
     const ChartMainColumns: ChartMainColumn[] = [
