@@ -47,7 +47,12 @@ const ClientSchema = mongoose.Schema({
         type : String || null,
         required : false,
         default : null
-    }
+    },
+    activity :{
+        type : Number,
+        required: false,
+        default : 1
+    },
 })
 
 const Client = mongoose.model("Client",ClientSchema)

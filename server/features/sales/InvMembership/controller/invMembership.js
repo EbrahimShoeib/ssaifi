@@ -2,6 +2,8 @@ const {
   InvMembership,
   createNewInvMembership,updateInvMembership
 } = require("../model/invMembership");
+const {Client} = require('../../../client/models/client')
+
 const ApiErrorCode = require("../../../../core/errors/apiError");
 
 class invMembershipController {
@@ -117,7 +119,13 @@ class invMembershipController {
             })
 
               .save()
-              .then((docs) => {
+              .then(async (docs) => {
+
+                await Client.findByIdAndUpdate(
+                  req.body.clientId,
+                  { $inc: { activityCount: 1 } },
+                )
+
                 res.status(200).json({
                   status_code: 1,
                   message: "InvMembership  created successfuly",

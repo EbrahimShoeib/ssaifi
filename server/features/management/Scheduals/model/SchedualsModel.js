@@ -14,13 +14,12 @@ const SchadualSchema = new mongoose.Schema({
   course: {
     type : mongoose.Types.ObjectId,
     require: true,
-    ref:"Package"
+    ref: "Package"
   },
   status: {
     type: String,
     enum: ["active", "inactive"],
     required: true,
-   
   },
   instractorId: {
     type: mongoose.Types.ObjectId,
@@ -31,24 +30,20 @@ const SchadualSchema = new mongoose.Schema({
     type: String,
     require: true,
     enum: ["paid", "pending"],
-    
-    
   },
   note: {
     type: String,
     require: true,
-   
   },
   courseTime: {
     type: String,
     require: true,
-    
   },
   hourseId : {
     type : mongoose.Types.ObjectId,
     ref: "Hourse",
     required: true,
-       },
+  },
   price: {
     type:String ,
     require:true,

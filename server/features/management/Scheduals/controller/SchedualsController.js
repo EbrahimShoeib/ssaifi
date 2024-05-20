@@ -3,6 +3,8 @@ const {
   createNewSchadual,
   updateSchadual,
 } = require("../model/SchedualsModel");
+const {Client} = require('../../../client/models/client')
+
 const ApiErrorCode = require("../../../../core/errors/apiError");
 
 class SchedualsController {
@@ -69,8 +71,13 @@ class SchedualsController {
     .populate("clientId")
     .populate("instractorId")
     .populate("course")
-      .then((docs) => {
+      .then(async (docs) => {
         if (docs) {
+          await Client.findByIdAndUpdate(
+            req.body.clientId,
+            { $inc: { activityCount: 1 } },
+          )
+
           res.status(200).json({
             status_code: 0,
             message: "Success to get Schadual By Id",

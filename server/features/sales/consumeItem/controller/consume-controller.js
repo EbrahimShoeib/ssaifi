@@ -1,5 +1,8 @@
 const { Consume, creatconsumValidation } = require("../model/consumeModel");
 const ApiErrorCode = require("../../../../core/errors/apiError");
+const {Client} = require('../../../client/models/client')
+
+
 class consumeController {
   static async getAllConsume(req, res) {
     // Pagination parameters
@@ -118,7 +121,13 @@ class consumeController {
                 date: req.body.date
             })
               .save()
-              .then((docs) => {
+              .then(async (docs) => {
+                
+                await Client.findByIdAndUpdate(
+                  req.body.clientId,
+                  { $inc: { activityCount: 1 } },
+                )
+    
                 res.status(200).json({
                   status_code: 1,
                   message: "consumed item created successfuly",

@@ -1,5 +1,6 @@
 const { Daily, createNewDaily, updateDaily } = require("../model/dailyModel");
 const ApiErrorCode = require("../../../../core/errors/apiError");
+const {Client} = require('../../../client/models/client')
 
 class dailyController {
   static async getAllDaily(req, res) {
@@ -122,14 +123,25 @@ class dailyController {
         membership: req.body.membership,
       })
         .save()
-        .then((docs) => {
+        .then(async (docs) => {
           if (docs) {
+
+            await Client.findByIdAndUpdate(
+              req.body.clientId,
+              { $inc: { activityCount: 1 } },
+            )
+
             res.status(200).json({
               status_code: 1,
               message: " Success to create New daily  ",
               data: docs,
             });
+
+
           } else {
+
+            
+
             res.status(404).json({
               status_code: ApiErrorCode.notFound,
               message: error.message,

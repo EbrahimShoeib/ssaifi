@@ -3,7 +3,7 @@ const {Client} = require('../../client/models/client')
 const {Daily} = require('../../management/daily/model/dailyModel')
 const {Consume} = require('../../sales/consumeItem/model/consumeModel')
 const {InvMembership} = require('../../sales/InvMembership/model/invMembership')
-
+const {ConsumedMedicine} = require("../../consumed-medicine/model/consumed-medicine-model")
 
 const {Hourse} =  require("../../hourse/models/hourse")
 const {instractor} = require('../../instractor/model/instractor')
@@ -208,14 +208,76 @@ class InqueryController {
     }
 
     static async getDashboard(req,res){
+
       try {
+
+        const [
+          totalClients,
+          totalInstructor,
+          totalHourse,
+          latestCafeteriaOrders,
+          mostActiveClients,
+          totalCafeteria,
+          totalCourse,
+          totalInventory,
+          totalMedicine
+      ] = await Promise.all([
+          Client.countDocuments(),
+          instractor.countDocuments(),
+          Hourse.countDocuments(),
+          Consume.find({}).limit(10),
+          Client.find().sort({ activity: -1 }).limit(3),
+          Consume.aggregate([
+              {
+                  $group: {
+                      _id: null,
+                      totalPrice: { $sum: "$price" }
+                  }
+              }
+          ]),
+          Daily.aggregate([
+              {
+                  $group: {
+                      _id: null,
+                      totalPrice: { $sum: "$price" }
+                  }
+              }
+          ]),
+          invConsume.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalPrice: { $sum: "$price" }
+                }
+            }
+          ]),
+          ConsumedMedicine.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalPrice: { $sum: "$price" }
+                }
+            }
+          ]),
+      ]);
+
+        
+
+      const totalPrice = result.length > 0 ? result[0].totalPrice : 0;
+
         res.status(200).json({
           status_code: 1,
           message: "Got the hourse successfuly",
           data: {
-            hourse: docs,
-            invConsume : InvConsume,
-            courses : daily
+            totalClients,
+            totalInstructor,
+            totalHourse,
+            latestCafeteriaOrders,
+            mostActiveClients,
+            totalCafeteria,
+            totalCourse,
+            totalInventory,
+            totalMedicine
           },
       });
 
