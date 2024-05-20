@@ -1,10 +1,10 @@
 import Link from "next/link"
 
 type SubTableProps = {
-    tableBodyItems:any[],
-    tableHeadCells:string[],
-    tableBodyItemCellKeys:string[],
-    itemsHrefs?:string[]
+    tableBodyItems:any[]|[],
+    tableHeadCells:string[]|[],
+    tableBodyItemCellKeys:string[]|[],
+    itemsHrefs?:any[]|[]
 }
 
 function SubTable({
@@ -19,7 +19,7 @@ function SubTable({
                 <thead className="h-[40px] border-dark-grey border-b-[1px] border-opacity-20 relative">
                     <tr>
                         {
-                            tableHeadCells.map((cell:string,idx:number)=> (
+                            tableHeadCells?.map((cell:string,idx:number)=> (
                                 <th key={idx} className="text-dark-grey px-5 text-opacity-70 text-left">
                                     {cell}
                                 </th>
@@ -34,7 +34,7 @@ function SubTable({
                 </thead>
                 <tbody>
                     {
-                        tableBodyItems.map((tableItem:any,index:number) => {
+                        tableBodyItems?.map((tableItem:any,index:number) => {
                             return(
                                 <tr 
                                     key={index} 

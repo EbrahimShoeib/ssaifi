@@ -51,7 +51,7 @@ function Chart({
                 >
                     {
                         columns.map((col:number,idx:number)=>{
-                            const colPercent = (col / total) * 100
+                            const colPercent = (col / total) * 100 || 0
                             const changeCurrData = () => setCurrentData({colPercent,xTitle:xTitles[idx]})
                             
                             return (

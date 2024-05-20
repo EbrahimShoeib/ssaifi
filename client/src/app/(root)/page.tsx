@@ -54,10 +54,12 @@ console.log(data);
                                 columns={columns}
                                 total={columnsTotals}
                             />
-                            <DashBoardActionsWidget/>
+                            {/* <DashBoardActionsWidget/> */}
                         </div>
                         <div className='w-full flex gap-4 flex-1'>
-                            <DashboardCafeteriaWidget/>
+                            <DashboardCafeteriaWidget
+                                cafeterias={data?.latestCafeteriaOrders}
+                            />
                             <DashboardInquiryWidget
                                 items={data?.mostActiveClients}
                             />
