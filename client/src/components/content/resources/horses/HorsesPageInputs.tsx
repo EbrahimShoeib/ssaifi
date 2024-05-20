@@ -59,8 +59,8 @@ function HorsePageInputs({
 
     
     return (
-        <PageContent className='overflow-hidden'>   
-            <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
+        <PageContent>   
+            <div className='max-w-[600px] flex flex-col gap-5 my-16 mx-8'>
                 <ResourcesInput
                     value={name} 
                     setValue={setName}

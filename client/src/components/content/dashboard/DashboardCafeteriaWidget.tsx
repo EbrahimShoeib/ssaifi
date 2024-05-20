@@ -23,7 +23,7 @@ function DashboardCafeteriaWidget({cafeterias}:DashboardCafeteriaWidgetProps) {
     return (
         <div className='h-full flex flex-col overflow-hidden w-1/2 bg-white shadow-lg rounded-xl'>
             <p className='text-dark-grey mt-4 text-opacity-90 ml-4 text-lg font-semibold'>latest cafeteria orders</p>
-            <div className='flex-1'>
+            <div className='flex-1 overflow-auto'>
                 <SubTable
                     tableBodyItemCellKeys={["name","payment","quantity","price"]}
                     tableBodyItems={tableData}

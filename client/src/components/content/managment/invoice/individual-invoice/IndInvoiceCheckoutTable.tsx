@@ -112,7 +112,7 @@ function IndInvoiceCheckoutTable({
                         />
                     </div>
                     <Input
-                        type='text'
+                        type='number'
                         setValue={setDebit}
                         value={debit}
                         className='input w-[170px]'

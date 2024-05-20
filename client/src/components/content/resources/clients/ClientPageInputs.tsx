@@ -57,7 +57,7 @@ function ClientPageInputs({
 }:ClientPageInputsProps) {
 
     return (
-        <PageContent className='overflow-hidden  '>
+        <PageContent>
                 <div className='max-w-[600px] flex flex-col  gap-5 my-16 mx-20'>
                     <ResourcesInput
                         value={name} 

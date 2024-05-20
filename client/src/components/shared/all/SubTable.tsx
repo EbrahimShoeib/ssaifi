@@ -48,7 +48,7 @@ function SubTable({
                                         ))
                                     }
                                     {
-                                        itemsHrefs?.length ? (<td className="px-5 text-right">
+                                        itemsHrefs?.length ? (<td className="px-5  text-right">
                                             <Link className=" text-primary" href={itemsHrefs[index]}>view</Link>
                                         </td>) :<></>
                                     }
