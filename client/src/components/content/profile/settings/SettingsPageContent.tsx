@@ -92,7 +92,7 @@ function SettingsPageContent({
             <Loader isLoading={isLoading}>
                 <div className=' flex flex-col w-full'>
                     
-                    <div className='h-[350px] flex-col gap-5 w-full flex justify-center items-center'>
+                    <div className='h-[250px] flex-col gap-5 w-full flex justify-end items-center'>
                         
                         <div className='border-primary border-4 relative aspect-square rounded-full w-[120px]'>
                             <ImageUploadInput onChange={changeAvatar} formDataFile={image} setFormDataFile={setImage}>

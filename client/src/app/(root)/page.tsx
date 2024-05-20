@@ -17,14 +17,17 @@ function Dashboard() {
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
-    useEffect(()=>{
-        setIsLoading(false)
-    },[])
 
-    const {data:response} = useQuery({
+
+    const {data:response,isLoading:isDataLoading} = useQuery({
         queryKey:['dashboard'],
         queryFn:async ()=> httpGetServices(dashboardRoute)
     })
+
+    useEffect(()=>{
+        !isDataLoading && setIsLoading(false)
+    },[isDataLoading])
+
     const data = response?.data
     const columns:number[] = [
         data?.totalMedicine,
