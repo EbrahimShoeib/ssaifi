@@ -92,7 +92,7 @@ E-mail: Info@SaifiStables.com`;
     pdf.setLineWidth(0.5);
     pdf.line(10, infoStartY + 125, pdfWidth - 10, infoStartY + 125);
 
-    centerText('Lessons:', infoStartY + 140);
+    centerText('Lessons: '+ courses.length, infoStartY + 140);
     // lessons.forEach((lesson, index) => {
     //     centerText(`- ${lesson}`, infoStartY + 150 + index * 10);
     // });
