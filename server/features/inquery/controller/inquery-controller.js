@@ -263,8 +263,6 @@ class InqueryController {
 
         
 
-      const totalPrice = result.length > 0 ? result[0].totalPrice : 0;
-
         res.status(200).json({
           status_code: 1,
           message: "Got the hourse successfuly",
@@ -274,10 +272,10 @@ class InqueryController {
             totalHourse,
             latestCafeteriaOrders,
             mostActiveClients,
-            totalCafeteria,
-            totalCourse,
-            totalInventory,
-            totalMedicine
+            totalCafeteria : totalCafeteria[0].totalPrice || 0,
+            totalCourse : totalCourse[0].totalPrice || 0,
+            totalInventory : totalInventory[0].totalPrice || 0,
+            totalMedicine : totalMedicine[0].totalPrice || 0
           },
       });
 
