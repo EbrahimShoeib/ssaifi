@@ -10,13 +10,13 @@ type DashboardChartsWidgetProps = {
 
 function DashboardChartsWidget({total,columns}:DashboardChartsWidgetProps) {
     const yTitles = [
-        "20",
-        "40",
-        "60",
-        "80",
-        "100",
+        '100',
+        '40',
+        '60',
+        '80',
+        '20'     
     ]
-
+ 
     const xTitles = [
         "medicines",
         "cafeterias",
