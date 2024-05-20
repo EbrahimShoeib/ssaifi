@@ -31,8 +31,8 @@ class InvoiceController {
                 totalAmount : req.body.totalAmount,
                 invoiceDate : req.body.invoiceDate,
                 status : req.body.status,
-                clientType : req.body.clientType
-              
+                clientType : req.body.clientType,
+                debit:req.body.debit
             })
               .save()
               .then((docs) => {
