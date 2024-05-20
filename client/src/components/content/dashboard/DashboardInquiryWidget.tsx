@@ -22,7 +22,6 @@ function DashboardInquiryWidget({
                 <div className='flex-1 items-center flex gap-4'>
                     {
                         items?.map((item:any,idx:number)=>{
-                            console.log(item);
                             
                             const infos = {
                                 gender:item?.gender ,

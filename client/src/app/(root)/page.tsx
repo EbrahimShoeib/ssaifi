@@ -35,7 +35,7 @@ function Dashboard() {
     const columnsTotals = columns.reduce((acc,curr) => acc + curr,0)
 console.log(data);
 
-    
+
     return (
         <>
             <PageHeader
