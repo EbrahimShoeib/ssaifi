@@ -13,9 +13,9 @@ function DashBoardActionsWidget() {
         ""
     ]
     return (
-        <div className='h-full overflow-hidden w-1/3 bg-white shadow-lg rounded-xl'>
+        <div className='h-full flex flex-col overflow-hidden w-1/3 bg-white shadow-lg rounded-xl'>
             <p className='text-dark-grey mt-4 text-opacity-90 ml-4 text-lg font-semibold'>recent actions</p>
-            <div>
+            <div className='flex-1'>
                 <SubTable
                     tableBodyItemCellKeys={["name","type"]}
                     tableBodyItems={actions}

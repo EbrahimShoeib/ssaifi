@@ -19,6 +19,7 @@ type IndInvoiceCheckoutTableProps = {
     discount:string,
     setDiscount:(newState:string)=> void,
     isClientCoursesLoading:boolean,
+    coursesTotal:number
 }
 function IndInvoiceCheckoutTable({
     horses,
@@ -34,16 +35,13 @@ function IndInvoiceCheckoutTable({
     discount,
     setDiscount,
     isClientCoursesLoading,
+    coursesTotal
 }:IndInvoiceCheckoutTableProps) {
-    let coursesTotal:number = courses?.
-    map(curr => +curr?.price)?.
-    reduce((acc:any,curr:any)=> acc + curr,0)
     
-
-    if (+discount && Boolean(coursesTotal)) {
-        coursesTotal = coursesTotal * (+discount / 100)
-    }
-
+    const subtotal = coursesTotal - +discount + +debit
+    const tax = (subtotal * 0.16)
+    const total = subtotal + tax
+    
     const cells = [
         {
             title:"lessons",
@@ -60,15 +58,15 @@ function IndInvoiceCheckoutTable({
         },
         {
             title:"Sub-Total",
-            value:getPercentAmt(coursesTotal,84)
+            value:subtotal.toFixed(2)
         },
         {
             title:"tax 16(%)",
-            value:getPercentAmt(coursesTotal,16),
+            value:tax.toFixed(2),
         },
         {
             title:"Total",
-            value:coursesTotal - getPercentAmt(coursesTotal,+discount)
+            value:total.toFixed(2)
         }
     ]
 

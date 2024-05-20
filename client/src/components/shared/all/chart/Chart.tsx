@@ -1,59 +1,46 @@
-import GraphColumnSubColumns from "./ChartColumnSubColumns"
+"use client"
+import { useRef, useState } from "react"
 import ChartXTitles from "./ChartXTitles"
 import ChartYTitles from "./ChartYTitles"
 
-function Chart() {
-    const yTitles = [
-        "20",
-        "40",
-        "60",
-        "80",
-        "100",
-    ]
+type ChartProps = {
+    yTitles:string[],
+    xTitles:string[],
+    total:number,
+    columns:number[]
+}
 
-    const xTitles = [
-        " 1",
-        "2"
-    ]
-
+type currentData = {
+    colPercent:number,
+    xTitle:string
+} | null
+function Chart({
+    yTitles,
+    xTitles,
+    total,
+    columns
+}:ChartProps) {
+    const infosHolder = useRef<HTMLDivElement>(null)
+    const [currentData,setCurrentData] = useState<currentData>(null)
     
-    const ChartMainColumns: ChartMainColumn[] = [
-       
-        {
-            total:400,
-            subCols:[
-                {
-                    title:"individual",
-                    value:100,
-                    color:"red"
-                },
-                {
-                    title:"individual",
-                    value:300,
-                    color:"blue"
-                },
-            ]
-        },
-        {
-            total:600,
-            subCols:[
-                {
-                    title:"individual",
-                    value:600,
-                    color:"green"
-                },
-                {
-                    title:"individual",
-                    value:400,
-                    color:"orange"
-                },
-            ]
-        },
-    ]
+    const moveCurrInfosHolder = (e:any) => {
+        const containerRect = infosHolder.current?.parentElement?.getBoundingClientRect();
+        if (containerRect) {
+            const containerOffsetLeft = containerRect.left;
+            const containerOffsetTop = containerRect.top;
+        
+            infosHolder.current?.animate({
+                left:`${e.clientX-containerOffsetLeft}px`,
+                top:`${e.clientY-containerOffsetTop}px`
+            },{duration:100})
+            infosHolder.current?.style?.setProperty('left', `${e.clientX-containerOffsetLeft}px`);
+            infosHolder.current?.style?.setProperty('top', `${e.clientY-containerOffsetTop}px`);
+        }
+    }
      
 
     return (
-        <div className='w-full flex h-full'>
+        <div onMouseMove={moveCurrInfosHolder} className='w-full chart relative flex h-full'>
 
             <ChartYTitles yTitles={yTitles.reverse()}/>
 
@@ -63,14 +50,14 @@ function Chart() {
                     style={{gridTemplateColumns:`repeat(${xTitles.length},1fr)`}}
                 >
                     {
-                        ChartMainColumns.map((mainColumn:ChartMainColumn,idx:number)=>{
+                        columns.map((col:number,idx:number)=>{
+                            const colPercent = (col / total) * 100
+                            const changeCurrData = () => setCurrentData({colPercent,xTitle:xTitles[idx]})
                             
                             return (
-                                <div key={idx} className='w-full hover:bg-light-grey duration-100 hover:bg-opacity-50 h-full'>
+                                <div onMouseEnter={changeCurrData} key={idx} className='w-full hover:bg-light-grey duration-100 hover:bg-opacity-30 h-full'>
                                     <div className='h-full relative mx-auto w-[50px] bg-dark-grey bg-opacity-80'>
-                                        {
-                                            <GraphColumnSubColumns mainColumn={mainColumn}/>
-                                        }
+                                        <span style={{height:`${colPercent}%`}} className="w-full absolute bottom-0 left-0 block bg-blue-600 bg-opacity-80"/>
                                     </div>
                                 </div>
                             )
@@ -80,6 +67,11 @@ function Chart() {
                 <ChartXTitles xTitles={xTitles}/>
             </div>
 
+            <div ref={infosHolder} className="chart_info_holder hidden absolute p-1 w-fit pointer-events-none h-[60px] bg-smokey-white border-dark-grey border border-opacity-35 translate-x-[6%] translate-y-[6%]  rounded-lg overflow-hidden flex-col min-w-[140px] aspect-square">
+                <p>{currentData?.xTitle}</p>
+                <p className="text-nowrap">percent: {currentData?.colPercent.toFixed(2)}%</p>
+            </div>
+            
         </div>
     )
 }

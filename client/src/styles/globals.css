@@ -74,3 +74,7 @@ input,textarea,select {
     text-dark-grey placeholder:text-opacity-45 focus:border-primary focus:border-opacity-100
     border-dark-grey border-opacity-40 rounded-lg h-[35px] p-3
 }
+
+.chart:hover .chart_info_holder {
+    display: flex;
+}

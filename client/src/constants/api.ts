@@ -27,6 +27,9 @@ export const scheduleRoute  = "/schadual"
 export const invoiceRoute = "/invoice"
 
 export const inquiryRoute = "/inquery"
+export const dashboardRoute = `${inquiryRoute}/dashboard`
+
+
 export const clientInquiryRoute = `${inquiryRoute}/client`
 export const horseInquiryRoute = `${inquiryRoute}/hourse`
 export const instructorInquiryRoute = `${inquiryRoute}/instructor`

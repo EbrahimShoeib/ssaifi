@@ -29,9 +29,18 @@ function AddIndividualInvoicePage() {
     const [horse,setHorse] = useState<NameAndId>(null)
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [discount,setDiscount] = useState<string>("")
-    const [courses,setCourses] = useState<NameAndId[]|[]>([])
+    const [courses,setCourses] = useState<any[]|[]>([])
     const [isClientCoursesLoading,setIsClientCoursesLoading] = useState<boolean>(Boolean(client))
 
+
+    let coursesTotal:number = courses?.
+    map(curr => +curr?.price)?.
+    reduce((acc:any,curr:any)=> acc + curr,0)
+    
+
+    if (+discount && Boolean(coursesTotal)) {
+        coursesTotal = coursesTotal * (+discount / 100)
+    }
     useEffect(()=>{
         if ( !clients.length && !horses.length)
             setIsLoading(false)
@@ -63,7 +72,7 @@ function AddIndividualInvoicePage() {
                 debit:+debit,
                 description,
                 discount:+discount,
-                totalPrice:100,
+                totalPrice:coursesTotal,
                 courses
             })
         }
@@ -120,6 +129,8 @@ function AddIndividualInvoicePage() {
                             setDiscount={setDiscount}
                             courses={courses}
                             isClientCoursesLoading={isClientCoursesLoading}
+                            coursesTotal={coursesTotal}
+                            
                         />
                         <IndInvoicePageFooter
                             isLoading={isLoading}

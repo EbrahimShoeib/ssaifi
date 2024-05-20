@@ -7,25 +7,34 @@ type Widget = {
     href:string,
     count:number,
 }
-function DashboardResourcesWidgets() {
-
+type DashboardResourcesWidgetsProps ={
+    clientsQty:number,
+    horsesQty:number,
+    instructorsQty:number,
+}
+function DashboardResourcesWidgets({
+    clientsQty,
+    horsesQty,
+    instructorsQty,
+}:DashboardResourcesWidgetsProps) {
+    
 
 
     const widgets :Widget[]= [
         {
             title:"clients",
             href:"/clients",
-            count:0
+            count:clientsQty || 0
         },
         {
             title:"horses",
             href:"/horses",
-            count:0
+            count:horsesQty || 0
         },
         {
             title:"instructors",
             href:"/instructors",
-            count:0
+            count:instructorsQty || 0
         },
     ]
 
