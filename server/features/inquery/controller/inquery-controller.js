@@ -272,12 +272,14 @@ class InqueryController {
             totalHourse,
             latestCafeteriaOrders,
             mostActiveClients,
-            totalCafeteria : totalCafeteria[0].totalPrice || 0,
-            totalCourse : totalCourse[0].totalPrice || 0,
-            totalInventory : totalInventory[0].totalPrice || 0,
-            totalMedicine : totalMedicine[0].totalPrice || 0
+            totalCafeteria : totalCafeteria.length > 0 ? totalCafeteria[0].totalPrice : 0,
+            totalCourse : totalCourse.length > 0 ? totalCourse[0].totalPrice : 0,
+            totalInventory : totalInventory.length > 0 ? totalInventory[0].totalPrice : 0,
+            totalMedicine : totalMedicine.length > 0 ? totalMedicine[0].totalPrice : 0
           },
       });
+
+      
 
       } catch (error) {
         res.status(500).json({
