@@ -14,40 +14,7 @@ type InvoiceData = {
     description:string,
     courses:any[]
 }
-// function createInvoice(
-//     {
-//         startDate, 
-//         endDate,
-//         clientName,
-//         horseName,
-//         checkoutDate
-//     }:InvoiceData
-//     // discount:string,
-//     // lessons:string
-// ) {
-//     const pdf = new jsPDF()
-//     pdf.text('Saifi Stables', 20, 20);
-//     pdf.text('123 Main Street', 20, 30);
-//     pdf.text('City, State, ZIP', 20, 40);
-//     pdf.text('Phone: (123) 456-7890', 20, 50);
 
-//     pdf.line(20, 75, 190, 75)
-//     pdf.text('Start Date: ' + startDate, 20 , 60);
-//     pdf.text('End Date' + endDate, 20, 70);
-    
-    
-//     pdf.text('Total: $50.00', 20, 110);
-//     const img = new Image();
-//     img.onload = function() {
-//         const imgWidth = 50; // Adjust image width as needed
-//         const imgHeight = (img.height * imgWidth) / img.width;
-//         pdf.addImage(img, 'PNG', pdf.internal.pageSize.getWidth() - imgWidth - 20, 20, imgWidth, imgHeight);
-//         pdf.save('receipt.pdf');
-//     };
-//     img.src = '/images/logo.png';
-// }
-
-// export default createInvoice
 
 export default function createInvoice({
     clientName,
@@ -79,8 +46,7 @@ export default function createInvoice({
     };
 
     // Stable information
-    const stableInfo = `شركة الأكاديمية الدولية للفروسية
-P.O Box 926028 - Amman, Jordan - 11190
+    const stableInfo = `P.O Box 926028 - Amman, Jordan - 11190
 Phone: (00962) 777 44 2222
 E-mail: Info@SaifiStables.com`;
 

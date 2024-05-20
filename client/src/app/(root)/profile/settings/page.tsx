@@ -4,6 +4,7 @@ import SettingsPageContent from '@/components/content/profile/settings/SettingsP
 import PageHeader from '@/components/layout/PageHeader'
 import { BASE_URL, authRoute, getAdminRoute, updateAdminRoute, userAvatarUploadRoute } from '@/constants/api'
 import { usePopUp } from '@/hooks/usePopUp'
+import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { setUser } from '@/services/authServices'
 import { httpGetServices } from '@/services/httpGetService'
 import { httpPatchService } from '@/services/httpPatchService'
@@ -22,7 +23,7 @@ function SettingsPage() {
     const [image,setImage] = useState<FormData>()
     const [isLoading,setIsLoading] = useState<boolean>(true)
     
-    
+    const successPopUp = useSuccessPopUp()
     const fetchData = async () => {
         const {data} = await httpGetServices(getAdminRoute)
         if (Boolean(data)) {
@@ -34,19 +35,15 @@ function SettingsPage() {
             setIsLoading(false)
             setUser(data)
         }
-        
     }
 
     useEffect(()=>{
         fetchData()
     },[])
 
-    const popUp = usePopUp()
-
-    const handleAdminUpdate =(e:any) => {
-        const btn = e.target as HTMLButtonElement
-        btn.disabled = true
-        
+    const handleAdminUpdate =() => {
+      
+        setIsLoading(true)
         const updateAdminData = async() => {
             const res = await httpPatchService(updateAdminRoute,JSON.stringify({
                 fullName,
@@ -57,30 +54,14 @@ function SettingsPage() {
             
             const data = res.data
             if (Boolean(data)) {
-                popUp({
-                    showPopUp:true,
-                    popUpType:"alert",
-                    popUpMessage:"you can continue",
-                    popUpTitle:"data updated successfully",
-                    popUpIcon:<IoMdCheckmarkCircleOutline />,
-                })
-                setFullName(data.fullName)
-                setEmail(data.email)
-                setMobile(data.mobile)
-                setAddress(data.address)
-                setAvatar(data.avatar)
-
-
-
+                successPopUp("data updated successfully")
                 const response = await httpPostFormDataService(userAvatarUploadRoute,image)
                 if (Boolean(response.data)) {
                     fetchData()
-                }
-                
-            }
-            
-            btn.disabled = false
+                    successPopUp("avatar updated successfully")
 
+                }
+            }
         }
         updateAdminData()
     } 

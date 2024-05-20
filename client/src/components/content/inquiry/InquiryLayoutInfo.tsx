@@ -5,9 +5,8 @@ import { FaUserCircle } from 'react-icons/fa'
 function InquiryLayoutInfo({item}:{item:InquiryLayoutItemInfos}) {
     const {avatarUrl,itemDataSubTitles,role,title} = item
     return (
-        <div className="w-full py-5 flex h-[170px] rounded-2xl bg-smokey-white">
+        <div className="w-full py-5 flex h-[200px] rounded-2xl bg-smokey-white">
                         
-            
             <div className="h-full mr-20 flex flex-col items-center w-fit ml-10">
                 <div className="w-[80px] aspect-square text-light-grey overflow-hidden rounded-full border-primary border-2">
                     {
