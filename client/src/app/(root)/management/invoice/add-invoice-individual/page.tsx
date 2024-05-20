@@ -10,6 +10,7 @@ import { packagesRoute } from '@/constants/api'
 import { useGetClients } from '@/hooks/useGetClients'
 import { useGetHorses } from '@/hooks/useGetHorses'
 import { httpGetServices } from '@/services/httpGetService'
+import createInvoice from '@/utils/createInvoice'
 import { toNameAndId } from '@/utils/toNameAndId'
 import React, { useEffect, useState } from 'react'
 
@@ -52,7 +53,20 @@ function AddIndividualInvoicePage() {
         }
     })
     const handleSubmit = () => {
-
+        if (client && horse) {
+            createInvoice({
+                startDate,
+                endDate,
+                clientName:client?.name,
+                horseName:horse?.name,
+                checkoutDate,
+                debit:+debit,
+                description,
+                discount:+discount,
+                totalPrice:100,
+                courses
+            })
+        }
     } 
 
     useEffect(()=> {
@@ -81,7 +95,7 @@ function AddIndividualInvoicePage() {
             />
             <PageContent className='p-8 flex flex-col justify-between'>
                 <Loader isLoading={isLoading}>
-                    <div className='w-full h-full flex flex-col'>
+                    <div id='invoice' className='w-full h-full flex flex-col'>
                         <IndInvoicePageInputs
                             client={client}
                             setClient={setClient}

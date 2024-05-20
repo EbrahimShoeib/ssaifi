@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 type IndInvoicePageFooterProps = {
     submitButtonFunc:()=>void,
@@ -6,6 +6,8 @@ type IndInvoicePageFooterProps = {
 }
 
 function IndInvoicePageFooter({submitButtonFunc,isLoading}:IndInvoicePageFooterProps) {
+
+
 
     return (
         <>
