@@ -18,7 +18,7 @@ function DashboardCafeteriaWidget({cafeterias}:DashboardCafeteriaWidgetProps) {
         </span>)
     })) : []
     
-    const links =cafeterias?.length ? cafeterias?.map(item =>`/sales/cafeteria/${item._id}`) : []
+    const links = cafeterias?.length ? cafeterias?.map(item =>`/sales/cafeteria/consumed-item/${item._id}/edit`) : []
     
     return (
         <div className='h-full flex flex-col overflow-hidden w-1/2 bg-white shadow-lg rounded-xl'>
