@@ -231,7 +231,7 @@ class InqueryController {
               {
                   $group: {
                       _id: null,
-                      totalPrice: { $sum: "$price" }
+                      totalPrice: { $sum: "$consumedPrice" }
                   }
               }
           ]),
@@ -247,7 +247,7 @@ class InqueryController {
             {
                 $group: {
                     _id: null,
-                    totalPrice: { $sum: "$price" }
+                    totalPrice: { $sum: "$invConsumedPrice" }
                 }
             }
           ]),
