@@ -7,6 +7,7 @@ const {packageController}=require("../controller/package-coltroller")
 
 router.get("/",packageController.getAllpackages)
 router.get("/:id",packageController.getPackageById)
+router.get("/course/:id",packageController.getCoursesById)
 
 router.post("/",packageController.createNawPackage)
 router.patch("/:id",packageController.updatePackage)

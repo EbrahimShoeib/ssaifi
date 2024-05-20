@@ -95,6 +95,7 @@ function Table({
                         {
                             isCrud ? (<th className="w-[100px] px-5"></th>) :<></>
                         }
+                   
                     </tr>
                 </thead>
 
@@ -131,6 +132,8 @@ function Table({
                                                         </td>
                                                     ): <></>
                                                 }
+
+                                                
                                             </tr>
                                         )
                                     })

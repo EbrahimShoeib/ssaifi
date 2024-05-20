@@ -1,6 +1,6 @@
 
 type LoaderProps = {
-    isLoading:boolean
+    isLoading:boolean,
 } & Children
 function Loader({children,isLoading}: LoaderProps) {
 

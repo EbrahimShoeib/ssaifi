@@ -6,8 +6,10 @@ import IndInvoicePageInputs from '@/components/content/managment/invoice/individ
 import Loader from '@/components/layout/Loader'
 import PageContent from '@/components/layout/PageContent'
 import PageHeader from '@/components/layout/PageHeader'
+import { packagesRoute } from '@/constants/api'
 import { useGetClients } from '@/hooks/useGetClients'
 import { useGetHorses } from '@/hooks/useGetHorses'
+import { httpGetServices } from '@/services/httpGetService'
 import { toNameAndId } from '@/utils/toNameAndId'
 import React, { useEffect, useState } from 'react'
 
@@ -26,11 +28,11 @@ function AddIndividualInvoicePage() {
     const [horse,setHorse] = useState<NameAndId>(null)
     const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [discount,setDiscount] = useState<string>("")
-  
-
+    const [courses,setCourses] = useState<NameAndId[]|[]>([])
+    const [isClientCoursesLoading,setIsClientCoursesLoading] = useState<boolean>(Boolean(client))
 
     useEffect(()=>{
-        if ( !isClientsLoading && !isHorsesLoading)
+        if ( !clients.length && !horses.length)
             setIsLoading(false)
     },[])
     
@@ -52,6 +54,19 @@ function AddIndividualInvoicePage() {
     const handleSubmit = () => {
 
     } 
+
+    useEffect(()=> {
+        const fetchClientCourses = async () => {
+            Boolean(client) && setIsClientCoursesLoading(true)
+            const res = await httpGetServices(`${packagesRoute}/course/${client?.id}`)
+            const data = res?.Courses?.data  
+            if (Boolean(data)) {
+                setCourses(data)
+                setIsClientCoursesLoading(false)
+            }
+        }
+        fetchClientCourses()
+    },[client])
 
     return (
         <>
@@ -89,7 +104,8 @@ function AddIndividualInvoicePage() {
                             setDescription={setDescription}
                             discount={discount}
                             setDiscount={setDiscount}
-                            courses={[]}
+                            courses={courses}
+                            isClientCoursesLoading={isClientCoursesLoading}
                         />
                         <IndInvoicePageFooter
                             isLoading={isLoading}

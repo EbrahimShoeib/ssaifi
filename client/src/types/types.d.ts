@@ -79,13 +79,16 @@ type QueryReqResult = {
 
 type ChartSubColumn = {
     title:string,
-    value:number
+    value:number,
+    color:string,
+    
 }
 
 
 type ChartMainColumn = {
     total:number,
-    subCols:ChartSubColumn[]
+    subCols:ChartSubColumn[],
+    color?:String
 }
 
 type InquiryLayoutItemInfos = {

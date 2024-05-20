@@ -94,7 +94,7 @@ class caveteriaController {
     } else {
         Caveteria.findOne({ menuItemName: req.body.menuItemName })
         .then((docs) => {
-          if (!docs) {
+          if (docs) {
             res.status(400).json({
               status_code: ApiErrorCode.validation,
               message: "menuItemName is already found",

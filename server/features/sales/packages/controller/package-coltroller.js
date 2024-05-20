@@ -1,4 +1,5 @@
 const ApiErrorCode = require("../../../../core/errors/apiError");
+const {Daily} = require("../../../management/daily/model/dailyModel")
 const {
   Package,
   createNewPackage,
@@ -238,6 +239,36 @@ class packageController {
           },
         });
       });
+  }
+  static async getCoursesById (req,res) {
+
+    await Daily.find({clientId:req.params.id})
+    .then((docs)=>{
+      console.log({clientId:req.params.id})
+      if(docs){
+        res.status(200).json({
+          status_code:0,
+          message:"success to get client Course",
+          Courses :{data:docs},
+        })
+      }else{
+        res.status(404).json({
+          status_code:ApiErrorCode.notFound,
+          message:"Client Id Is Not Found",
+          data:null,
+        })
+      }
+    })
+    .catch((error)=>{
+      res.status(500).json({
+        status_code:ApiErrorCode.internalError,
+        message:"Internal Server Error , Please try again",
+        data:null,
+        error:{
+          error:error.message
+        }
+    })
+    })
   }
 }
 
