@@ -48,8 +48,8 @@ const dailySchema = new mongoose.Schema({
     required: true,
        },
   price: {
-    type:String ,
-    require:true,
+    type: Number,
+    require: true,
   },
   arena: {
     type:String,
