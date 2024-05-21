@@ -39,7 +39,7 @@ const ClientSchema = mongoose.Schema({
     },
     Membership:{
         type:mongoose.Types.ObjectId,
-        ref:"Membership",
+        ref:"InvMembership",
         required:false
     },
     courses : {
@@ -70,6 +70,8 @@ function clientValidation(obj){
         membershipStatus : joi.string().valid('active', 'inactive').required(),
         membershipType : joi.string().valid('family', 'individual').required(),
         age: joi.number().required().min(1),
+        Membership: joi.string(),
+
     })
     return schema.validate(obj);
 }
@@ -91,6 +93,7 @@ function updateValidation(obj){
         membershipType : joi.string().valid('family', 'individual').required(),
         age: joi.number().min(1).max(100),
         gender : joi.string().valid('male', 'female').required(),
+        Membership: joi.string(),
 
     })
     return schema.validate(obj);
