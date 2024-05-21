@@ -5,12 +5,12 @@ const ClientSchema = mongoose.Schema({
     username: {
         type : String,
         required:true,
-        
+
     },
     email: {
         type : String,
         required:true,
-        
+
     },
     phone:{
         type : String,
@@ -36,6 +36,11 @@ const ClientSchema = mongoose.Schema({
         enum: ['family', 'individual'], // Define your enum values here
         required: false,
         default : "individual"
+    },
+    Membership:{
+        type:mongoose.Types.ObjectId,
+        ref:"Membership",
+        required:false
     },
     courses : {
         type : [String],

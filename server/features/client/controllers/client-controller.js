@@ -74,6 +74,7 @@ class ClientController {
     static async getClientById (req, res) {
         try {
           Client.findById(req.params.id)
+          .populate("membershipType")
             .then((docs) => {
               if (docs) {
                 const { __v, ...other } = docs._doc;
