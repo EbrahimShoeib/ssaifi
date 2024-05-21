@@ -31,12 +31,11 @@ const ClientSchema = mongoose.Schema({
         required: false,
         default : "inactive"
     },
-
     membershipType : {
         type: String,
         enum: ['family', 'individual'], // Define your enum values here
         required: false,
-        default : "inactive"
+        default : "individual"
     },
     courses : {
         type : [String],
