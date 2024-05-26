@@ -91,7 +91,8 @@ class HourseController {
         .select("-__v")
         .skip(skip) // Skip documents
         .limit(pageSize)
-        .then(async (docs) => {
+        .sort( 
+          { votes: 1, _id: -1 }).limit(pageSize)         .then(async (docs) => {
           const totalRecords = await Hourse.countDocuments();
 
           const maxPages = Math.ceil(totalRecords / pageSize);
