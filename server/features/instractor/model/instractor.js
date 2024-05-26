@@ -36,7 +36,7 @@ const instractor = mongoose.model("instractor",instractorSchema)
 function createInstractorValidation(obj){
     const schema = joi.object({
         instractorName : joi.string().required(),
-        email : joi.string().required().min(0).max(100),
+        email : joi.string().required(),
         phoneNumber : joi.string().required().min(1).max(100),
         age: joi.number().required().min(1).max(20),
         gender : joi.string().valid('male', 'female').required(),
@@ -47,7 +47,7 @@ function createInstractorValidation(obj){
 function updateInstractorValidation(obj){
     const schema = joi.object({
         instractorName : joi.string(),
-        email : joi.string().min(0).max(100),
+        email : joi.string(),
         phoneNumber : joi.string().min(1).max(100),
         age: joi.number().min(1).max(20),
         gender : joi.string().valid('male', 'female'),
