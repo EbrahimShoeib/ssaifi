@@ -138,7 +138,7 @@ class ClientController {
         })
           .select("-__v")
           .skip(skip) // Skip documents
-          .limit(pageSize)
+          .limit(-pageSize).reverse()
           .then(async (docs) => {
             const totalRecords = await Client.countDocuments();
 
