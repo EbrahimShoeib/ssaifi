@@ -138,11 +138,11 @@ class ClientController {
         })
           .select("-__v")
           .skip(skip) // Skip documents
-          .limit(-pageSize).reverse()
+          .limit(pageSize)
           .then(async (docs) => {
             const totalRecords = await Client.countDocuments();
 
-            const maxPages = Math.ceil(totalRecords / -pageSize);
+            const maxPages = Math.ceil(totalRecords / pageSize);
 
             res.status(200).json({
               status_code: 1,
