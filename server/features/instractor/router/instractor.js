@@ -25,7 +25,6 @@ router
     })
       .select("-__v")
       .skip(skip) // Skip documents
-      .limit(pageSize)
       .sort( 
         { votes: 1, _id: -1 }).limit(pageSize)       .then(async (docs) => {
         const totalRecords = await instractor.countDocuments();
