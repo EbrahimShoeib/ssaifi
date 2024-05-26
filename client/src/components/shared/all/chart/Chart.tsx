@@ -42,7 +42,7 @@ function Chart({
     return (
         <div onMouseMove={moveCurrInfosHolder} className='w-full chart relative flex h-full'>
 
-            <ChartYTitles yTitles={yTitles.reverse()}/>
+            <ChartYTitles yTitles={yTitles}/>
 
             <div className='flex-1 flex pt-[10px] flex-col'>
                 <div 
