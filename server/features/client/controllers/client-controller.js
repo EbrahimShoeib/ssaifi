@@ -33,7 +33,7 @@ class ClientController {
           age: req.body.age,
           membershipStatus: req.body.membershipStatus,
           membershipType: req.body.membershipType,
-          Membership: req.body.Membership,
+          InvMembership: req.body.InvMembership,
         })
           .save()
           .then((docs) => {
@@ -74,7 +74,7 @@ class ClientController {
   static async getClientById(req, res) {
     try {
       Client.findById(req.params.id)
-        .populate("membershipType")
+        .populate("InvMembership")
         .then((docs) => {
           if (docs) {
             const { __v, ...other } = docs._doc;
@@ -425,4 +425,4 @@ class ClientController {
   }
 }
 
-module.exports = ClientController;
+module.exports = ClientController ;

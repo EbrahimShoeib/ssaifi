@@ -36,6 +36,7 @@ const invmembershipRouter = require("./features/sales/InvMembership/router/invMe
 const familymembershipRouter = require("./features/sales/familyMembership/router/familyMembership")
 const medicineRouter = require("./features/medicine/router/medicine-router")
 const consumedMedicineRouter = require("./features/consumed-medicine/router/consumed-medicine-router")
+// const run = require("./test/run")
 
 //ManagementPath
 const dailyRouter = require("./features/management/daily/router/dailyRoute")
@@ -98,6 +99,7 @@ app.use("/api/daily",verifyTokenAndAdmin,dailyRouter)
 app.use("/api/schadual",verifyTokenAndAdmin,schadualsRouter)
 app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
 app.use("/api/inquery",verifyTokenAndAdmin,inqueryRouter)
+// app.use("/api/client",run)
 
 app.use("/api/rashad", (req,res) => {
     res.status(error.status || 500).json({

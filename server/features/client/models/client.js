@@ -1,7 +1,7 @@
 const mongoose=require("mongoose")
 const joi = require("joi")
 
-const ClientSchema = mongoose.Schema({
+const ClientSchema =new mongoose.Schema({
     username: {
         type : String,
         required:true,
@@ -37,9 +37,9 @@ const ClientSchema = mongoose.Schema({
         required: false,
         default : "individual"
     },
-    Membership:{
+    InvMembership:{
         type:mongoose.Types.ObjectId,
-        ref:"InvMembership",
+        ref:"Membership",
         required:false
     },
     courses : {
@@ -70,8 +70,7 @@ function clientValidation(obj){
         membershipStatus : joi.string().valid('active', 'inactive').required(),
         membershipType : joi.string().valid('family', 'individual').required(),
         age: joi.number().required().min(1),
-        Membership: joi.string(),
-
+        InvMembership: joi.string(),
     })
     return schema.validate(obj);
 }
@@ -93,7 +92,7 @@ function updateValidation(obj){
         membershipType : joi.string().valid('family', 'individual').required(),
         age: joi.number().min(1).max(100),
         gender : joi.string().valid('male', 'female').required(),
-        Membership: joi.string(),
+        InvMembership: joi.string(),
 
     })
     return schema.validate(obj);
