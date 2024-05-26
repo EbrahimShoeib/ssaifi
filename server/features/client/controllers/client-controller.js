@@ -121,38 +121,35 @@ class ClientController {
   static async getAllClients(req, res) {
     try {
       {
-        let { page, size, sort } = req.query; 
-  
-        // If the page is not applied in query. 
-        if (!page) { 
-  
-            // Make the Default value one. 
-            page = 1; 
-        } 
-  
-        if (!size) { 
-            size = 10; 
-        } 
-  
-        //  We have to make it integer because 
-        // query parameter passed is string 
-        const limit = parseInt(size); 
-  
-        // We pass 1 for sorting data in  
-        // ascending order using ids 
-         Client.find().sort( 
-            { votes: 1, _id: 1 }).limit(limit) 
-          .then(async (docs) => {
-            // const totalRecords = await Client.countDocuments();
+        // Pagination parameters
+        const pageSize = 10; // Number of documents per page
 
-            // const maxPages = Math.ceil(totalRecords / -pageSize);
+        // Calculate the number of documents to skip
+        const skip = (req.query.page - 1) * pageSize;
+
+        const regexQuery = new RegExp(req.query.query, "i"); // Case-insensitive regex query
+
+        Client.find({
+          $or: [
+            { username: { $regex: regexQuery } },
+            { email: { $regex: regexQuery } },
+            { phone: { $regex: regexQuery } },
+          ],
+        })
+          .select("-__v")
+          .skip(skip) // Skip documents
+          .limit(-pageSize).reverse()
+          .then(async (docs) => {
+            const totalRecords = await Client.countDocuments();
+
+            const maxPages = Math.ceil(totalRecords / -pageSize);
 
             res.status(200).json({
               status_code: 1,
               message: "Got the clients successfuly",
               data: {
-                current_page: page,
-                max_pages: size,
+                current_page: parseInt(req.query.page) || 1,
+                max_pages: maxPages,
                 client: docs,
               },
             });
