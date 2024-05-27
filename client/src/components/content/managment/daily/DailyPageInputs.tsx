@@ -108,32 +108,36 @@ function DailyPageInputs({
             options:toNameAndId(clientsRes?.data?.client,'username','_id'),
             searchUrl:clientsRoute,
             setResponse:setClientsRes,
-            label:'search client',
-            setListValue:setClient
+            label:'select client',
+            setListValue:setClient,
+            placeholder:"select client"
         },
         {
             listValue:horse,
             options:toNameAndId(horsesRes?.data?.hourse,'hourseName','_id'),
             searchUrl:horsesRoute,
             setResponse:setHorsesRes,
-            label:'search horse',
-            setListValue:setHorse
+            label:'select horse',
+            setListValue:setHorse,
+            placeholder:"select horse"
         },
         {
             listValue:instructor,
             options:toNameAndId(instructorsRes?.data?.instractor,'instractorName','_id'),
             searchUrl:instructorsRoute,
             setResponse:setInstructorsRes,
-            label:'search instructor',
-            setListValue:setInstructor
+            label:'select instructor',
+            setListValue:setInstructor,
+            placeholder:"select instructor"
         },
         {
             listValue:course,
             options:toNameAndId(packagesRes?.Packages?.data,'name','_id'),
             searchUrl:packagesRoute,
             setResponse:setPackagesRes,
-            label:'search course',
-            setListValue:setCourse
+            label:'select course',
+            setListValue:setCourse,
+            placeholder:"select course"
         },
     ]
 

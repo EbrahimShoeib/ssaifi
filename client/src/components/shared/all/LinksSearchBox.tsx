@@ -43,7 +43,7 @@ function LinksSearchBox({
         <div className='flex gap-5 w-full justify-between'>
             {
                 label ? (
-                    <div className='w-[150px] truncate text-md font-semibold flex justify-between items-center'>
+                    <div className='w-[180px] truncate text-md font-semibold flex justify-between items-center'>
                         <span>{label}</span>
                         <span>:</span>
                     </div>
@@ -72,9 +72,11 @@ function LinksSearchBox({
                                                 options.map((option,idx:number) => (
                                                     <li
                                                         key={idx}
-                                                        className="w-full flex items-center p-2 h-[30px] cursor-pointer hover:bg-zinc-300"
                                                     >
-                                                        <Link href={option.href}>
+                                                        <Link 
+                                                            className="w-full flex items-center p-2 h-[30px] cursor-pointer hover:bg-zinc-300"
+                                                            href={option.href}
+                                                        >
                                                             <p className="truncate">{option?.name}</p>
                                                         </Link>
                                                     </li>

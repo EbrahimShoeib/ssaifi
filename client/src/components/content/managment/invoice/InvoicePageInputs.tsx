@@ -103,7 +103,8 @@ function InvoicePageInputs({
             setListValue:setClient,
             searchUrl:clientsRoute,
             setResponse:setClientsRes,
-            label:'search client'
+            label:'select client',
+            placeholder:"select client"
         }
     ]
 

@@ -52,7 +52,8 @@ function MembershipIndividualInputs({
                     setListValue={setClient}
                     searchUrl={clientsRoute}
                     setResponse={setClientsRes}
-                    label='search client'
+                    label='select client'
+                    placeholder='select client'
                     options={toNameAndId(clientsRes?.data?.client,'username','_id')}
                 />
                 <ResourcesDropList

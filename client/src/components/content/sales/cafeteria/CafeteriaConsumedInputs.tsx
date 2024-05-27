@@ -89,11 +89,12 @@ function CafeteriaConsumedInputs({
                     label='payment'
                 />
                 <SearchBox
-                    label={'search client'}
+                    label={'select client'}
                     options={toNameAndId(clientsRes?.data?.client,'username',"_id")}
                     searchUrl={clientsRoute}
                     setResponse={setClientsRes}
                     listValue={client}
+                    placeholder='select client'
                     setListValue={setClient}
                 />
             </div>

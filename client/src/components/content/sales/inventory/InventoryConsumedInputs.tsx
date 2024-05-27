@@ -49,7 +49,8 @@ function InventoryConsumedInputs({
                     options={toNameAndId(horsesRes?.data?.hourse,'hourseName','_id')}
                     searchUrl={horsesRoute}
                     setResponse={setHorsesRes}
-                    label='search horse'
+                    label='select horse'
+                    placeholder='select horse'
                 />
                 <ResourcesInput
                     value={itemName} 

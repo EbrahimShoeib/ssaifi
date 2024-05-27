@@ -91,7 +91,8 @@ function MedicalConsumedInputs({
                     setListValue={setHorse}
                     setResponse={setHorsesRes}
                     options={toNameAndId(horsesRes?.data?.hourse,'hourseName','_id')}
-                    label='search horse'
+                    label='select horse'
+                    placeholder='select horse'
                 />
             </div>
             <div className='w-full flex justify-center'>

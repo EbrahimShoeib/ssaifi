@@ -90,20 +90,22 @@ function HorsePageInputs({
                     label='gender'
                 />
                 <SearchBox
-                    label={'search for groom'}
+                    label={'select groom'}
                     options={toNameAndId(horsesRes?.data?.hourse,'hourseName',"_id")}
                     searchUrl={horsesRoute}
                     setResponse={setHorsesRes}
                     listValue={groom}
                     setListValue={setGroom}
+                    placeholder='select groom'
                 />
                 <SearchBox
-                    label={'search for client'}
+                    label={'select client'}
                     options={toNameAndId(clientsRes?.data?.client,'username',"_id")}
                     searchUrl={clientsRoute}
                     setResponse={setClientsRes}
                     listValue={client}
                     setListValue={setClient}
+                    placeholder='select client'
                 />
                 <ResourcesImageInput
                     label='photo' 
