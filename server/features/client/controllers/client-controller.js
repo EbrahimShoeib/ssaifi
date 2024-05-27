@@ -139,8 +139,6 @@ class ClientController {
           .select("-__v")
           .skip(skip) // Skip documents
           .limit(pageSize)
-          .sort( 
-            { votes: 1, _id: -1 }).limit(pageSize) 
           .then(async (docs) => {
             const totalRecords = await Client.countDocuments();
 
@@ -416,6 +414,50 @@ class ClientController {
       res.status(500).json({
         status_code: ApiErrorCode.internalError,
         message: error.message,
+        data: null,
+        error: {
+          message: error.message,
+        },
+      });
+    }
+  }
+  static async search(req, res) {
+    try { 
+      {
+      const regexQuery = new RegExp(req.query.query, "i "); // Case-insensitive regex query
+
+      Client.find({
+        $or: [
+          { username: { $regex: regexQuery } },
+          { email: { $regex: regexQuery } },
+          { phone: { $regex: regexQuery } },
+        ],
+      })
+        .then(async (docs) => {
+          res.status(200).json({
+            status_code: 1,
+            message: "Got the clients successfuly",
+            data: {
+              client: docs,
+            },
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status_code: ApiErrorCode.internalError,
+            message:
+              "There was an error when getting the client, please try again",
+            data: null,
+            error: {
+              message: error.message,
+            },
+          });
+        });
+    }
+  } catch (error) {
+      res.status(500).json({
+        status_code: ApiErrorCode.internalError,
+        message: "There was a server internal error, please try again",
         data: null,
         error: {
           message: error.message,

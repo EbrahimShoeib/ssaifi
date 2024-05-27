@@ -37,16 +37,18 @@ function MenuItemEditPage() {
     useEffect(() => {
         const fetchMenuItem = async () => {
             const {data} = await httpGetServices(menuItemIdRoute)
-            
+            console.log(data);
+
             if (Boolean(data)) {
                 setItemName(data.menuItemName)
                 setType(getCafeteriaItemType(data.type))
                 
-                setDate(getIsoDate(data.date))
+                data.date && setDate(getIsoDate(data.date))
                 setPrice(data.price)
                 setQuantity(data.quantity)
                 setIsLoading(false)
             }
+            
         }
         fetchMenuItem()
     },[])
@@ -78,7 +80,7 @@ function MenuItemEditPage() {
                 title={(
                     <span>
                         stables cafeteria / 
-                        <span className="text-primary"> edit consumed item</span> 
+                        <span className="text-primary"> edit menu item</span> 
                     </span>
                 )}
                 showBackButton={true}

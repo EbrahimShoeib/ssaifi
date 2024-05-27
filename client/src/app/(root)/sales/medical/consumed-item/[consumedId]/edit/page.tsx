@@ -25,7 +25,6 @@ function EditConsumedMedicalItem() {
     const [dosage,setDosage] = useState<string>('')
     const [description,setDescription] = useState<string>('')
     
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
     
@@ -56,13 +55,7 @@ function EditConsumedMedicalItem() {
         },
         onError: () => failedPopUp()
     })
-    useGetHorses({
-        onSuccess:async (res) => {
-            let horses = res?.data?.hourse
-            horses = toNameAndId(horses,"hourseName","_id")
-            setHorses(horses)
-        }
-    })
+  
     useEffect(()=>{
         const fetchConsumedMedicalItemData = async () => {
             const res = await httpGetServices(consumedMedicalItemRoute)
@@ -108,7 +101,6 @@ function EditConsumedMedicalItem() {
                 description={description}
                 horse={horse}
                 setHorse={setHorse}
-                horses={horses}
                 setDescription={setDescription}
                 dosage={dosage}
                 setDosage={setDosage}

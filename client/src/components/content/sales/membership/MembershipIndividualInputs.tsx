@@ -1,14 +1,18 @@
+'use client'
+
 import PageContent from '@/components/layout/PageContent'
+import SearchBox from '@/components/shared/all/SearchBox'
 import ResourcesDropList from '@/components/shared/resources/ResourcesDropList'
 import ResourcesInput from '@/components/shared/resources/ResourcesInput'
+import { clientsRoute } from '@/constants/api'
 import { memberShipStatuses } from '@/constants/memberShipStatuses'
 import { memberShipTypes } from '@/constants/memberShipTypes'
-import React from 'react'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
 
 type MembershipIndividualInputsProps = {
     client:NameAndId,
     setClient:(newState:NameAndId)=> void,
-    clients:NameAndId[]|[],
     startDate:string,
     setStartDate:(newState:string)=> void,
     endDate:string,
@@ -25,7 +29,6 @@ type MembershipIndividualInputsProps = {
 function MembershipIndividualInputs({
     client,
     setClient,
-    clients,
     startDate,
     setStartDate,
     endDate,
@@ -38,16 +41,20 @@ function MembershipIndividualInputs({
     isLoading,
     submitButtonLabel
 }:MembershipIndividualInputsProps) {
+    
+    const [clientsRes, setClientsRes] = useState<any>()
     return (
         <PageContent>
             <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
 
-                <ResourcesDropList
+                <SearchBox
                     listValue={client} 
                     setListValue={setClient}
-                    placeholder="Enter client Name"
-                    label='client name'
-                    options={clients}
+                    searchUrl={clientsRoute}
+                    setResponse={setClientsRes}
+                    label='select client'
+                    placeholder='select client'
+                    options={toNameAndId(clientsRes?.data?.client,'username','_id')}
                 />
                 <ResourcesDropList
                     listValue={status} 

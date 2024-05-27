@@ -89,6 +89,10 @@ router.patch(
 * @method Get
 * @access private
 */
+
+
+router.get("/search",ClientController.search)
+
 router.post(
   "/upload-image/:id",
   upload.single('image'),

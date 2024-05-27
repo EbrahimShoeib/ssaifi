@@ -13,7 +13,6 @@ function HorsesPage() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
 
-    const [listValue,setListValue] = useState<NameAndId>(null)
 
     const {response,isSuccess,refetch}:any = useGetHorses({
         pagination:`?page=${pageNumber}`,
@@ -22,7 +21,6 @@ function HorsesPage() {
 
     const isDataHere = Boolean(response?.data?.hourse) && isSuccess
 
-    let listOptions = isDataHere ? toNameAndId(response?.data?.hourse,"hourseName","_id"): []
     
     return (
         <Suspense>
@@ -30,12 +28,7 @@ function HorsesPage() {
                 <PageHeader
                     title="stables horses"
                     addNewButtonLabel='add new horse'
-                    dropDown={{
-                        listValue,
-                        setListValue,
-                        placeholder:"select horse",
-                        options:listOptions
-                    }}
+                    
                 />
 
                 <HorsesPageContent 

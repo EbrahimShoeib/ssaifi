@@ -22,9 +22,8 @@ function AddInvoicePage() {
     const [totalAmount,setTotalAmount] = useState<string>("")
     const [date,setDate] = useState<string>("")
     const [membershipStatus,setMembershipStatus] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
 
-    const [isLoading,setIsLoading] = useState<boolean>(true)
+    const [isLoading,setIsLoading] = useState<boolean>(false)
 
     const body = {
         invoiceType,
@@ -35,20 +34,11 @@ function AddInvoicePage() {
         clientId:client?.id
     }
 
-    const {isLoading:isClientsLoading} = useGetClients({
-        onSuccess:(res) =>{
-            const clients = toNameAndId(res?.data?.client,"username","_id")
-            setClients(clients)
-        }
-    })
+
     const successPopUp = useSuccessPopUp()
     const failedPopUp = useFailedPopUp()
     const router = useRouter()
 
-    useEffect(()=>{
-        if (!isClientsLoading) 
-            setIsLoading(false)
-    },[isClientsLoading])
 
     const {mutate} = useMutation({
         mutationFn:async () => httpPostService(invoiceRoute,JSON.stringify(body)),
@@ -92,7 +82,6 @@ function AddInvoicePage() {
                 setDate={setDate}
                 membershipStatus={membershipStatus}
                 setMembershipStatus={setMembershipStatus}
-                clients={clients}
                 invoiceId={invoiceId}
                 onSubmit={mutate}
                 setInvoiceId={setInvoiceId}

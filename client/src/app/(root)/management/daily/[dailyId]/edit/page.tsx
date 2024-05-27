@@ -31,9 +31,6 @@ function EditDailyClassPage() {
     const [horse,setHorse] = useState<NameAndId>(null)
     const [membership,setMembership] = useState<NameAndId>(null)
     const [payment,setPayment] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
-    const [instructors,setInstructors] = useState<NameAndId[]|[]>([])
     const [course,setCourse] = useState<NameAndId>(null)
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
@@ -59,26 +56,6 @@ function EditDailyClassPage() {
     const successPopUp = useSuccessPopUp()
     const router = useRouter()
 
-    useGetInstructors({
-        onSuccess: async (res) => {
-            const instructors = toNameAndId(res?.data?.instractor,"instractorName","_id")
-            setInstructors(instructors)            
-        }
-    })
-
-    useGetClients({
-        onSuccess: async (res) => {
-            const clients = toNameAndId(res?.data?.client,"username","_id")
-            setClients(clients)            
-        }
-    })
-
-    useGetHorses({
-        onSuccess: async (res) => {
-            const horses = toNameAndId(res?.data?.hourse,"hourseName","_id")
-            setHorses(horses)            
-        }
-    })
     
     const {mutate} = useMutation({
         mutationFn:async () => httpPatchService(dailyIdRoute,JSON.stringify(body)),
@@ -171,9 +148,6 @@ function EditDailyClassPage() {
                 setMembership={setMembership}
                 payment={payment}
                 setPayment={setPayment}
-                clients={clients}
-                horses={horses}
-                instructors={instructors}
                 horse={horse}
                 setHorse={setHorse}
                 onSubmit={mutate}
