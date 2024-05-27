@@ -81,8 +81,6 @@ function createNewSchadual(obj) {
     arena:joi.string().required().min(2).max(20),
     membership:joi.string().valid("-","membership").required(),
     confitmation:joi.string().required().min(2).max(20),
-
-
   });
   return schema.validate(obj);
 }
