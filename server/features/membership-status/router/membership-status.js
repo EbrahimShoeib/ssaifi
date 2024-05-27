@@ -63,8 +63,10 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
     MembershipStatus
-      .find()
-      .select("-__v")
+    .select("-__v")
+    .skip(skip) // Skip documents
+    .sort( 
+      { votes: 1, _id: -1 }).limit(pageSize) 
       .then((docs) => {
         if (docs) {
           res.status(200).json({
