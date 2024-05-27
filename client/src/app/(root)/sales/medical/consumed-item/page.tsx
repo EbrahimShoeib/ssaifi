@@ -6,11 +6,11 @@ import NavigationTabs from '@/components/shared/all/NavigationTabs'
 import PageContent from '@/components/layout/PageContent'
 import PaginationButtons from '@/components/layout/PaginationButtons'
 import Table from '@/components/layout/Table'
-import { consumedMedicalRoute } from '@/constants/api'
+import { consumedMedicalRoute, medicineMedicalRoute } from '@/constants/api'
 import { httpGetServices } from '@/services/httpGetService'
 import { priceFormatter } from '@/utils/priceFormatter'
 import { useSearchParams } from 'next/navigation'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useQuery } from 'react-query'
 
 function ConsumedMedicalItemsPage() {
@@ -24,6 +24,8 @@ function ConsumedMedicalItemsPage() {
         
     const isDataHere = Boolean(response?.data?.consumed_medicine) && isSuccess
     
+    const [consumedMedicalRes,setConsumedMedicalRes] = useState<any>()
+
     const tableHeadCells = [
         "horse name",
         "item name",
@@ -62,6 +64,16 @@ function ConsumedMedicalItemsPage() {
             <PageHeader
                 title={"stables medicine"}
                 addNewButtonLabel='add new item'
+                linksSearchBox={{
+                    searchUrl:consumedMedicalRoute,
+                    options:consumedMedicalRes?.data?.consumed_medicine.map((item:any) => ({
+                        name:item?.medicineName,
+                        href:`/sales/medical/consumed-item/${item?._id}/edit`
+                    })),
+                    setResponse:setConsumedMedicalRes,
+                    placeholder:"search medical item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

@@ -10,7 +10,7 @@ import { individualMembershipRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
 import { getReadableDate } from "@/utils/getReadableDate"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { useQuery } from "react-query"
 
 function IndividualMembershipPage() {
@@ -24,6 +24,7 @@ function IndividualMembershipPage() {
         
     const isDataHere = Boolean(response?.InvMembership?.data) && isSuccess
 
+    const [individualMembershipRes,setIndividualMembershipRes] = useState<any>()
 
     const tableHeadCells = [
         "client name",
@@ -68,6 +69,16 @@ function IndividualMembershipPage() {
             <PageHeader
                 title={"stables membership"}
                 addNewButtonLabel="add individual membership"
+                linksSearchBox={{
+                    searchUrl:individualMembershipRoute,
+                    options:individualMembershipRes?.InvMembership?.data.map((item:any) => ({
+                        name:item?.clientId?.username,
+                        href:`/sales/membership/individual/${item?._id}/edit`
+                    })),
+                    setResponse:setIndividualMembershipRes,
+                    placeholder:"search membership item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

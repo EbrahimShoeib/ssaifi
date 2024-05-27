@@ -37,6 +37,8 @@ function SearchBox({
     useEffect(()=>{
         const fetchClients = async () => {
             const res = await httpGetServices(`${searchUrl}?page=1&query=${debounceSearchInput}`)
+            //const res = await httpGetServices(`${searchUrl}?page=1&query=${debounceSearchInput}`)
+
             if (Boolean(res)) {
                 setResponse(res)
                 setIsLoading(false)

@@ -10,7 +10,7 @@ import { inventoryConsumedItemsRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
 import { priceFormatter } from "@/utils/priceFormatter"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { useQuery } from "react-query"
 
 function ConsumedItemsInventoryPage() {
@@ -24,6 +24,7 @@ function ConsumedItemsInventoryPage() {
         
     const isDataHere = Boolean(response?.invConsumeItems?.data) && isSuccess
 
+    const [inventoryConsumedRes,setInventoryConsumedRes] = useState<any>()
 
     const tableHeadCells = [
         "horse name",
@@ -65,6 +66,16 @@ function ConsumedItemsInventoryPage() {
             <PageHeader
                 title={"stables inventory"}
                 addNewButtonLabel="add consumed item"
+                linksSearchBox={{
+                    searchUrl:inventoryConsumedItemsRoute,
+                    options:inventoryConsumedRes?.inventoryItems?.data.map((item:any) => ({
+                        name:item?.itemName,
+                        href:`/sales/inventory/consumed-item/${item?._id}/edit`
+                    })),
+                    setResponse:setInventoryConsumedRes,
+                    placeholder:"search inventory item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>
