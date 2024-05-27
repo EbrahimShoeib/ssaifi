@@ -422,6 +422,51 @@ class ClientController {
       });
     }
   }
+
+  static async searchClients(req, res) {
+    try {
+      
+        
+
+        Client.find()
+          
+          .then(async (docs) => {
+            const totalRecords = await Client.countDocuments();
+
+            const maxPages = Math.ceil(totalRecords / pageSize);
+
+            res.status(200).json({
+              status_code: 1,
+              message: "Got the clients successfuly",
+              data: {
+                
+                client: docs,
+              },
+            });
+          })
+          .catch((error) => {
+            res.status(500).json({
+              status_code: ApiErrorCode.internalError,
+              message:
+                "There was an error when getting the client, please try again",
+              data: null,
+              error: {
+                message: error.message,
+              },
+            });
+          });
+      
+    } catch (error) {
+      res.status(500).json({
+        status_code: ApiErrorCode.internalError,
+        message: "There was a server internal error, please try again",
+        data: null,
+        error: {
+          message: error.message,
+        },
+      });
+    }
+  }
 }
 
 module.exports = ClientController ;
