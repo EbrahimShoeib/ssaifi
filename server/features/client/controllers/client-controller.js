@@ -423,18 +423,23 @@ class ClientController {
     }
   }
 
-  static async searchClients(req, res) {
+  static async search(req, res) {
     try {
       
         
 
-        Client.find()
-          
+      const regexQuery = new RegExp(req.query.query, "i "); // Case-insensitive regex query
+
+
+      Client.find({
+        $or: [
+          { username: { $regex: regexQuery } },
+          { email: { $regex: regexQuery } },
+          { phone: { $regex: regexQuery } },
+        ],
+      })
           .then(async (docs) => {
-            const totalRecords = await Client.countDocuments();
-
-            const maxPages = Math.ceil(totalRecords / pageSize);
-
+           
             res.status(200).json({
               status_code: 1,
               message: "Got the clients successfuly",

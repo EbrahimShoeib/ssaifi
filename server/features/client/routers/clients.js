@@ -91,7 +91,7 @@ router.patch(
 */
 
 
-router.get("/",ClientController.searchClients)
+router.get("/",ClientController.search)
 router.post(
   "/upload-image/:id",
   upload.single('image'),
