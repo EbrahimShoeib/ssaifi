@@ -18,10 +18,11 @@ class dailyController {
       ],
     })
       
+    .sort( 
+      { votes: 1, _id: -1 }).limit(pageSize) .select("-__v")
       .skip(skip) // Skip documents
-      .limit(pageSize)
-      .skip(skip) // Skip documents
-      .limit(pageSize)
+      .sort( 
+        { votes: 1, _id: -1 }).limit(pageSize) 
       .populate("hourseId")
       .populate("clientId")
       .populate("instractorId")
