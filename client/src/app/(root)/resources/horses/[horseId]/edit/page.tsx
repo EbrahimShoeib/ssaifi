@@ -33,10 +33,7 @@ function HorseEditPage() {
     const [age,setAge] = useState<string>('')
     const [gender,setGender] = useState<NameAndId>(null)
     const [groom,setGroom] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [horseCategory,setHorseCategory] = useState<NameAndId>(null)
-    const [horseCategories,setHorseCategories] = useState<NameAndId[]|[]>([])
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const [formDataFile,setFormDataFile] = useState<FormData>()
 
@@ -113,30 +110,6 @@ function HorseEditPage() {
         onError:() => failedPopUp()
     })
 
-    useGetClients({
-        onSuccess:(data) => {
-            const clientsOptions = toNameAndId(data.data.client,"username","_id")            
-            setClients(clientsOptions)
-        },
-    })
-
-    useGetHorses({
-        onSuccess(data) {
-            let horsesOptions = toNameAndId(data.data.hourse,"hourseName","_id") 
-            
-            horsesOptions = horsesOptions.filter((option:any) => option.id !== horseId)
-            setHorses(horsesOptions)
-        },
-    })
-
-    useQuery({
-        queryKey:["allHorseCategories"],
-        queryFn:async () => httpGetServices(horseCategoriesRoute),
-        onSuccess(data) {
-            const horseCategoriesOptions = toNameAndId(data.data,"displayName","_id")                                    
-            setHorseCategories(horseCategoriesOptions)
-        },
-    })
 
     const handleImageUpload = async (id:string) => {
         if (Boolean(formDataFile)) {
@@ -169,11 +142,8 @@ function HorseEditPage() {
                 note={note}
                 setNote={setNote}
                 handleSubmit={mutate}
-                clients={clients}
-                horses={horses}
                 horseCategory={horseCategory}
                 setHorseCategory={setHorseCategory}
-                horseCategories={horseCategories}
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
                 submitButtonLabel='save horse data'

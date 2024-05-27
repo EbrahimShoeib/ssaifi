@@ -24,7 +24,6 @@ function EditInvConsumedItemPage() {
     //const [date,setDate] = useState<string>("no-date")
     const [measure,setMeasure] = useState<string>("")
     const [horse,setHorse] = useState<NameAndId>(null)
-    const [horses , setHorses] = useState<NameAndId[]|[]>([])
     const {consumedInventoryItemId} = useParams()
     const inventoryConsumedItemIdRoute = `${inventoryConsumedItemsRoute}/${consumedInventoryItemId}`
 
@@ -76,12 +75,6 @@ function EditInvConsumedItemPage() {
         fetchInvConsumedItemData()
     },[])
 
-    useGetHorses({
-        onSuccess:(res)=>{
-            const horses = toNameAndId(res?.data?.hourse,"hourseName","_id")
-            setHorses(horses)
-        }
-    })
 
     return (
         <>
@@ -107,7 +100,6 @@ function EditInvConsumedItemPage() {
                 setMeasure={setMeasure}
                 horse={horse}
                 setHorse={setHorse}
-                horses={horses}     
                 submitButtonLabel='save inventory item'     
             />
         </>

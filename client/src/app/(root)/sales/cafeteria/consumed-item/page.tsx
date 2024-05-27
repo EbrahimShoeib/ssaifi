@@ -48,7 +48,7 @@ function CafeteriaConsumedItems() {
     const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
         ...item,
         clientId:item.clientId?.username || "no-client",
-        date:getReadableDate(item.date),
+        date:item.date&&getReadableDate(item.date)||'no-date',
         consumedPrice:(<span className='w-full block text-right'>
             {priceFormatter(String(item.consumedPrice))}
         </span>)

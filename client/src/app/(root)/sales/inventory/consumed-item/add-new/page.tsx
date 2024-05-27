@@ -23,7 +23,6 @@ function AddNewConsumedItemPage() {
     //const [date,setDate] = useState<string>("no-date")
     const [measure,setMeasure] = useState<string>("")
     const [horse,setHorse] = useState<NameAndId>(null)
-    const [horses , setHorses] = useState<NameAndId[]|[]>([])
 
     const [isLoading,setIsLoading] = useState<boolean>(false)
 
@@ -53,12 +52,6 @@ function AddNewConsumedItemPage() {
         onError: () => failedPopUp()
     })
 
-    useGetHorses({
-        onSuccess:(res)=>{
-            const horses = toNameAndId(res?.data?.hourse,"hourseName","_id")
-            setHorses(horses)
-        }
-    })
 
     return (
         <>
@@ -84,7 +77,6 @@ function AddNewConsumedItemPage() {
                 setMeasure={setMeasure}
                 horse={horse}
                 setHorse={setHorse}
-                horses={horses}     
                 submitButtonLabel='add inventory item'     
             />
         </>

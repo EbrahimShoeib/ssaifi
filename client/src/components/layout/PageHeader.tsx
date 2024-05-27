@@ -3,30 +3,20 @@ import React, { Suspense, useEffect, useState } from 'react'
 import Avatar from '../shared/all/Avatar'
 import Link from 'next/link'
 import { GrAdd } from 'react-icons/gr'
-import DropDownList from '../shared/all/DropDownList'
 import BackButton from '../shared/all/BackButton'
 import { usePathname } from 'next/navigation'
-import DropDownLinks from '../shared/all/DropDownLinks'
+import SearchBox from '../shared/all/SearchBox'
+import LinksSearchBox from '../shared/all/LinksSearchBox'
 
 
 type PageHeaderProps = {
-    dropDown?:{
-        listValue:NameAndId,
-        setListValue:(newValue:NameAndId) => void,
-        options:NameAndId[]|[],
-        placeholder:string,
-        placeholderClassName?:string,
-    },
     addNewButtonLabel?:string,
     title:any,
     showBackButton?:boolean,
     children?:any,
-    dropDownLinks?:{
-        options:DropDownLink[],
-        placeholder:string
-    }
+    linksSearchBox?:LinksSearchBox
 }
-function PageHeader({dropDown,dropDownLinks,children,addNewButtonLabel,title,showBackButton}:PageHeaderProps) {
+function PageHeader({linksSearchBox,children,addNewButtonLabel,title,showBackButton}:PageHeaderProps) {
 
     const pathname = usePathname()
     
@@ -43,30 +33,20 @@ function PageHeader({dropDown,dropDownLinks,children,addNewButtonLabel,title,sho
                                 <h4 className='text-smokey-white text-xl'>{title}</h4>
                             </div>
 
-                            <div className='flex h-[30px] text-sm gap-5'>
+                            <div className='flex items-center h-[30px] text-sm gap-5'>
                                 
-                                {
-                                    Boolean(dropDown) ? (
-                                        <div className='h-[30px] border-primary rounded-lg border'>
-                                            <DropDownList
-                                                listValue={dropDown?.listValue||null} 
-                                                setListValue={dropDown?.setListValue || function(){}} 
-                                                placeholder={dropDown?.placeholder||""}
-                                                options={dropDown?.options||[]}
-                                                placeholderClassName={`${dropDown?.placeholderClassName} min-w-[100px] px-4 py-2 text-smokey-white`}
-                                            />
-                                        </div>
-                                    ) :<></>
-                                }
+                                
 
                                 {
-                                    Boolean(dropDownLinks) ? (
-                                        <div className='h-[30px] border-primary rounded-lg border'>
-                                            <DropDownLinks
-                                                placeholder={dropDownLinks?.placeholder||""}
-                                                options={dropDownLinks?.options||[]}
-                                                placeholderClassName={`min-w-[100px] px-4 py-2 text-smokey-white`}
-
+                                    Boolean(linksSearchBox) ? (
+                                        <div className='h-[30px]'>
+                                            <LinksSearchBox
+                                                options={linksSearchBox?.options||[]}
+                                                label={linksSearchBox?.label||''}
+                                                searchUrl={linksSearchBox?.searchUrl||''}
+                                                setResponse={linksSearchBox?.setResponse}
+                                                placeholder={linksSearchBox?.placeholder}
+                                                BoxClassName='!bg-transparent placeholder:text-smokey-white !h-[30px] !border-primary rounded-lg !border !text-smokey-white'
                                             />
                                         </div>
                                     ) : <></>

@@ -4,16 +4,11 @@ import MedicalConsumedInputs from "@/components/content/sales/medical/MedicalCon
 import PageHeader from "@/components/layout/PageHeader"
 import { consumedMedicalRoute } from "@/constants/api"
 import { useFailedPopUp } from "@/hooks/useFailedPopUp"
-import { useGetHorses } from "@/hooks/useGetHorses"
-import { usePopUp } from "@/hooks/usePopUp"
 import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
 import { httpPostService } from "@/services/httpPostService"
 import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
-import { toNameAndId } from "@/utils/toNameAndId"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { IoMdCheckmarkCircleOutline } from "react-icons/io"
-import { MdErrorOutline } from "react-icons/md"
 import { useMutation } from "react-query"
 
 function AddConsumedMedicalItemPage() {
@@ -24,7 +19,6 @@ function AddConsumedMedicalItemPage() {
     const [dosage,setDosage] = useState<string>('')
     const [description,setDescription] = useState<string>('')
     
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
 
     const [isLoading,setIsLoading] = useState<boolean>(false)
     
@@ -53,13 +47,6 @@ function AddConsumedMedicalItemPage() {
         },
         onError: () =>failedPopUp()
     })
-    useGetHorses({
-        onSuccess:async (res) => {
-            let horses = res?.data?.hourse
-            horses = toNameAndId(horses,"hourseName","_id")
-            setHorses(horses)
-        }
-    })
 
     return (
         <>
@@ -82,7 +69,6 @@ function AddConsumedMedicalItemPage() {
                 description={description}
                 horse={horse}
                 setHorse={setHorse}
-                horses={horses}
                 setDescription={setDescription}
                 dosage={dosage}
                 setDosage={setDosage}

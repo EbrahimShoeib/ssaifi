@@ -10,6 +10,10 @@ class membershipTypeController {
   static async getAllmembershipType(req, res) {
     membershipType
       .find()
+      .select("-__v")
+      .skip(skip) // Skip documents
+      .sort( 
+        { votes: 1, _id: -1 }).limit(pageSize) 
       .then((docs) => {
         if (docs) {
           res.status(200).json({

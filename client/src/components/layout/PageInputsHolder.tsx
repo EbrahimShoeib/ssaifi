@@ -3,6 +3,7 @@ import PageContent from './PageContent'
 import ResourcesInput from '../shared/resources/ResourcesInput'
 import ResourcesDropList from '../shared/resources/ResourcesDropList'
 import Loader from './Loader'
+import SearchBox from '../shared/all/SearchBox'
 
 type PageInputsHolderProps = {
     inputs:Input[],
@@ -11,7 +12,8 @@ type PageInputsHolderProps = {
     handleSubmit:(e:any) => void,
     submitButtonLabel:string,
     className?:string,
-    children?:React.ReactNode
+    children?:React.ReactNode,
+    searchBoxes?:SearchBox[]
 }
 function PageInputsHolder({
     inputs,
@@ -20,7 +22,8 @@ function PageInputsHolder({
     handleSubmit,
     submitButtonLabel,
     className,
-    children
+    children,
+    searchBoxes
 }:PageInputsHolderProps) {
     
     return (
@@ -28,7 +31,7 @@ function PageInputsHolder({
             <Loader isLoading={isLoading}>
                 <div className={`max-w-[600px] flex flex-col gap-10 my-16 mx-8 ${className}`}>
                     {
-                        Boolean(dropDownLists) ? dropDownLists?.map((dropDownList:DropDownList,idx:number) => {
+                        Boolean(dropDownLists?.length) ? dropDownLists?.map((dropDownList:DropDownList,idx:number) => {
                             
                             return(
                                     <ResourcesDropList
@@ -42,6 +45,19 @@ function PageInputsHolder({
                                 )
                             }
                         ) : ""
+                    }
+                    {
+                        Boolean(searchBoxes?.length) ? searchBoxes?.map((currSearchBox:SearchBox,idx:number) => (
+                            <SearchBox
+                                key={idx}
+                                options={currSearchBox.options}
+                                searchUrl={currSearchBox.searchUrl}
+                                setListValue={currSearchBox.setListValue}
+                                setResponse={currSearchBox.setResponse}
+                                label={currSearchBox?.label||''}
+                                listValue={currSearchBox.listValue}
+                            />
+                        )) : <></>
                     }
                     {
                         inputs.map((input:Input,idx:number) => (

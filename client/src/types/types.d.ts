@@ -46,16 +46,29 @@ type DropDownList = {
     label?:string
 }
 
-type DropDownLink = {
-    name:string,
-    href:string
+type LinksSearchBox = {
+    BoxClassName?:string,
+    listClassName?:string,
+    label?:string,
+    searchUrl:string,
+    placeholder?:string,
+    options:{
+        name:string,
+        href:string
+    }[]|[],
+    setResponse:any
 }
 
-type DropDownLinksProps = {
-    options:DropDownLink[]|[],
-    placeholder:string,
-    placeholderClassName?:string,
-    listClassName?:string
+type SearchBox = {
+    listValue:NameAndId,
+    setListValue:(newListValue:NameAndId)=>void,
+    BoxClassName?:string,
+    listClassName?:string,
+    label?:string,
+    searchUrl:string,
+    placeholder?:string,
+    options:NameAndId[]|[],
+    setResponse:any
 }
 
 type QueryReqResult = {

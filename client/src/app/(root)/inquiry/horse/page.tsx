@@ -3,29 +3,26 @@
 import PageContent from '@/components/layout/PageContent'
 import PageHeader from '@/components/layout/PageHeader'
 import NoDataFound from '@/components/shared/all/NoDataFound'
-import { useGetHorses } from '@/hooks/useGetHorses'
+import { horsesRoute } from '@/constants/api'
 import React, { useState } from 'react'
 
 function HorseInquiry() {
 
-    const [horses,setHorses] = useState<DropDownLink[]>([])
+    const [horsesRes,setHorsesRes] = useState<any>()
 
-    useGetHorses({
-        onSuccess (res) {
-            const horses = res?.data?.hourse?.map((curr:any) => ({
-                name:curr.hourseName,
-                href:`/inquiry/horse/${curr._id}`
-            }));
-            setHorses(horses)
-        }
-    })
     return (
         <>
             <PageHeader
                 title={"horse inquiry"}
-                dropDownLinks={{
-                    options:horses,
-                    placeholder:"select horse"
+                linksSearchBox={{
+                    searchUrl:horsesRoute,
+                    options:horsesRes?.data?.hourse.map((item:any) => ({
+                        name:item?.hourseName,
+                        href:`/inquiry/horse/${item?._id}`
+                    })),
+                    setResponse:setHorsesRes,
+                    placeholder:"search for horse"
+
                 }}
             />
             <PageContent>
