@@ -11,6 +11,7 @@ import { httpGetServices } from "@/services/httpGetService"
 import { useSearchParams } from "next/navigation"
 import { Suspense } from "react"
 import { useQuery } from "react-query"
+import { getReadableDate } from "@/utils/getReadableDate"
 
 function FamilyMembershipPage() {
     const searchParams = useSearchParams()
@@ -48,7 +49,9 @@ function FamilyMembershipPage() {
         ...item,
         status:(<span className={item.status.toLowerCase() === "active" ? "text-green-500" : "text-red-500"}>
             {item.status}
-        </span>)
+        </span>),
+        startDate:item.startDate ?getReadableDate(item.startDate) :'no-date',
+        endDate:item.endDate ?getReadableDate(item.endDate) :'no-date'
     }))
     
     

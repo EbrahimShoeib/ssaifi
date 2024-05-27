@@ -3,14 +3,11 @@ import MembershipFamilyInputs from '@/components/content/sales/membership/Member
 import PageHeader from '@/components/layout/PageHeader'
 import { familyMembershipRoute } from '@/constants/api'
 import { useFailedPopUp } from '@/hooks/useFailedPopUp'
-import { usePopUp } from '@/hooks/usePopUp'
 import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { httpPostService } from '@/services/httpPostService'
 import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { MdErrorOutline } from 'react-icons/md'
 import { useMutation } from 'react-query'
 
 function AddNewFamilyMembershipPage() {

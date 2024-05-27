@@ -3,29 +3,27 @@
 import PageContent from '@/components/layout/PageContent'
 import PageHeader from '@/components/layout/PageHeader'
 import NoDataFound from '@/components/shared/all/NoDataFound'
-import { useGetClients } from '@/hooks/useGetClients'
+import { clientsRoute } from '@/constants/api'
 import React, { useState } from 'react'
 
 function ClientInquiry() {
 
-    const [clients,setClients] = useState<DropDownLink[]>([])
+    const [clientsRes,setClientsRes] = useState<any>()
 
-    useGetClients({
-        onSuccess (res) {
-            const clients = res?.data?.client?.map((curr:any) => ({
-                name:curr.username,
-                href:`/inquiry/client/${curr._id}`
-            }));
-            setClients(clients)
-        }
-    })
+   
     return (
         <>
             <PageHeader
                 title={"client inquiry"}
-                dropDownLinks={{
-                    options:clients,
-                    placeholder:"select client"
+                linksSearchBox={{
+                    searchUrl:clientsRoute,
+                    options:clientsRes?.data?.client.map((item:any) => ({
+                        name:item?.username,
+                        href:`/inquiry/client/${item?._id}`
+                    })),
+                    setResponse:setClientsRes,
+                    placeholder:"search for client"
+
                 }}
             />
             <PageContent>

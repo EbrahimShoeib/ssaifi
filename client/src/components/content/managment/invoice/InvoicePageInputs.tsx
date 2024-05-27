@@ -1,6 +1,11 @@
+'use client'
+
 import PageInputsHolder from "@/components/layout/PageInputsHolder"
+import { clientsRoute } from "@/constants/api"
 import { clientTypes } from "@/constants/clientTypes"
 import { memberShipStatuses } from "@/constants/memberShipStatuses"
+import { toNameAndId } from "@/utils/toNameAndId"
+import { useState } from "react"
 
 type InvoicePageInputsProps = {
     client:NameAndId,
@@ -8,7 +13,6 @@ type InvoicePageInputsProps = {
     date:string,
     setDate:(newState:string) => void,
     membershipStatus:NameAndId,
-    clients:NameAndId[]|[],
     totalAmount:string,
     setTotalAmount:(newState:string) => void,
     setMembershipStatus:(newState:NameAndId) => void,
@@ -38,12 +42,13 @@ function InvoicePageInputs({
     setInvoiceId,
     totalAmount,
     setTotalAmount,
-    clients,
     clientType,
     setClientType,
     invoiceType,
     setInvoiceType,
 }:InvoicePageInputsProps) {
+    const [clientsRes,setClientsRes] = useState<any>()
+
     const dropDownLists:DropDownList[] = [
         {
             listValue:clientType,
@@ -51,13 +56,6 @@ function InvoicePageInputs({
             options:clientTypes,
             placeholder:'Select Client Type',
             label:'client Type'
-        },
-        {
-            listValue:client,
-            setListValue:setClient,
-            options:clients,
-            placeholder:'Select Client name',
-            label:'client'
         },
         {
             listValue:membershipStatus,
@@ -97,6 +95,18 @@ function InvoicePageInputs({
             placeholder:'Enter invoice type'
         },
     ]
+
+    const searchBoxes :SearchBox[] = [
+        {
+            listValue:client,
+            options:toNameAndId(clientsRes?.data?.client,'username','_id'),
+            setListValue:setClient,
+            searchUrl:clientsRoute,
+            setResponse:setClientsRes,
+            label:'search client'
+        }
+    ]
+
     return (
         <>
             <PageInputsHolder
@@ -104,6 +114,7 @@ function InvoicePageInputs({
                 submitButtonLabel={submitButtonLabel} 
                 handleSubmit={onSubmit} 
                 inputs={inputs} 
+                searchBoxes={searchBoxes}
                 dropDownLists={dropDownLists}
             >
             </PageInputsHolder>

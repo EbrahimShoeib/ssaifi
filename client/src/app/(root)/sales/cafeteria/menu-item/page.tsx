@@ -45,7 +45,7 @@ function CafeteriaMenuItems() {
 
     const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
         ...item,
-        date:getReadableDate(item.date),
+        date:item.date&&getReadableDate(item.date)||'no-date',
         price:(<span className='text-right block w-full'>
             {priceFormatter(String(item.price))}
         </span>)

@@ -70,7 +70,6 @@ function AddNewIndividualMembershipPage() {
             <MembershipIndividualInputs
                 client={client}
                 setClient={setClient}
-                clients={clients}
                 startDate={startDate}
                 setStartDate={setStartDate}
                 endDate={endDate}

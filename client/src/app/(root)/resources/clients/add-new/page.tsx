@@ -4,15 +4,12 @@ import ClientPageInputs from '@/components/content/resources/clients/ClientPageI
 import PageHeader from '@/components/layout/PageHeader'
 import { clientImageUploadRoute, clientsRoute } from '@/constants/api'
 import { useFailedPopUp } from '@/hooks/useFailedPopUp'
-import { usePopUp } from '@/hooks/usePopUp'
 import { useSuccessPopUp } from '@/hooks/useSuccessPopUp'
 import { httpPostFormDataService } from '@/services/httpPostFormDataService'
 import { httpPostService } from '@/services/httpPostService'
 import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { MdErrorOutline } from 'react-icons/md'
 import { useMutation } from 'react-query'
 
 function AddNewClientPage() {

@@ -47,8 +47,8 @@ function IndividualMembershipPage() {
         status:(<span className={item.status.toLowerCase() === "active" ? "text-green-500" : "text-red-500"}>
             {item.status}
         </span>),
-        startDate:getReadableDate(item.startDate),
-        endDate:getReadableDate(item.endDate)
+        startDate:item.startDate ?getReadableDate(item.startDate) :'no-date',
+        endDate:item.endDate ?getReadableDate(item.endDate) :'no-date'
     }))
     
     

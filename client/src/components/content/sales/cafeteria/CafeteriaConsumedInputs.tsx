@@ -1,8 +1,12 @@
+'use client'
 import PageContent from '@/components/layout/PageContent'
+import SearchBox from '@/components/shared/all/SearchBox'
 import ResourcesDropList from '@/components/shared/resources/ResourcesDropList'
 import ResourcesInput from '@/components/shared/resources/ResourcesInput'
+import { clientsRoute } from '@/constants/api'
 import { cafeteriaPayments } from '@/constants/cafeteriaPayments'
-import React from 'react'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
 
 
 type CafeteriaConsumedInputsProps = {
@@ -20,7 +24,6 @@ type CafeteriaConsumedInputsProps = {
     setClient:(newState:NameAndId) => void,
     payment:NameAndId,
     setPayment:(newState:NameAndId) => void,
-    clients:NameAndId[]|[],
     submitButtonLabel:string
 }
 
@@ -38,12 +41,12 @@ function CafeteriaConsumedInputs({
     client,
     setClient,
     setPayment,
-    clients,
     payment,
     submitButtonLabel
 
 }:CafeteriaConsumedInputsProps) {
 
+    const [clientsRes,setClientsRes] = useState<any>()
 
     return (
         <PageContent>
@@ -85,12 +88,13 @@ function CafeteriaConsumedInputs({
                     placeholder='Select Payment'
                     label='payment'
                 />
-                 <ResourcesDropList
+                <SearchBox
+                    label={'search client'}
+                    options={toNameAndId(clientsRes?.data?.client,'username',"_id")}
+                    searchUrl={clientsRoute}
+                    setResponse={setClientsRes}
                     listValue={client}
                     setListValue={setClient}
-                    options={clients}
-                    placeholder='Select Client'
-                    label='client'
                 />
             </div>
             <div className='w-full flex justify-center'>
