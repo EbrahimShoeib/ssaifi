@@ -43,7 +43,7 @@ function LinksSearchBox({
         <div className='flex gap-5 w-full justify-between'>
             {
                 label ? (
-                    <div className='w-[180px] truncate text-md font-semibold flex justify-between items-center'>
+                    <div className='w-[150px] truncate text-md font-semibold flex justify-between items-center'>
                         <span>{label}</span>
                         <span>:</span>
                     </div>

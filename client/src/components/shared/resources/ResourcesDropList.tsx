@@ -12,7 +12,7 @@ type ResourcesDropListProps = {
 function ResourcesDropList({listValue,setListValue,label,options,placeholder}:ResourcesDropListProps) {
     return (
         <div className='flex w-full gap-5 items-center justify-between'>
-            <div className='w-[180px] truncate text-md font-semibold flex justify-between items-center'>
+            <div className='w-[150px] truncate text-md font-semibold flex justify-between items-center'>
                 <span>{label}</span>
                 <span>:</span>
             </div>

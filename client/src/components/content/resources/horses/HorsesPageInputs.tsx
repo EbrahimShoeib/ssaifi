@@ -113,11 +113,12 @@ function HorsePageInputs({
                     setFormDataFile={setFormDataFile}
                 />
                 <SearchBox
-                    label={'horse category'}
+                    label={'select category'}
                     options={toNameAndId(horseCategoriesRes?.data,'displayName',"_id")}
                     searchUrl={horseCategoriesRoute}
                     setResponse={setHorseCategoriesRes}
                     listValue={horseCategory}
+                    placeholder='select horse category'
                     setListValue={setHorseCategory}
                 />
             </div>
