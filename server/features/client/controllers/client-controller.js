@@ -127,7 +127,7 @@ class ClientController {
         // Calculate the number of documents to skip
         const skip = (req.query.page - 1) * pageSize;
 
-        const regexQuery = new RegExp(req.query.query, " "); // Case-insensitive regex query
+        const regexQuery = new RegExp(req.query.query); // Case-insensitive regex query
 
 
         Client.find({
