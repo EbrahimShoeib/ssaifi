@@ -123,7 +123,7 @@ class ClientController {
       {
         // Pagination parameters
         const pageSize = 10; // Number of documents per page
-//
+
         // Calculate the number of documents to skip
         const skip = (req.query.page - 1) * pageSize;
 
