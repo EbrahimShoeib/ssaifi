@@ -32,8 +32,8 @@ class ClientController {
           gender: req.body.gender,
           age: req.body.age,
           membershipStatus: req.body.membershipStatus,
-          membershipType: req.body.membershipType
-                })
+          membershipType: req.body.membershipType,
+        })
           .save()
           .then((docs) => {
             const { __v, ...other } = docs._doc;
@@ -123,12 +123,11 @@ class ClientController {
       {
         // Pagination parameters
         const pageSize = 10; // Number of documents per page
-////
+        ////
         // Calculate the number of documents to skip
         const skip = (req.query.page - 1) * pageSize;
 
         const regexQuery = new RegExp(req.query.query, "i "); // Case-insensitive regex query
-
 
         Client.find({
           $or: [
@@ -425,11 +424,7 @@ class ClientController {
 
   static async search(req, res) {
     try {
-      
-        
-
       const regexQuery = new RegExp(req.query.query, "i "); // Case-insensitive regex query
-
 
       Client.find({
         $or: [
@@ -438,29 +433,26 @@ class ClientController {
           { phone: { $regex: regexQuery } },
         ],
       })
-          .then(async (docs) => {
-           
-            res.status(200).json({
-              status_code: 1,
-              message: "Got the clients successfuly",
-              data: {
-                
-                client: docs,
-              },
-            });
-          })
-          .catch((error) => {
-            res.status(500).json({
-              status_code: ApiErrorCode.internalError,
-              message:
-                "There was an error when getting the client, please try again",
-              data: null,
-              error: {
-                message: error.message,
-              },
-            });
+        .then(async (docs) => {
+          res.status(200).json({
+            status_code: 1,
+            message: "Got the clients successfuly",
+            data: {
+              client: docs,
+            },
           });
-      
+        })
+        .catch((error) => {
+          res.status(500).json({
+            status_code: ApiErrorCode.internalError,
+            message:
+              "There was an error when getting the client, please try again",
+            data: null,
+            error: {
+              message: error.message,
+            },
+          });
+        });
     } catch (error) {
       res.status(500).json({
         status_code: ApiErrorCode.internalError,
@@ -474,4 +466,4 @@ class ClientController {
   }
 }
 
-module.exports = ClientController ;
+module.exports = ClientController;
