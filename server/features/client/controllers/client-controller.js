@@ -123,11 +123,11 @@ class ClientController {
       {
         // Pagination parameters
         const pageSize = 10; // Number of documents per page
-
+////
         // Calculate the number of documents to skip
         const skip = (req.query.page - 1) * pageSize;
 
-        const regexQuery = new RegExp(req.query.query); // Case-insensitive regex query
+        const regexQuery = new RegExp(req.query.query, "i "); // Case-insensitive regex query
 
 
         Client.find({
@@ -140,8 +140,6 @@ class ClientController {
           .select("-__v")
           .skip(skip) // Skip documents
           .limit(pageSize)
-          .sort( 
-            { votes: 1, _id: -1 }).limit(pageSize) 
           .then(async (docs) => {
             const totalRecords = await Client.countDocuments();
 
