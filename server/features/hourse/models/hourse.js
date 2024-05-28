@@ -3,7 +3,7 @@ const joi = require("joi");
 
 const hourseSchema = mongoose.Schema({
   id: {
-    type:string,
+    type:String,
     required: true,
   },
   hourseName: {
