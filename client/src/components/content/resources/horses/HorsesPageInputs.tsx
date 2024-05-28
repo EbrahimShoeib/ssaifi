@@ -29,6 +29,8 @@ type HorsePageInputsProps = {
     formDataFile:FormData|undefined,
     setFormDataFile:(state:FormData)=> void,
     submitButtonLabel:string,
+    id:string,
+    setId:(state:string)=>void
 
 }
 function HorsePageInputs({
@@ -51,6 +53,8 @@ function HorsePageInputs({
     formDataFile,
     setFormDataFile,
     submitButtonLabel,
+    id,
+    setId
 
 }:HorsePageInputsProps) {
 
@@ -66,6 +70,13 @@ function HorsePageInputs({
                     setValue={setName}
                     placeholder="Enter horse Name"
                     label='horse name'
+                    type='text'
+                />
+                <ResourcesInput
+                    value={id} 
+                    setValue={setId}
+                    placeholder="Enter horse id"
+                    label='horse id'
                     type='text'
                 />
                 <ResourcesInput
