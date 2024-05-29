@@ -10,6 +10,19 @@ const path = require("path");
 //import token
 const ApiErrorCode = require("../../../core/errors/apiError");
 
+// Set up Multer storage configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Specify the upload directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`); // Generate a unique filename
+  },
+});
+
+// Initialize Multer with the storage configuration
+const upload = multer({ storage });
+
 class ClientController {
   static async createNewClient(req, res) {
     try {
@@ -374,53 +387,66 @@ class ClientController {
     }
   }
 
-  static async uploadClientImage(req, res) {
-    try {
-      Client.findByIdAndUpdate(
-        { _id: req.params.id },
-        { avatar: "/" + req.file.path.replace(/\\/g, "/") },
-        { new: true }
-      )
-        .select("-__v")
-        .then((docs) => {
-          if (docs) {
-            res.status(200).json({
-              status_code: 1,
-              message: "Got the client successfuly",
-              data: docs,
-            });
-          } else {
-            res.status(404).json({
-              status_code: ApiErrorCode.notFound,
-              message: "Didnt found the client in our records",
-              data: null,
-              error: {
-                message: "Didnt found the client in our records",
-              },
-            });
-          }
-        })
-        .catch((error) => {
-          res.status(500).json({
-            status_code: ApiErrorCode.internalError,
-            message: error.message,
-            data: null,
-            error: {
-              message: error.message,
-            },
-          });
-        });
-    } catch (error) {
-      res.status(500).json({
-        status_code: ApiErrorCode.internalError,
-        message: error.message,
-        data: null,
-        error: {
-          message: error.message,
-        },
-      });
-    }
+  // static async uploadClientImage(req, res) {
+  //   try {
+  //     Client.findByIdAndUpdate(
+  //       { _id: req.params.id },
+  //       { avatar: "/" + req.file.path.replace(/\\/g, "/") },
+  //       { new: true }
+  //     )
+  //       .select("-__v")
+  //       .then((docs) => {
+  //         if (docs) {
+  //           res.status(200).json({
+  //             status_code: 1,
+  //             message: "Got the client successfuly",
+  //             data: docs,
+  //           });
+  //         } else {
+  //           res.status(404).json({
+  //             status_code: ApiErrorCode.notFound,
+  //             message: "Didnt found the client in our records",
+  //             data: null,
+  //             error: {
+  //               message: "Didnt found the client in our records",
+  //             },
+  //           });
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         res.status(500).json({
+  //           status_code: ApiErrorCode.internalError,
+  //           message: error.message,
+  //           data: null,
+  //           error: {
+  //             message: error.message,
+  //           },
+  //         });
+  //       });
+  //   } catch (error) {
+  //     res.status(500).json({
+  //       status_code: ApiErrorCode.internalError,
+  //       message: error.message,
+  //       data: null,
+  //       error: {
+  //         message: error.message,
+  //       },
+  //     });
+  //   }
+  // }
+ static async uploadClientImage (req, res){
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
   }
+
+  // Store the file path in your application's data model
+  const imagePath = req.file.path;
+  // Do something with the uploaded image, e.g., save it to a database
+
+  res.send('File uploaded successfully!');
+
+ }
+
   static async search(req, res) {
     try { 
       {
