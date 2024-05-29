@@ -93,15 +93,13 @@ router.patch(
 
 router.get("/search",ClientController.search)
 
+// Route to serve the uploaded images
 router.post(
   "/upload-image/:id",
   upload.single('image'),
   ClientController.uploadClientImage
 );
 
-
-// Route to serve the uploaded images
-router.get('/images/:filename',ClientController.getClientImage );
 
 
 module.exports = router;
