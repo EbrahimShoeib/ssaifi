@@ -149,9 +149,26 @@ class ClientController {
             { phone: { $regex: regexQuery } },
           ],
         })
-          .select("-__v")
-          .skip(skip) // Skip documents
-          .limit(pageSize)
+        .select("-__v")
+        .skip(skip) // Skip documents
+        .limit(pageSize)
+        .sort( 
+          { votes: 1, _id: -1 }).limit(pageSize)    
+            .then(async (docs) => {
+        const totalRecords = await Hourse.countDocuments();
+
+        const maxPages = Math.ceil(totalRecords / pageSize);
+
+        res.status(200).json({
+          status_code: 1,
+          message: "Got the hourse successfuly",
+          data: {
+            current_page: parseInt(req.query.page) || 1,
+            max_pages: maxPages,
+            hourse: docs,
+          },
+        });
+      })
           .then(async (docs) => {
             const totalRecords = await Client.countDocuments();
 
