@@ -447,7 +447,7 @@ class ClientController {
   try {
         Client.findByIdAndUpdate(
           { _id: req.params.id },
-          { avatar: "/" + req.file.path.replace(/\\/g, "/") },
+          { avatar: "/" + imagePath.replace(/\\/g, "/") },
           { new: true }
         )
           .select("-__v")
