@@ -18,8 +18,7 @@ export const httpPostService = async (url:string,body:any) => {
         });
  
         const res = await response.json()
-        
-        
+
         return res
 
     }catch (error) {
