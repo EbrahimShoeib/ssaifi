@@ -435,7 +435,6 @@ class ClientController {
     }
   }
 
-
   static async search(req, res) {
     try { 
       {
