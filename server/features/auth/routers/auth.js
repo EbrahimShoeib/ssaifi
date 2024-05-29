@@ -182,14 +182,19 @@ router.get("/get-password", async (req, res) => {
 router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res) => {
 
   try {
+
     await User.findByIdAndUpdate(
       { _id: req.user.id },
       { avatar : "/"+req.file.path.replace(/\\/g, '/') },
       { new: true } // Return the updated document
     )
+    
     .then((docs)=> {
       if(docs){
     
+  // Store the file path in your application's data model
+  const imagePath = req.file.path;
+  // Do something with the uploaded image, e.g., save it to a database
         const {password,__v,token,...other} = docs._doc
     
         res.status(200).json({
@@ -242,6 +247,9 @@ router.get("/uploads/:filename",(req,res) => {
   res.sendFile(
     uploadsDirectory
   )
-})
+}
+
+
+)
 
 module.exports = router;

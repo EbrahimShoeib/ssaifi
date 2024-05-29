@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
       cb(null, `${Date.now()}-${file.originalname}`); // Generate a unique filename
     },
   });
-  
+
   // Initialize Multer with the storage configuration
   const upload = multer({ storage });
 module.exports = upload
