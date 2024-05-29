@@ -56,6 +56,7 @@ function PageInputsHolder({
                                 setResponse={currSearchBox.setResponse}
                                 label={currSearchBox?.label||''}
                                 listValue={currSearchBox.listValue}
+                                placeholder={currSearchBox?.placeholder}
                             />
                         )) : <></>
                     }

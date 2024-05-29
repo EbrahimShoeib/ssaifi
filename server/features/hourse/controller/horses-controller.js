@@ -24,6 +24,7 @@ class HourseController {
         });
       } else {
         const hourse = new Hourse({
+          id: req.body.id,
           hourseName: req.body.hourseName,
           age: req.body.age,
           catigoryId: req.body.catigoryId,
@@ -198,6 +199,7 @@ class HourseController {
             req.params.id,
             {
               $set: {
+                id: req.body.id,
                 hourseName: req.body.hourseName,
                 age: req.body.age,
                 catigoryId: req.body.catigoryId,

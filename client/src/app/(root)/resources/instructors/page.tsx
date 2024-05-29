@@ -29,13 +29,22 @@ function InstructorsPage() {
 
     const isDataHere = Boolean(response?.data?.instractor) && isSuccess
 
+    const [instructorsRes,setInstructorsRes] = useState<any>()
     
     return (
         <Suspense>
             <div className='w-full h-[calc(100%-80px)]'>
                 <PageHeader
                     title={"stables instructors"}
-                    
+                    linksSearchBox={{
+                        searchUrl:instructorsRoute,
+                        options:instructorsRes?.data?.instractor.map((item:any) => ({
+                            name:item?.instractorName,
+                            href:`/resources/instructors/${item?._id}/edit`
+                        })),
+                        setResponse:setInstructorsRes,
+                        placeholder:"search instructor"
+                    }}
                     addNewButtonLabel='add new instructor'
                 />
                 

@@ -106,10 +106,10 @@ function ClientPage() {
                     avatarUrl:client?.avatar,
                     itemData:client,
                     itemDataSubTitles:{
-                        email:client?.email,
-                        mobile:client?.phone,
-                        gender:client?.gender,
-                        age:client?.age
+                        email:client?.email||'no-email',
+                        mobile:client?.phone||'no-mobile',
+                        gender:client?.gender||'no-gender',
+                        age:client?.age||'no-age'
                     },
                     role:"client",
                     title:client?.username

@@ -4,7 +4,15 @@ export const medicalTypes = [
         id:"1"
     },
     {
-        name:"bill",
+        name:"pills",
         id:"2"
-    }
+    },
+    {
+        name:"gel",
+        id:"3"
+    },
+    {
+        name:"box",
+        id:"4"
+    },
 ]

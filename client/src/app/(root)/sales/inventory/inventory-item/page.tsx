@@ -10,7 +10,7 @@ import { inventoryItemsRoute } from "@/constants/api";
 import { httpGetServices } from "@/services/httpGetService";
 import { priceFormatter } from "@/utils/priceFormatter";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useQuery } from "react-query";
 
 function InventoryItemsPage() {
@@ -24,6 +24,7 @@ function InventoryItemsPage() {
         
     const isDataHere = Boolean(response?.inventoryItems?.data) && isSuccess
 
+    const [inventoryItemsRes,setInventoryItemsRes] = useState<any>()
 
     const tableHeadCells = [
         "item name",
@@ -64,6 +65,16 @@ function InventoryItemsPage() {
             <PageHeader
                 title={"stables inventory"}
                 addNewButtonLabel='add new item'
+                linksSearchBox={{
+                    searchUrl:inventoryItemsRoute,
+                    options:inventoryItemsRes?.inventoryItems?.data.map((item:any) => ({
+                        name:item?.itemName,
+                        href:`/sales/inventory/inventory-item/${item?._id}/edit`
+                    })),
+                    setResponse:setInventoryItemsRes,
+                    placeholder:"search inventory item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

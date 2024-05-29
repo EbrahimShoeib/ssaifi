@@ -18,7 +18,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["active", "inactive"],
+    enum: ["cancel", "arrived","late cancel","no cancel"],
     required: true,
   },
   instractorId: {
@@ -55,7 +55,7 @@ const SchadualSchema = new mongoose.Schema({
   },
   membership: {
     type:String,
-    enum :["individual","family"] ,
+    enum :["-","member"] ,
     require:true,
   },
   confitmation: {
@@ -71,7 +71,7 @@ function createNewSchadual(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().required(),
-    status:joi.string().required().valid("active", "inactive"),
+    status:joi.string().required().valid("cancel", "arrived","late cancel","no cancel"),
     instractorId:joi.string().required().min(2).max(50),
     paid:joi.string().valid("paid", "pending").required(),
     note:joi.string().required().min(2).max(20),
@@ -79,10 +79,8 @@ function createNewSchadual(obj) {
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().valid("individual","family").required(),
+    membership:joi.string().valid("-","membership").required(),
     confitmation:joi.string().required().min(2).max(20),
-
-
   });
   return schema.validate(obj);
 }
@@ -92,15 +90,15 @@ function updateSchadual(obj) {
     courseDate:joi.string().required().min(2).max(20),
     clientId:joi.string().required().min(2).max(50),
     course:joi.string().required(),
-    status:joi.string().required().min(2).max(20),
+    status:joi.string().required().valid("cancel", "arrived","late cancel","no cancel"),
     instractorId:joi.string().required().min(2).max(50),
-    paid:joi.string().required().min(2).max(20),
+    paid:joi.string().valid("paid", "pending").required(),
     note:joi.string().required().min(2).max(20),
     courseTime:joi.string().required().min(2).max(20),
     hourseId:joi.string().required().min(2).max(50),
     price:joi.number().required().min(1),
     arena:joi.string().required().min(2).max(20),
-    membership:joi.string().required().min(2).max(20),
+    membership:joi.string().valid("-","membership").required(),
     confitmation:joi.string().required().min(2).max(20),
   });
   return schema.validate(obj);

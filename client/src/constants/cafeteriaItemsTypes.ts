@@ -11,4 +11,8 @@ export const cafeteriaItemsTypes = [
         name:"beverage",
         id:"3"    
     },
+    {
+        name:"icecream",
+        id:"4"    
+    },
 ]

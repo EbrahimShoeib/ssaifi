@@ -27,7 +27,8 @@ function AddNewHorsePage() {
     const [horseCategory,setHorseCategory] = useState<NameAndId>(null)
     const [formDataFile,setFormDataFile] = useState<FormData>()
     const [isLoading,setIsLoading] = useState<boolean>(false)
-    
+    const [id,setId] = useState<string>('')
+
     const failedPopUp = useFailedPopUp()
     const successPopUp = useSuccessPopUp()
     const router = useRouter()
@@ -42,6 +43,7 @@ function AddNewHorsePage() {
             gender:gender?.name,
             groom:groom?.id,
             catigoryId:horseCategory?.id,
+            id
         })),
         mutationKey:["addNewHorse"],
         onSuccess:async (res) => {
@@ -102,6 +104,8 @@ function AddNewHorsePage() {
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
                 submitButtonLabel="add new horse"
+                id={id}
+                setId={setId}
             />
         </>
     )

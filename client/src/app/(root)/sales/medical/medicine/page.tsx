@@ -10,7 +10,7 @@ import { medicineMedicalRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
 import { priceFormatter } from "@/utils/priceFormatter"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { useQuery } from "react-query"
 
 function MedicineMedicalPage() {
@@ -24,6 +24,7 @@ function MedicineMedicalPage() {
         
     const isDataHere = Boolean(response?.data?.medicine) && isSuccess
 
+    const [medicineMedicalRes,setMedicineMedicalRes] = useState<any>()
 
     const tableHeadCells = [
         "item name",
@@ -64,6 +65,16 @@ function MedicineMedicalPage() {
             <PageHeader
                 title={"stables medicine"}
                 addNewButtonLabel='add new item'
+                linksSearchBox={{
+                    searchUrl:medicineMedicalRoute,
+                    options:medicineMedicalRes?.data?.medicine.map((item:any) => ({
+                        name:item?.name,
+                        href:`/sales/medical/medicine/${item?._id}/edit`
+                    })),
+                    setResponse:setMedicineMedicalRes,
+                    placeholder:"search medical item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

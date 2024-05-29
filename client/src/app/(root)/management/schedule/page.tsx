@@ -10,7 +10,7 @@ import { httpGetServices } from '@/services/httpGetService'
 import { getReadableDate } from '@/utils/getReadableDate'
 import { priceFormatter } from '@/utils/priceFormatter'
 import { useSearchParams } from 'next/navigation'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useQuery } from 'react-query'
 
 function SchedulePage() {
@@ -26,6 +26,7 @@ function SchedulePage() {
     
     const isDataHere = Boolean(response?.Schadual?.data) && isSuccess
 
+    const [scheduleRes,setScheduleRes]= useState<any>()
 
     
     const tableHeadCells = [
@@ -77,6 +78,16 @@ function SchedulePage() {
             <PageHeader
                 title={"Up-coming Scheduals"}
                 addNewButtonLabel='add class'
+                linksSearchBox={{
+                    searchUrl:scheduleRoute,
+                    options:scheduleRes?.Schadual?.data.map((item:any) => ({
+                        name:item?.clientId?.username,
+                        href:`/management/schedule/${item?._id}/edit`
+                    })),
+                    setResponse:setScheduleRes,
+                    placeholder:"search schedule item"
+
+                }}
             />
             <div  className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

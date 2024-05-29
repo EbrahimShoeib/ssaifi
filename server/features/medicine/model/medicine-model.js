@@ -20,7 +20,7 @@ const MedicineSchema = mongoose.Schema({
     type: {
         type: String,
         required: true,
-        enum: ['bottle', 'bill'], // Define your enum values here
+        enum: ['bottle', 'pills',"gel","box"], // Define your enum values here
       },
     price: {
         type : Number,
@@ -41,7 +41,7 @@ function medicineValidation(obj){
         name : joi.string().required().min(3).max(20),
         quantity : joi.number().required().min(1),
         discription : joi.string().required().min(2),
-        type : joi.string().valid('bottle', 'bill').required(),
+        type : joi.string().valid('bottle', 'pills',"gel","box").required(),
         price : joi.number().required(),
         dosage : joi.number().required(),
     })
@@ -53,7 +53,7 @@ function updateMedicineValidation(obj){
         name : joi.string().min(3).max(20),
         quantity : joi.number().min(1),
         discription : joi.string().min(2),
-        type : joi.string().valid('bottle', 'bill'),
+        type : joi.string().valid('bottle', 'pills',"gel","box"),
         price : joi.number(),
         dosage : joi.number(),
     })

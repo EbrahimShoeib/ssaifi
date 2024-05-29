@@ -26,7 +26,7 @@ const packageSchema = mongoose.Schema({
   },
   status: {
     type: String,
-    enum:["expired","unexpired"],
+    enum:["expired","active"],
     required: true,
   }
 });
@@ -39,7 +39,7 @@ function createNewPackage(obj) {
     lessons:joi.number().required().min(1).max(20),
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
-    status:joi.string().required().valid("expired","unexpired").min(1).max(20),
+    status:joi.string().required().valid("expired","active").min(1).max(20),
     name:joi.string().required(),
   })
   return schema.validate(obj);
@@ -51,7 +51,7 @@ function updatePackage(obj) {
     lessons:joi.number().required().min(1).max(20),
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
-    status:joi.string().required().valid("expired","unexpired").min(1).max(20),
+    status:joi.string().required().valid("expired","active").min(1).max(20),
     name:joi.string().required(),
   });
   return schema.validate(obj);

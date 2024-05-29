@@ -3,6 +3,7 @@ import ClientsPageContent from '@/components/content/resources/clients/ClientsPa
 import Loader from '@/components/layout/Loader'
 import PageHeader from '@/components/layout/PageHeader'
 import PaginationButtons from '@/components/layout/PaginationButtons'
+import { clientsRoute } from '@/constants/api'
 import { useGetClients } from '@/hooks/useGetClients'
 import { toNameAndId } from '@/utils/toNameAndId'
 import { useSearchParams } from 'next/navigation'
@@ -23,14 +24,22 @@ function ClientsPage() {
 
     const isDataHere = Boolean(response?.data?.client) && isSuccess
 
-    
+    const [clientsRes,setClientsRes] = useState<any>()
     
     return (
         <Suspense>
             <div className='w-full h-[calc(100%-80px)]'>
                 <PageHeader
                     title={"stables clients"}
-                    
+                    linksSearchBox={{
+                        searchUrl:clientsRoute,
+                        options:clientsRes?.data?.client.map((item:any) => ({
+                            name:item?.username,
+                            href:`/resources/clients/${item?._id}/edit`
+                        })),
+                        setResponse:setClientsRes,
+                        placeholder:"search client"
+                    }}
                     addNewButtonLabel='add new client'
                 />
                 <ClientsPageContent 
