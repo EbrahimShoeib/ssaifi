@@ -230,8 +230,6 @@ router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res
       }
     });
   }
-
-
 })
 
 // Route to serve the uploaded images
