@@ -6,7 +6,7 @@ const {
   updateMembershipValidation,
 } = require("../models/client");
 const path = require("path");
-
+ const multer = require("multer")
 //import token
 const ApiErrorCode = require("../../../core/errors/apiError");
 
