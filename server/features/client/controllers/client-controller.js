@@ -491,6 +491,14 @@ class ClientController {
       }
  }
 
+ // Route to serve the uploaded images
+ static async getClientImage(req, res)  {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, 'uploads', filename);
+  res.sendFile(imagePath);
+}
+
+
   static async search(req, res) {
     try { 
       {

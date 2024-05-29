@@ -100,5 +100,8 @@ router.post(
 );
 
 
+// Route to serve the uploaded images
+router.get('/images/:filename',ClientController.getClientImage );
+
 
 module.exports = router;
