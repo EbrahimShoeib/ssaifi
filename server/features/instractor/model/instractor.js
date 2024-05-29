@@ -38,7 +38,7 @@ function createInstractorValidation(obj){
         instractorName : joi.string().required(),
         email : joi.string().required(),
         phoneNumber : joi.string().required().min(1).max(100),
-        age: joi.number().required().min(1).max(20),
+        age: joi.number().required().min(1).max(100),
         gender : joi.string().valid('male', 'female').required(),
         avatar: joi.string(),
     })
@@ -48,7 +48,7 @@ function updateInstractorValidation(obj){
     const schema = joi.object({
         instractorName : joi.string(),
         email : joi.string(),
-        phoneNumber : joi.string().min(1).max(100),
+        phoneNumber : joi.string().min(1).max(200),
         age: joi.number().min(1).max(20),
         gender : joi.string().valid('male', 'female'),
         avatar: joi.string(),
