@@ -444,7 +444,51 @@ class ClientController {
   // Do something with the uploaded image, e.g., save it to a database
 
   res.send('File uploaded successfully!');
-
+  try {
+        Client.findByIdAndUpdate(
+          { _id: req.params.id },
+          { avatar: "/" + req.file.path.replace(/\\/g, "/") },
+          { new: true }
+        )
+          .select("-__v")
+          .then((docs) => {
+            if (docs) {
+              res.status(200).json({
+                status_code: 1,
+                message: "Got the client successfuly",
+                data: docs,
+              });
+            } else {
+              res.status(404).json({
+                status_code: ApiErrorCode.notFound,
+                message: "Didnt found the client in our records",
+                data: null,
+                error: {
+                  message: "Didnt found the client in our records",
+                },
+              });
+            }
+          })
+          .catch((error) => {
+            res.status(500).json({
+              status_code: ApiErrorCode.internalError,
+              message: error.message,
+              data: null,
+              error: {
+                message: error.message,
+              },
+            });
+          });
+      } catch (error) {
+        res.status(500).json({
+          status_code: ApiErrorCode.internalError,
+          message: error.message,
+          data: null,
+          error: {
+            message: error.message,
+          },
+        });
+      }
  }
 
   static async search(req, res) {
