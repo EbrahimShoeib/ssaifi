@@ -12,6 +12,9 @@ const express = require("express");
 router = express.Router();
 
 router.post("/login", async (req, res ,next) => {
+
+  console.log("user is : "+req.body.email)
+
   const { error } = validationLoginUser(req.body);
   if (error) {
     res.status(400).json({
@@ -24,6 +27,7 @@ router.post("/login", async (req, res ,next) => {
   }else {
     User.findOne({ email: req.body.email })
     .then( async(user) => {
+
       if (user) {
         const { password, __v, ...other } = user._doc;
         const validPassword = await bcrypt.compare(
