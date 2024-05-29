@@ -70,10 +70,10 @@ function InstructorPage() {
                     avatarUrl:instructor?.avatar,
                     itemData:instructor,
                     itemDataSubTitles:{
-                        age:instructor?.age,
-                        gender:instructor?.gender,
-                        email:instructor?.email,
-                        mobile:instructor?.phoneNumber
+                        age:instructor?.age||'no-age',
+                        gender:instructor?.gender||'no-gender',
+                        email:instructor?.email||'no-email',
+                        mobile:instructor?.phoneNumber||'no-mobile'
                     },
                     role:"instructor",
                     title:instructor?.instractorName

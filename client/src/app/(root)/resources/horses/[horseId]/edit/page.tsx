@@ -36,6 +36,7 @@ function HorseEditPage() {
     const [horseCategory,setHorseCategory] = useState<NameAndId>(null)
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const [formDataFile,setFormDataFile] = useState<FormData>()
+    const [id,setId] = useState<string>('')
 
     const router = useRouter()
     const failedPopUp = useFailedPopUp()
@@ -49,6 +50,8 @@ function HorseEditPage() {
 
                 const data = res.data
                 if (data) {
+                    console.log(data);
+                    
                     setName(data.hourseName)
                     setNote(data.note)
                     let category = await getHorseCategoryById(data.catigoryId[0])
@@ -75,6 +78,7 @@ function HorseEditPage() {
                     setAge(data.age)
                     setGender(getGender(data?.gender))
                     setNote(data.note)
+                    data.id&&setId(data?.id)
                     setIsLoading(false)
                 }
                
@@ -93,6 +97,7 @@ function HorseEditPage() {
             gender:gender?.name,
             groom:groom?.id,
             catigoryId:horseCategory?.id,
+            id
         })),
         onSuccess:async (res) => {
             const status = statusCodeIndicator(res.status_code) === "success" 
@@ -147,6 +152,8 @@ function HorseEditPage() {
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
                 submitButtonLabel='save horse data'
+                id={id}
+                setId={setId}
             />
         </>
     )
