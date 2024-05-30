@@ -133,7 +133,7 @@ class ClientController {
 
   static async getAllClients(req, res) {
     try {
-      {
+      
         // Pagination parameters
         const pageSize = 10; // Number of documents per page
 
@@ -161,29 +161,15 @@ class ClientController {
 
         res.status(200).json({
           status_code: 1,
-          message: "Got the hourse successfuly",
+          message: "Got the client successfuly",
           data: {
             current_page: parseInt(req.query.page) || 1,
             max_pages: maxPages,
-            hourse: docs,
+            client: docs,
           },
         });
       })
-          .then(async (docs) => {
-            const totalRecords = await Client.countDocuments();
 
-            const maxPages = Math.ceil(totalRecords / pageSize);
-
-            res.status(200).json({
-              status_code: 1,
-              message: "Got the clients successfuly",
-              data: {
-                current_page: parseInt(req.query.page) || 1,
-                max_pages: maxPages,
-                client: docs,
-              },
-            });
-          })
           .catch((error) => {
             res.status(500).json({
               status_code: ApiErrorCode.internalError,
@@ -195,7 +181,6 @@ class ClientController {
               },
             });
           });
-      }
     } catch (error) {
       res.status(500).json({
         status_code: ApiErrorCode.internalError,
