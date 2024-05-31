@@ -238,7 +238,6 @@ router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res
   }
 })
 
-<<<<<<< HEAD
 router.get("/uploads/:id",async (req,res) => {
 
   try {
@@ -266,15 +265,7 @@ router.get("/uploads/:id",async (req,res) => {
 
 
 })
-=======
-// Route to serve the uploaded images
-router.get('/images/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const imagePath = path.join(__dirname, 'uploads', filename);
-  res.sendFile(imagePath);
-});
 
->>>>>>> 9fc3042062015409180ccd9b31ec5ba8208feaec
 
 
 module.exports = router;

@@ -100,7 +100,6 @@ router.post(
   ClientController.uploadClientImage
 );
 
-<<<<<<< HEAD
 /**
 * @desc Get all Clients
 * @route api/Client/
@@ -111,8 +110,6 @@ router.get(
   "/upload-image/:id",
   ClientController.getClientImage
 );
-=======
 
->>>>>>> 9fc3042062015409180ccd9b31ec5ba8208feaec
 
 module.exports = router;
