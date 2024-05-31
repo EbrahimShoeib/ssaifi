@@ -33,7 +33,7 @@ class InqueryController {
                       .populate("course")
 
                       const cafateria = await Consume.find({clientId : req.params.id})
-                      const invMembership = await InvMembership.findOne({clientId : req.params.id})
+                      const invMembership = await InvMembership.find({clientId : req.params.id})
 
                         res.status(200).json({
                             status_code: 1,
@@ -149,6 +149,7 @@ class InqueryController {
 
           Hourse.findById(req.params.id)
               .select("-__v")
+
               .then(async (docs) => {
 
                 if(docs){

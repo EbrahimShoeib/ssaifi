@@ -10,7 +10,7 @@ import { httpGetServices } from "@/services/httpGetService"
 import { getReadableDate } from "@/utils/getReadableDate"
 import Link from "next/link"
 import { usePathname, useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { GrAdd } from "react-icons/gr"
 import { useQuery } from "react-query"
 
@@ -28,6 +28,7 @@ function InvoicePage() {
     const pathname = usePathname()
     const isDataHere = Boolean(response?.data?.client) && isSuccess
 
+    const [invoiceRes,setInvoiceRes] = useState<any>()
 
     const tableHeadCells = [
         //"invoice id",
@@ -59,6 +60,16 @@ function InvoicePage() {
         <Suspense>
             <PageHeader
                 title={"Invoices List"}
+                linksSearchBox={{
+                    searchUrl:invoiceRoute,
+                    options:invoiceRes?.data?.client.map((item:any) => ({
+                        name:item?.clientId?.username,
+                        href:`/management/invoice/${item?._id}/edit`
+                    })),
+                    setResponse:setInvoiceRes,
+                    placeholder:"search schedule item"
+
+                }}
             >
                 <Link
                     className='page_header_button' 

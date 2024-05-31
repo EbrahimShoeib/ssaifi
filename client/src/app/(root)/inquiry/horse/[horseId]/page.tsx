@@ -71,9 +71,10 @@ function HorsePage() {
                     avatarUrl:horse?.avatar,
                     itemData:horse,
                     itemDataSubTitles:{
-                        age:horse?.age,
-                        gender:horse?.gender,
-                        note:horse?.note,
+                        age:horse?.age || 'no-age',
+                        gender:horse?.gender || 'no-gender',
+                        note:horse?.note || 'no-note',
+                        id:horse?.id || 'no-id'
                     },
                     role:"horse",
                     title:horse?.hourseName

@@ -4,7 +4,6 @@ import MembershipFamilyInputs from "@/components/content/sales/membership/Member
 import PageHeader from "@/components/layout/PageHeader"
 import { familyMembershipRoute } from "@/constants/api"
 import { useFailedPopUp } from "@/hooks/useFailedPopUp"
-import { usePopUp } from "@/hooks/usePopUp"
 import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
 import { httpGetServices } from "@/services/httpGetService"
 import { httpPatchService } from "@/services/httpPatchService"
@@ -14,8 +13,6 @@ import { getMembershipType } from "@/utils/getMembershipType"
 import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { IoMdCheckmarkCircleOutline } from "react-icons/io"
-import { MdErrorOutline } from "react-icons/md"
 import { useMutation } from "react-query"
 
 function EditFamilyMembershipPage() {
@@ -68,8 +65,8 @@ function EditFamilyMembershipPage() {
                 setMembers(data.members)
                 setStatus(getMembershipStatus(data.status))
                 setMembershipType(getMembershipType(data.membershipTtpe))
-                setStartDate(getIsoDate(data.startDate))
-                setEndDate(getIsoDate(data.endDate))
+                data.startDate&&setStartDate(getIsoDate(data.startDate))
+                data.endDate&&setEndDate(getIsoDate(data.endDate))
                 setIsLoading(false)
             }
             

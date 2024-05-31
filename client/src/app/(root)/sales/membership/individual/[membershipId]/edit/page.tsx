@@ -22,7 +22,6 @@ import { useMutation } from 'react-query'
 
 function EditIndividualMembershipPage() {
     const [client,setClient] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
     const [startDate,setStartDate] = useState<string>("")
     const [endDate,setEndDate] = useState<string>("")
     const [status,setStatus] = useState<NameAndId>(null)
@@ -56,12 +55,7 @@ function EditIndividualMembershipPage() {
         },
         onError: () => failedPopUp()
     })
-    useGetClients({
-        onSuccess:(res)=>{
-            const clients = toNameAndId(res?.data?.client,"username","_id")            
-            setClients(clients)
-        }
-    })
+
 
     useEffect(()=>{
         const fetchMembershipData = async () => {
@@ -74,8 +68,8 @@ function EditIndividualMembershipPage() {
                     id:data.clientId._id
                 }) : null
                 setClient(client)
-                setStartDate(getIsoDate(data.startDate))
-                setEndDate(getIsoDate(data.endDate))
+                data.startDate&&setStartDate(getIsoDate(data.startDate))
+                data.endDate&&setEndDate(getIsoDate(data.endDate))
                 setStatus(getMembershipStatus(data.status))
                 setMembershipType(getMembershipType(data.membershipType))
                 setIsLoading(false)
@@ -98,7 +92,6 @@ function EditIndividualMembershipPage() {
             <MembershipIndividualInputs
                 client={client}
                 setClient={setClient}
-                clients={clients}
                 startDate={startDate}
                 setStartDate={setStartDate}
                 endDate={endDate}

@@ -12,6 +12,9 @@ const express = require("express");
 router = express.Router();
 
 router.post("/login", async (req, res ,next) => {
+
+  console.log("user is : "+req.body.email)
+
   const { error } = validationLoginUser(req.body);
   if (error) {
     res.status(400).json({
@@ -24,6 +27,7 @@ router.post("/login", async (req, res ,next) => {
   }else {
     User.findOne({ email: req.body.email })
     .then( async(user) => {
+
       if (user) {
         const { password, __v, ...other } = user._doc;
         const validPassword = await bcrypt.compare(
@@ -88,8 +92,6 @@ router.post("/login", async (req, res ,next) => {
       });
     });
   }
-
-  
 });
 
 router.patch("/update-admin", verifyTokenAndAdmin, async (req, res) => {
@@ -234,10 +236,9 @@ router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res
       }
     });
   }
-
-
 })
 
+<<<<<<< HEAD
 router.get("/uploads/:id",async (req,res) => {
 
   try {
@@ -265,5 +266,15 @@ router.get("/uploads/:id",async (req,res) => {
 
 
 })
+=======
+// Route to serve the uploaded images
+router.get('/images/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, 'uploads', filename);
+  res.sendFile(imagePath);
+});
+
+>>>>>>> 9fc3042062015409180ccd9b31ec5ba8208feaec
+
 
 module.exports = router;

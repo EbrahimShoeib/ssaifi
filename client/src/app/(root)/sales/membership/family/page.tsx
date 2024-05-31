@@ -9,8 +9,9 @@ import Table from "@/components/layout/Table"
 import { familyMembershipRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { useQuery } from "react-query"
+import { getReadableDate } from "@/utils/getReadableDate"
 
 function FamilyMembershipPage() {
     const searchParams = useSearchParams()
@@ -43,12 +44,15 @@ function FamilyMembershipPage() {
         "status"
 
     ]
+    const [familyMembershipRes,setFamilyMembershipRes] = useState<any>()
 
     const tableBodyItems = response?.familyMembership?.data.map((item:any) => ({
         ...item,
         status:(<span className={item.status.toLowerCase() === "active" ? "text-green-500" : "text-red-500"}>
             {item.status}
-        </span>)
+        </span>),
+        startDate:item.startDate ?getReadableDate(item.startDate) :'no-date',
+        endDate:item.endDate ?getReadableDate(item.endDate) :'no-date'
     }))
     
     
@@ -68,6 +72,16 @@ function FamilyMembershipPage() {
             <PageHeader
                 title={"stables membership"}
                 addNewButtonLabel="add family membership"
+                linksSearchBox={{
+                    searchUrl:familyMembershipRoute,
+                    options:familyMembershipRes?.familyMembership?.data.map((item:any) => ({
+                        name:item?.famillyName,
+                        href:`/sales/membership/family/${item?._id}/edit`
+                    })),
+                    setResponse:setFamilyMembershipRes,
+                    placeholder:"search membership item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

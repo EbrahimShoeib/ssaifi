@@ -8,7 +8,7 @@ import Table from '@/components/layout/Table';
 import { cafeteriaMenuItemRoute } from '@/constants/api';
 import { httpGetServices } from '@/services/httpGetService';
 import { useSearchParams } from 'next/navigation';
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useQuery } from 'react-query';
 import { getReadableDate } from '@/utils/getReadableDate';
 import PageHeader from '@/components/layout/PageHeader';
@@ -18,6 +18,8 @@ function CafeteriaMenuItems() {
     
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
+
+    const [cafeteriaMenuitemRes,setCafeteriaMenuitemRes] = useState<any>()
 
     const {data:response,isSuccess,refetch}:any = useQuery({
         queryFn:async () => httpGetServices(`${cafeteriaMenuItemRoute}?page=${pageNumber}`),
@@ -45,7 +47,7 @@ function CafeteriaMenuItems() {
 
     const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
         ...item,
-        date:getReadableDate(item.date),
+        date:item.date&&getReadableDate(item.date)||'no-date',
         price:(<span className='text-right block w-full'>
             {priceFormatter(String(item.price))}
         </span>)
@@ -65,6 +67,16 @@ function CafeteriaMenuItems() {
         <Suspense>
             <PageHeader
                 title={"stables cafeteria"}
+                linksSearchBox={{
+                    searchUrl:cafeteriaMenuItemRoute,
+                    options:cafeteriaMenuitemRes?.caveteriaItems?.data.map((item:any) => ({
+                        name:item?.menuItemName,
+                        href:`/sales/cafeteria/menu-item/${item?._id}/edit`
+                    })),
+                    setResponse:setCafeteriaMenuitemRes,
+                    placeholder:"search cafeteria item"
+
+                }}
                 addNewButtonLabel='add new item'
             />
             <div  className='h-[calc(100%-80px)] w-full'>

@@ -1,7 +1,11 @@
+'use client'
+
 import PageContent from '@/components/layout/PageContent'
-import ResourcesDropList from '@/components/shared/resources/ResourcesDropList'
+import SearchBox from '@/components/shared/all/SearchBox'
 import ResourcesInput from '@/components/shared/resources/ResourcesInput'
-import React from 'react'
+import { horsesRoute } from '@/constants/api'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
 
 
 type InventoryConsumedInputsProps = {
@@ -15,7 +19,6 @@ type InventoryConsumedInputsProps = {
     measure:string,
     setMeasure:(newState: string) => void,
     isLoading:boolean,
-    horses:NameAndId[]|[],
     setHorse: (newState:NameAndId) => void,
     horse:NameAndId,
     submitButtonLabel:string
@@ -31,20 +34,23 @@ function InventoryConsumedInputs({
     isLoading,
     measure,
     setMeasure,
-    horses,
     setHorse,
     horse,
     submitButtonLabel
 }:InventoryConsumedInputsProps) {
+
+    const [horsesRes,setHorsesRes] = useState<any>()
     return (
         <PageContent>
             <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
-                <ResourcesDropList
+                <SearchBox
                     listValue={horse}
                     setListValue={setHorse}
-                    options={horses}
-                    placeholder='Select horse name'
-                    label='horse'
+                    options={toNameAndId(horsesRes?.data?.hourse,'hourseName','_id')}
+                    searchUrl={horsesRoute}
+                    setResponse={setHorsesRes}
+                    label='select horse'
+                    placeholder='select horse'
                 />
                 <ResourcesInput
                     value={itemName} 

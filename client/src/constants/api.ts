@@ -1,6 +1,10 @@
-//export const BASE_URL :string = "http://localhost:8000/api"
-export const BASE_URL :string = "https://saifi-stable-main.onrender.com/api"
+export const BASE_URL :string =  "https://saifistable-1.onrender.com/api"
 
+// "http://localhost:8000/api"
+// export const BASE_URL :string =
+//  "https://saifistableserver-gt6xw.ondigitalocean.app/api"
+// "https://saifistable-1.onrender.com/api"
+//"https://saifistableserver-gt6xw.ondigitalocean.app/"
 
 export const clientsRoute = "/client"
 export const horsesRoute = "/hourse"

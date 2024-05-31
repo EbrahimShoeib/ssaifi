@@ -17,7 +17,6 @@ function InstructorsPage() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
 
-    const [listValue,setListValue] = useState<any>(null)
 
     const {data:response,isSuccess,refetch} = useQuery({
         queryKey:["instructors","page",pageNumber],
@@ -30,18 +29,21 @@ function InstructorsPage() {
 
     const isDataHere = Boolean(response?.data?.instractor) && isSuccess
 
-    let listOptions = isDataHere ? toNameAndId(response.data.instractor,"instractorName","_id"): []
+    const [instructorsRes,setInstructorsRes] = useState<any>()
     
     return (
         <Suspense>
             <div className='w-full h-[calc(100%-80px)]'>
                 <PageHeader
                     title={"stables instructors"}
-                    dropDown={{
-                        options:listOptions,
-                        listValue,
-                        setListValue,
-                        placeholder:"select instructor"
+                    linksSearchBox={{
+                        searchUrl:instructorsRoute,
+                        options:instructorsRes?.data?.instractor.map((item:any) => ({
+                            name:item?.instractorName,
+                            href:`/resources/instructors/${item?._id}/edit`
+                        })),
+                        setResponse:setInstructorsRes,
+                        placeholder:"search instructor"
                     }}
                     addNewButtonLabel='add new instructor'
                 />

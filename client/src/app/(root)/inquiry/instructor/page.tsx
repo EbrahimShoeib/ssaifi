@@ -3,31 +3,29 @@
 import PageContent from '@/components/layout/PageContent'
 import PageHeader from '@/components/layout/PageHeader'
 import NoDataFound from '@/components/shared/all/NoDataFound'
-import { useGetInstructors } from '@/hooks/useGetInstructors'
+import { instructorsRoute } from '@/constants/api'
 import React, { useState } from 'react'
 
 function InstructorInquiry() {
 
-    const [instructors,setInstructors] = useState<DropDownLink[]>([])
+    const [instructorsRes,setInstructorsRes] = useState<any>()
 
-    useGetInstructors({
-        onSuccess (res) {
-            const instructors = res?.data?.instractor?.map((curr:any) => ({
-                name:curr.instractorName,
-                href:`/inquiry/instructor/${curr._id}`
-            }));
-            setInstructors(instructors)
-        }
-    })
+  
 
 
     return (
         <>
             <PageHeader
                 title={"instructor inquiry"}
-                dropDownLinks={{
-                    options:instructors,
-                    placeholder:"select instructor"
+                linksSearchBox={{
+                    searchUrl:instructorsRoute,
+                    options:instructorsRes?.data?.instractor.map((item:any) => ({
+                        name:item?.instractorName,
+                        href:`/inquiry/instructor/${item?._id}`
+                    })),
+                    setResponse:setInstructorsRes,
+                    placeholder:"search for instructor"
+
                 }}
             />
             <PageContent>

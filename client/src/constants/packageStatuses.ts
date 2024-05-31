@@ -4,7 +4,7 @@ export const packageStatuses = [
         id:"1"
     },
     {
-        name:"unexpired",
+        name:"active",
         id:"2"
     }
 ]

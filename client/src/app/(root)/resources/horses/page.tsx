@@ -3,6 +3,7 @@
 import HorsesPageContent from '@/components/content/resources/horses/HorsePageContent'
 import PageHeader from '@/components/layout/PageHeader'
 import PaginationButtons from '@/components/layout/PaginationButtons'
+import { horsesRoute } from '@/constants/api'
 import { useGetHorses } from '@/hooks/useGetHorses'
 import { toNameAndId } from '@/utils/toNameAndId'
 import { useSearchParams } from 'next/navigation'
@@ -13,7 +14,7 @@ function HorsesPage() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
 
-    const [listValue,setListValue] = useState<NameAndId>(null)
+    const [horsesRes,setHorsesRes] = useState<any>()
 
     const {response,isSuccess,refetch}:any = useGetHorses({
         pagination:`?page=${pageNumber}`,
@@ -22,7 +23,6 @@ function HorsesPage() {
 
     const isDataHere = Boolean(response?.data?.hourse) && isSuccess
 
-    let listOptions = isDataHere ? toNameAndId(response?.data?.hourse,"hourseName","_id"): []
     
     return (
         <Suspense>
@@ -30,11 +30,14 @@ function HorsesPage() {
                 <PageHeader
                     title="stables horses"
                     addNewButtonLabel='add new horse'
-                    dropDown={{
-                        listValue,
-                        setListValue,
-                        placeholder:"select horse",
-                        options:listOptions
+                    linksSearchBox={{
+                        searchUrl:horsesRoute,
+                        options:horsesRes?.data?.hourse.map((item:any) => ({
+                            name:item?.hourseName,
+                            href:`/resources/horses/${item?._id}/edit`
+                        })),
+                        setResponse:setHorsesRes,
+                        placeholder:"search horse"
                     }}
                 />
 

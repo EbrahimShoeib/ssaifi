@@ -4,8 +4,8 @@ router = express.Router();
 const upload = require("../../../core/utils/upload");
 
 const ClientController = require("../controllers/client-controller")
-
-
+   
+ 
 /**
  * @desc create New Client
  * @route api/Client
@@ -89,12 +89,18 @@ router.patch(
 * @method Get
 * @access private
 */
+
+
+router.get("/search",ClientController.search)
+
+// Route to serve the uploaded images
 router.post(
   "/upload-image/:id",
   upload.single('image'),
   ClientController.uploadClientImage
 );
 
+<<<<<<< HEAD
 /**
 * @desc Get all Clients
 * @route api/Client/
@@ -105,5 +111,8 @@ router.get(
   "/upload-image/:id",
   ClientController.getClientImage
 );
+=======
+
+>>>>>>> 9fc3042062015409180ccd9b31ec5ba8208feaec
 
 module.exports = router;

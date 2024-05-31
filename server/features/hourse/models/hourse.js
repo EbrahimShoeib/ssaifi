@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const joi = require("joi");
 
 const hourseSchema = mongoose.Schema({
+  id: {
+    type:String,
+    required: true,
+  },
   hourseName: {
     type: String,
     required: true,
@@ -59,6 +63,7 @@ function pageValidation(obj){
 
 function createHourseValidation(obj){
     const schema = joi.object({
+      id: joi.string().required(),
         hourseName : joi.string().required().min(2).max(20),
         age : joi.number().required().min(0).max(100),
         catigoryId : joi.string().required().min(1).max(100),
@@ -67,6 +72,7 @@ function createHourseValidation(obj){
         gender : joi.string().valid('male', 'female').required(),
         note: joi.string().min(1).max(100),
         documents: joi.string().min(1).max(100),
+
     })
     return schema.validate(obj);
 
@@ -75,6 +81,7 @@ function createHourseValidation(obj){
 
 function updateHourseValidation(obj){
   const schema = joi.object({
+    id: joi.string().required(),
       hourseName : joi.string().required().min(1).max(100),
       age : joi.number().required().min(0).max(100),
       catigoryId : joi.string().required().min(1).max(100),

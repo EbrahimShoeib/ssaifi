@@ -78,3 +78,7 @@ input,textarea,select {
 .chart:hover .chart_info_holder {
     display: flex;
 }
+
+.avatar:hover .avatar_infos {
+    display: flex;
+}

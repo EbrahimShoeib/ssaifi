@@ -33,12 +33,10 @@ function HorseEditPage() {
     const [age,setAge] = useState<string>('')
     const [gender,setGender] = useState<NameAndId>(null)
     const [groom,setGroom] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [horseCategory,setHorseCategory] = useState<NameAndId>(null)
-    const [horseCategories,setHorseCategories] = useState<NameAndId[]|[]>([])
     const [isLoading,setIsLoading] = useState<boolean>(true)
     const [formDataFile,setFormDataFile] = useState<FormData>()
+    const [id,setId] = useState<string>('')
 
     const router = useRouter()
     const failedPopUp = useFailedPopUp()
@@ -52,6 +50,8 @@ function HorseEditPage() {
 
                 const data = res.data
                 if (data) {
+                    console.log(data);
+                    
                     setName(data.hourseName)
                     setNote(data.note)
                     let category = await getHorseCategoryById(data.catigoryId[0])
@@ -78,6 +78,7 @@ function HorseEditPage() {
                     setAge(data.age)
                     setGender(getGender(data?.gender))
                     setNote(data.note)
+                    data.id&&setId(data?.id)
                     setIsLoading(false)
                 }
                
@@ -96,6 +97,7 @@ function HorseEditPage() {
             gender:gender?.name,
             groom:groom?.id,
             catigoryId:horseCategory?.id,
+            id
         })),
         onSuccess:async (res) => {
             const status = statusCodeIndicator(res.status_code) === "success" 
@@ -113,30 +115,6 @@ function HorseEditPage() {
         onError:() => failedPopUp()
     })
 
-    useGetClients({
-        onSuccess:(data) => {
-            const clientsOptions = toNameAndId(data.data.client,"username","_id")            
-            setClients(clientsOptions)
-        },
-    })
-
-    useGetHorses({
-        onSuccess(data) {
-            let horsesOptions = toNameAndId(data.data.hourse,"hourseName","_id") 
-            
-            horsesOptions = horsesOptions.filter((option:any) => option.id !== horseId)
-            setHorses(horsesOptions)
-        },
-    })
-
-    useQuery({
-        queryKey:["allHorseCategories"],
-        queryFn:async () => httpGetServices(horseCategoriesRoute),
-        onSuccess(data) {
-            const horseCategoriesOptions = toNameAndId(data.data,"displayName","_id")                                    
-            setHorseCategories(horseCategoriesOptions)
-        },
-    })
 
     const handleImageUpload = async (id:string) => {
         if (Boolean(formDataFile)) {
@@ -169,14 +147,13 @@ function HorseEditPage() {
                 note={note}
                 setNote={setNote}
                 handleSubmit={mutate}
-                clients={clients}
-                horses={horses}
                 horseCategory={horseCategory}
                 setHorseCategory={setHorseCategory}
-                horseCategories={horseCategories}
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
                 submitButtonLabel='save horse data'
+                id={id}
+                setId={setId}
             />
         </>
     )

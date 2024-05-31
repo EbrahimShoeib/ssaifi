@@ -1,16 +1,16 @@
 const mongoose=require("mongoose")
 const joi = require("joi")
 
-const ClientSchema = mongoose.Schema({
+const ClientSchema =new mongoose.Schema({
     username: {
         type : String,
         required:true,
-        
+
     },
     email: {
         type : String,
         required:true,
-        
+
     },
     phone:{
         type : String,
@@ -31,12 +31,11 @@ const ClientSchema = mongoose.Schema({
         required: false,
         default : "inactive"
     },
-
     membershipType : {
         type: String,
         enum: ['family', 'individual'], // Define your enum values here
         required: false,
-        default : "inactive"
+        default : "individual"
     },
     courses : {
         type : [String],

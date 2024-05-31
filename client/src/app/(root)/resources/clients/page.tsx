@@ -3,6 +3,7 @@ import ClientsPageContent from '@/components/content/resources/clients/ClientsPa
 import Loader from '@/components/layout/Loader'
 import PageHeader from '@/components/layout/PageHeader'
 import PaginationButtons from '@/components/layout/PaginationButtons'
+import { clientsRoute } from '@/constants/api'
 import { useGetClients } from '@/hooks/useGetClients'
 import { toNameAndId } from '@/utils/toNameAndId'
 import { useSearchParams } from 'next/navigation'
@@ -13,7 +14,6 @@ function ClientsPage() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
     
-    const [listValue,setListValue] = useState<NameAndId>(null)
 
     const {response,isSuccess,refetch}:any = useGetClients({
         pagination:`?page=${pageNumber}`,
@@ -24,19 +24,21 @@ function ClientsPage() {
 
     const isDataHere = Boolean(response?.data?.client) && isSuccess
 
-    let listOptions = isDataHere ? toNameAndId(response?.data?.client,"username","_id"): []
-    
+    const [clientsRes,setClientsRes] = useState<any>()
     
     return (
         <Suspense>
             <div className='w-full h-[calc(100%-80px)]'>
                 <PageHeader
                     title={"stables clients"}
-                    dropDown={{
-                        options: listOptions,
-                        setListValue,
-                        listValue,
-                        placeholder:"select client"
+                    linksSearchBox={{
+                        searchUrl:clientsRoute,
+                        options:clientsRes?.data?.client.map((item:any) => ({
+                            name:item?.username,
+                            href:`/resources/clients/${item?._id}/edit`
+                        })),
+                        setResponse:setClientsRes,
+                        placeholder:"search client"
                     }}
                     addNewButtonLabel='add new client'
                 />

@@ -10,7 +10,7 @@ import { httpGetServices } from '@/services/httpGetService'
 import { getReadableDate } from '@/utils/getReadableDate'
 import { priceFormatter } from '@/utils/priceFormatter'
 import { useSearchParams } from 'next/navigation'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useQuery } from 'react-query'
 
 function DailyPage() {
@@ -28,6 +28,7 @@ function DailyPage() {
 
     const isDataHere = Boolean(response?.Daily?.data) && isSuccess
 
+    const [dailyRes,setDailyRes] = useState<any>()
 
     const tableHeadCells = [
         "course date",
@@ -77,6 +78,16 @@ function DailyPage() {
             <PageHeader
                 title={"daily entry"}
                 addNewButtonLabel='add class'
+                linksSearchBox={{
+                    searchUrl:dailyRoute,
+                    options:dailyRes?.Daily?.data.map((item:any) => ({
+                        name:item?.clientId?.username,
+                        href:`/management/daily/${item?._id}/edit`
+                    })),
+                    setResponse:setDailyRes,
+                    placeholder:"search daily item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

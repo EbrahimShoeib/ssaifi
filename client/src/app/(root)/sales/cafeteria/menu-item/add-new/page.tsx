@@ -1,14 +1,11 @@
 "use client"
 
 import React from 'react'
-import { usePopUp } from "@/hooks/usePopUp"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useMutation } from "react-query"
 import { cafeteriaMenuItemRoute } from '@/constants/api'
 import { httpPostService } from '@/services/httpPostService'
-import { IoMdCheckmarkCircleOutline } from 'react-icons/io'
-import { MdErrorOutline } from 'react-icons/md'
 import { statusCodeIndicator } from '@/utils/statusCodeIndicator'
 import PageHeader from '@/components/layout/PageHeader'
 import CafeteriaMenuItemsInputs from '@/components/content/sales/cafeteria/CafeteriaMenuItemInputs'

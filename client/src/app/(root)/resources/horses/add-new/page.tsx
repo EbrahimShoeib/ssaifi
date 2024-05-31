@@ -6,7 +6,6 @@ import { horsesRoute, horseCategoriesRoute, horsesImageUploadRoute } from "@/con
 import { useFailedPopUp } from "@/hooks/useFailedPopUp"
 import { useGetClients } from "@/hooks/useGetClients"
 import { useGetHorses } from "@/hooks/useGetHorses"
-import { usePopUp } from "@/hooks/usePopUp"
 import { useSuccessPopUp } from "@/hooks/useSuccessPopUp"
 import { httpGetServices } from "@/services/httpGetService"
 import { httpPostFormDataService } from "@/services/httpPostFormDataService"
@@ -15,8 +14,6 @@ import { statusCodeIndicator } from "@/utils/statusCodeIndicator"
 import { toNameAndId } from "@/utils/toNameAndId"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { IoMdCheckmarkCircleOutline } from "react-icons/io"
-import { MdErrorOutline } from "react-icons/md"
 import { useMutation, useQuery } from "react-query"
 
 function AddNewHorsePage() {
@@ -27,13 +24,11 @@ function AddNewHorsePage() {
     const [age,setAge] = useState<string>('')
     const [gender,setGender] = useState<NameAndId>(null)
     const [groom,setGroom] = useState<NameAndId>(null)
-    const [clients,setClients] = useState<NameAndId[]|[]>([])
-    const [horses,setHorses] = useState<NameAndId[]|[]>([])
     const [horseCategory,setHorseCategory] = useState<NameAndId>(null)
-    const [horseCategories,setHorseCategories] = useState<NameAndId[]|[]>([])
     const [formDataFile,setFormDataFile] = useState<FormData>()
     const [isLoading,setIsLoading] = useState<boolean>(false)
-    
+    const [id,setId] = useState<string>('')
+
     const failedPopUp = useFailedPopUp()
     const successPopUp = useSuccessPopUp()
     const router = useRouter()
@@ -48,6 +43,7 @@ function AddNewHorsePage() {
             gender:gender?.name,
             groom:groom?.id,
             catigoryId:horseCategory?.id,
+            id
         })),
         mutationKey:["addNewHorse"],
         onSuccess:async (res) => {
@@ -68,30 +64,9 @@ function AddNewHorsePage() {
         }
     })
 
-    useGetClients({
-        onSuccess:(data) => {
-            const clientsOptions = toNameAndId(data?.data?.client,"username","_id")            
-            setClients(clientsOptions)
-        },
-    })
 
-    
-    useGetHorses({
-        onSuccess(data) {
-            const horsesOptions = toNameAndId(data?.data?.hourse,"hourseName","_id") 
-                                   
-            setHorses(horsesOptions)
-        },
-    })
 
-    useQuery({
-        queryKey:["allHorseCategories"],
-        queryFn:async () => httpGetServices(horseCategoriesRoute),
-        onSuccess(data) {
-            const horseCategoriesOptions = toNameAndId(data?.data,"displayName","_id")                                    
-            setHorseCategories(horseCategoriesOptions)
-        },
-    })
+  
 
     const handleImageUpload = async (id:string) => {
         if (Boolean(formDataFile)) {
@@ -124,14 +99,13 @@ function AddNewHorsePage() {
                 note={note}
                 setNote={setNote}
                 handleSubmit={mutate}
-                clients={clients}
-                horses={horses}
                 horseCategory={horseCategory}
                 setHorseCategory={setHorseCategory}
-                horseCategories={horseCategories}
                 formDataFile={formDataFile}
                 setFormDataFile={setFormDataFile}
                 submitButtonLabel="add new horse"
+                id={id}
+                setId={setId}
             />
         </>
     )

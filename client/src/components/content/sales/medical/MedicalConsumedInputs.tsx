@@ -1,7 +1,11 @@
+'use client'
+
 import PageContent from '@/components/layout/PageContent'
-import ResourcesDropList from '@/components/shared/resources/ResourcesDropList'
+import SearchBox from '@/components/shared/all/SearchBox'
 import ResourcesInput from '@/components/shared/resources/ResourcesInput'
-import React from 'react'
+import { horsesRoute } from '@/constants/api'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
 
 type MedicalConsumedInputsProps = {
     itemName: string,
@@ -17,7 +21,6 @@ type MedicalConsumedInputsProps = {
     dosage:string,
     setDosage: (newState:string) => void,
     horse:NameAndId,
-    horses:NameAndId[]|[],
     setHorse: (newState:NameAndId) => void,
     submitButtonLabel: string,
 }
@@ -36,10 +39,13 @@ function MedicalConsumedInputs({
     dosage,
     setDosage,
     horse,
-    horses,
     setHorse,
     submitButtonLabel
 }:MedicalConsumedInputsProps) {
+
+
+    const [horsesRes,setHorsesRes] = useState<any>()
+
     return (
         <PageContent>
             <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
@@ -79,12 +85,14 @@ function MedicalConsumedInputs({
                     label='dosage'
                     type='number'
                 />  
-                <ResourcesDropList
+                <SearchBox
+                    searchUrl={horsesRoute}
                     listValue={horse}
                     setListValue={setHorse}
-                    options={horses}
-                    placeholder='Select horse name'
-                    label='horse'
+                    setResponse={setHorsesRes}
+                    options={toNameAndId(horsesRes?.data?.hourse,'hourseName','_id')}
+                    label='select horse'
+                    placeholder='select horse'
                 />
             </div>
             <div className='w-full flex justify-center'>

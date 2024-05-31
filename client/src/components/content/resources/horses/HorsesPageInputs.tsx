@@ -1,9 +1,13 @@
+'use client'
 import PageContent from '@/components/layout/PageContent'
+import SearchBox from '@/components/shared/all/SearchBox'
 import ResourcesDropList from '@/components/shared/resources/ResourcesDropList'
 import ResourcesImageInput from '@/components/shared/resources/ResourcesImageInput'
 import ResourcesInput from '@/components/shared/resources/ResourcesInput'
+import { clientsRoute, horseCategoriesRoute, horsesRoute } from '@/constants/api'
 import { genders } from '@/constants/genders'
-import React from 'react'
+import { toNameAndId } from '@/utils/toNameAndId'
+import React, { useState } from 'react'
 
 type HorsePageInputsProps = {
     name:string,
@@ -20,14 +24,13 @@ type HorsePageInputsProps = {
     client:NameAndId,
     setClient:(state:NameAndId)=>void,
     handleSubmit: ()=> void,
-    clients:NameAndId[]|[],
-    horses:NameAndId[]|[],
     horseCategory:NameAndId,
     setHorseCategory:(state:NameAndId)=>void,
-    horseCategories:NameAndId[]|[],
     formDataFile:FormData|undefined,
     setFormDataFile:(state:FormData)=> void,
     submitButtonLabel:string,
+    id:string,
+    setId:(state:string)=>void
 
 }
 function HorsePageInputs({
@@ -45,27 +48,35 @@ function HorsePageInputs({
     client,
     setClient,
     handleSubmit,
-    clients,
-    horses,
     horseCategory,
     setHorseCategory,
-    horseCategories,
     formDataFile,
     setFormDataFile,
     submitButtonLabel,
+    id,
+    setId
 
 }:HorsePageInputsProps) {
 
+    const [clientsRes,setClientsRes] = useState<any>()
+    const [horsesRes,setHorsesRes] = useState<any>()
+    const [horseCategoriesRes,setHorseCategoriesRes] = useState<any>()
 
-    
     return (
-        <PageContent className='overflow-hidden'>   
-            <div className='max-w-[600px] flex flex-col gap-10 my-16 mx-8'>
+        <PageContent>   
+            <div className='max-w-[600px] flex flex-col gap-5 my-16 mx-8'>
                 <ResourcesInput
                     value={name} 
                     setValue={setName}
                     placeholder="Enter horse Name"
                     label='horse name'
+                    type='text'
+                />
+                <ResourcesInput
+                    value={id} 
+                    setValue={setId}
+                    placeholder="Enter horse id"
+                    label='horse id'
                     type='text'
                 />
                 <ResourcesInput
@@ -89,34 +100,37 @@ function HorsePageInputs({
                     placeholder='Select horse Gender'
                     label='gender'
                 />
-                <ResourcesDropList
+                <SearchBox
+                    label={'select groom'}
+                    options={toNameAndId(horsesRes?.data?.hourse,'hourseName',"_id")}
+                    searchUrl={horsesRoute}
+                    setResponse={setHorsesRes}
                     listValue={groom}
                     setListValue={setGroom}
-                    options={horses}
-                    placeholder='Select Groom'
-                    label='groom'
-                    
+                    placeholder='select groom'
                 />
-                <ResourcesDropList
+                <SearchBox
+                    label={'select client'}
+                    options={toNameAndId(clientsRes?.data?.client,'username',"_id")}
+                    searchUrl={clientsRoute}
+                    setResponse={setClientsRes}
                     listValue={client}
                     setListValue={setClient}
-                    options={clients}
-                    placeholder='Select Client '
-                    label='client'
-                    
+                    placeholder='select client'
                 />
                 <ResourcesImageInput
                     label='photo' 
                     formDataFile={formDataFile} 
                     setFormDataFile={setFormDataFile}
                 />
-                <ResourcesDropList
+                <SearchBox
+                    label={'select category'}
+                    options={toNameAndId(horseCategoriesRes?.data,'displayName',"_id")}
+                    searchUrl={horseCategoriesRoute}
+                    setResponse={setHorseCategoriesRes}
                     listValue={horseCategory}
+                    placeholder='select horse category'
                     setListValue={setHorseCategory}
-                    options={horseCategories}
-                    placeholder='Select horse category '
-                    label='categories'
-                    
                 />
             </div>
             <div className='w-full flex justify-center'>

@@ -31,6 +31,9 @@ const InvoiceSchema = mongoose.Schema({
         type : String,
         required: true,
         enum: ['premium','basic'],
+    },
+    debit:{
+        type:Number
     }
 })
 
@@ -45,7 +48,8 @@ function invoiceValidation(obj){
         totalAmount : joi.number().min(1),
         invoiceDate : joi.string().min(4).max(25),
         status : joi.string().valid('active','inactive').required(),
-        clientType : joi.string().valid('premium','basic').required()
+        clientType : joi.string().valid('premium','basic').required(),
+        debit:joi.number()
     })
     return schema.validate(obj);
 }

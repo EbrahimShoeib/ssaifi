@@ -5,10 +5,10 @@ import NavigationTabs from '@/components/shared/all/NavigationTabs'
 import PageContent from '@/components/layout/PageContent'
 import PaginationButtons from '@/components/layout/PaginationButtons'
 import Table from '@/components/layout/Table'
-import { cafeteriaConsumedItemRoute } from '@/constants/api'
+import { cafeteriaConsumedItemRoute, cafeteriaRoute } from '@/constants/api'
 import { httpGetServices } from '@/services/httpGetService'
 import { useSearchParams } from 'next/navigation'
-import React, { Suspense } from 'react'
+import React, { Suspense, useState } from 'react'
 import { useQuery } from "react-query";
 import { getReadableDate } from '@/utils/getReadableDate'
 import PageHeader from '@/components/layout/PageHeader'
@@ -19,6 +19,7 @@ function CafeteriaConsumedItems() {
     const searchParams = useSearchParams()
     const pageNumber = searchParams.get("page") || "1"
     
+    const [cafeteriaConsumedRes,setCafeteriaConsumedRes] = useState<any>()
 
     const {data:response,isSuccess,refetch}:any = useQuery({
         queryFn:async () => httpGetServices(`${cafeteriaConsumedItemRoute}?page=${pageNumber}`),
@@ -48,7 +49,7 @@ function CafeteriaConsumedItems() {
     const tableBodyItems = response?.caveteriaItems?.data.map((item:any) => ({
         ...item,
         clientId:item.clientId?.username || "no-client",
-        date:getReadableDate(item.date),
+        date:item.date&&getReadableDate(item.date)||'no-date',
         consumedPrice:(<span className='w-full block text-right'>
             {priceFormatter(String(item.consumedPrice))}
         </span>)
@@ -69,6 +70,16 @@ function CafeteriaConsumedItems() {
             <PageHeader
                 title={"stables cafeteria"}
                 addNewButtonLabel='add new item'
+                linksSearchBox={{
+                    searchUrl:cafeteriaConsumedItemRoute,
+                    options:cafeteriaConsumedRes?.caveteriaItems?.data.map((item:any) => ({
+                        name:item?.consumedItemName,
+                        href:`/sales/cafeteria/consumed-item/${item?._id}/edit`
+                    })),
+                    setResponse:setCafeteriaConsumedRes,
+                    placeholder:"search cafeteria item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-10'>

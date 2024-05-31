@@ -18,8 +18,10 @@ const {
           { famillyName: { $regex: regexQuery } },
         ],
       })
-        .skip(skip) // Skip documents
-        .limit(pageSize)
+      .select("-__v")
+      .skip(skip) // Skip documents
+      .sort( 
+        { votes: 1, _id: -1 }).limit(pageSize) 
         // .populate("clientId")
         .then(async (docs) => {
           if (docs) {

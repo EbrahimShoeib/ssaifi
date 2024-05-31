@@ -14,6 +14,7 @@ const caveteriaSchema = mongoose.Schema({
     },
     type:{
         type:String,
+        enum:["beverage","treat","food","icecream"]  ,
         required:false
     },
     price:{
@@ -33,7 +34,7 @@ function createMenueItemValidation(obj){
     const schema =joi.object({
         menuItemName:joi.string().required(),
         quantity:joi.string().required(),
-        type : joi.string().required(),
+        type : joi.string().required().valid("beverage","treat","food","icecream"),
         price :joi.number().required() ,
         date : joi.date().required(),
     })

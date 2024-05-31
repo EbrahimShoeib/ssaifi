@@ -24,6 +24,7 @@ class HourseController {
         });
       } else {
         const hourse = new Hourse({
+          id: req.body.id,
           hourseName: req.body.hourseName,
           age: req.body.age,
           catigoryId: req.body.catigoryId,
@@ -88,10 +89,10 @@ class HourseController {
           { age: parseInt(req.query.query) || 0 },
         ],
       })
-        .select("-__v")
-        .skip(skip) // Skip documents
-        .limit(pageSize)
-        .then(async (docs) => {
+      .select("-__v")
+          .skip(skip) // Skip documents
+          .sort( 
+            { votes: 1, _id: -1 }).limit(pageSize)      .then(async (docs) => {
           const totalRecords = await Hourse.countDocuments();
 
           const maxPages = Math.ceil(totalRecords / pageSize);
@@ -197,6 +198,7 @@ class HourseController {
             req.params.id,
             {
               $set: {
+                id: req.body.id,
                 hourseName: req.body.hourseName,
                 age: req.body.age,
                 catigoryId: req.body.catigoryId,

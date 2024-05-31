@@ -6,8 +6,7 @@ const instractorSchema = mongoose.Schema({
     instractorName:{
         type:String,
         required:true,
-        minlength: [2,"instractor Name is less than 2 character "],
-        maxlength: [20,"instractor Name is longer than 20 character "]    },
+          },
     email:{
         type:String,
         required:true
@@ -39,10 +38,10 @@ const instractor = mongoose.model("instractor",instractorSchema)
 
 function createInstractorValidation(obj){
     const schema = joi.object({
-        instractorName : joi.string().required().min(2).max(20),
-        email : joi.string().required().min(0).max(100),
+        instractorName : joi.string().required(),
+        email : joi.string().required(),
         phoneNumber : joi.string().required().min(1).max(100),
-        age: joi.number().required().min(1).max(20),
+        age: joi.number().required().min(1).max(100),
         gender : joi.string().valid('male', 'female').required(),
         avatar: joi.string(),
     })
@@ -50,9 +49,9 @@ function createInstractorValidation(obj){
 }
 function updateInstractorValidation(obj){
     const schema = joi.object({
-        instractorName : joi.string().min(2).max(20),
-        email : joi.string().min(0).max(100),
-        phoneNumber : joi.string().min(1).max(100),
+        instractorName : joi.string(),
+        email : joi.string(),
+        phoneNumber : joi.string().min(1).max(200),
         age: joi.number().min(1).max(20),
         gender : joi.string().valid('male', 'female'),
         avatar: joi.string(),

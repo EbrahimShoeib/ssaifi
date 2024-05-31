@@ -4,6 +4,7 @@ import PageHeader from '@/components/layout/PageHeader'
 import Table from '@/components/layout/Table'
 import { clientInquiryRoute } from '@/constants/api'
 import { httpGetServices } from '@/services/httpGetService'
+import { getReadableDate } from '@/utils/getReadableDate'
 import { priceFormatter } from '@/utils/priceFormatter'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -62,7 +63,11 @@ function ClientPage() {
                 isCrud={false}
                 tableBodyItemCellKeys={["membershipType","startDate","endDate","status"]}
                 tableHeadCells={["membership type","start date","end date","status"]}
-                tableBodyItems={memberships}
+                tableBodyItems={memberships.map((item:any) => ({
+                    ...item,
+                    startDate:getReadableDate(item?.startDate),
+                    endDate:getReadableDate(item?.endDate),
+                }))}
             />,
             title:"membership"
         },
@@ -101,10 +106,10 @@ function ClientPage() {
                     avatarUrl:client?.avatar,
                     itemData:client,
                     itemDataSubTitles:{
-                        email:client?.email,
-                        mobile:client?.phone,
-                        gender:client?.gender,
-                        age:client?.age
+                        email:client?.email||'no-email',
+                        mobile:client?.phone||'no-mobile',
+                        gender:client?.gender||'no-gender',
+                        age:client?.age||'no-age'
                     },
                     role:"client",
                     title:client?.username

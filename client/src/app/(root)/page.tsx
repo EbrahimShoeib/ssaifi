@@ -17,14 +17,17 @@ function Dashboard() {
 
     const [isLoading,setIsLoading] = useState<boolean>(true)
 
-    useEffect(()=>{
-        setIsLoading(false)
-    },[])
 
-    const {data:response} = useQuery({
+
+    const {data:response,isLoading:isDataLoading} = useQuery({
         queryKey:['dashboard'],
         queryFn:async ()=> httpGetServices(dashboardRoute)
     })
+
+    useEffect(()=>{
+        !isDataLoading && setIsLoading(false)
+    },[isDataLoading])
+
     const data = response?.data
     const columns:number[] = [
         data?.totalMedicine,
@@ -33,7 +36,6 @@ function Dashboard() {
         data?.totalCourse
     ]
     const columnsTotals = columns.reduce((acc,curr) => acc + curr,0)
-console.log(data);
 
 
     return (
@@ -56,7 +58,7 @@ console.log(data);
                             />
                             {/* <DashBoardActionsWidget/> */}
                         </div>
-                        <div className='w-full flex gap-4 flex-1'>
+                        <div className='w-full flex gap-4 h-[300px] flex-1'>
                             <DashboardCafeteriaWidget
                                 cafeterias={data?.latestCafeteriaOrders}
                             />

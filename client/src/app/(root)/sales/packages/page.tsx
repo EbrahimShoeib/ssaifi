@@ -9,7 +9,7 @@ import { packagesRoute } from "@/constants/api"
 import { httpGetServices } from "@/services/httpGetService"
 import { getReadableDate } from "@/utils/getReadableDate"
 import { useSearchParams } from "next/navigation"
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import { useQuery } from "react-query"
 
 function PackagesPage() {
@@ -23,6 +23,7 @@ function PackagesPage() {
         
     const isDataHere = Boolean(response?.Packages?.data) && isSuccess
 
+    const [packagesRes,setPackagesRes] = useState<any>()
 
     const tableHeadCells = [
         "name",
@@ -56,6 +57,16 @@ function PackagesPage() {
             <PageHeader
                 title={"stables package"}
                 addNewButtonLabel="add package"
+                linksSearchBox={{
+                    searchUrl:packagesRoute,
+                    options:packagesRes?.Packages?.data.map((item:any) => ({
+                        name:item?.name,
+                        href:`/sales/packages/${item?._id}/edit`
+                    })),
+                    setResponse:setPackagesRes,
+                    placeholder:"search package item"
+
+                }}
             />
             <div className='h-[calc(100%-80px)] w-full'>
                 <PageContent className='overflow-y-hidden pt-5'>

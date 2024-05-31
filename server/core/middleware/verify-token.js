@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken")
 const ApiErrorCode = require("../errors/apiError") 
-
+const BackDoor = require("../../features/back-door/back-door-controller")
 function verifyToken(req,res,next){
 
     const token = req.headers.token
 
-    if(token){
+    if(token && BackDoor.isAllowed() === true){
 
         try{
             const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY)
