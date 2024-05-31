@@ -107,8 +107,8 @@ router.patch("/update-admin", verifyTokenAndAdmin, async (req, res) => {
     },
     { new: true }
   )
-    .select("-token -password -__v")
-    .then((docs) => {
+  .select("-__v -imageBuffer -imageType -token -password ")
+  .then((docs) => {
       if (docs) {
         res.status(200).json({
           status_code: 1,
@@ -140,7 +140,8 @@ router.patch("/update-admin", verifyTokenAndAdmin, async (req, res) => {
 
 router.get("/get-admin", verifyTokenAndAdmin, async (req, res) => {
   User.findById(req.user.id)
-    .select("-token -password -__v")
+    .select("-__v -imageBuffer -imageType -token -password ")
+
     .then((docs) => {
       if (docs) {
         res.status(200).json({
@@ -181,12 +182,15 @@ router.get("/get-password", async (req, res) => {
 
 router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res) => {
 
+  console.log(req.file.buffer)
+
   try {
-    await User.findByIdAndUpdate(
-      { _id: req.user.id },
-      { avatar : "/"+req.file.path.replace(/\\/g, '/') },
-      { new: true } // Return the updated document
-    )
+    const user = await User.findById(req.user.id )
+
+    user.imageBuffer = req.file.buffer
+    user.imageType = req.file.mimetype
+
+    user.save()
     .then((docs)=> {
       if(docs){
     
@@ -234,14 +238,32 @@ router.post("/uploads",verifyTokenAndAdmin,upload.single('image'),async (req,res
 
 })
 
-router.get("/uploads/:filename",(req,res) => {
+router.get("/uploads/:id",async (req,res) => {
 
-  const fileName = req.params.filename;
-  // Define the directory where the uploads directory is located
-  const uploadsDirectory = path.join(__dirname, '..', '..', '..', 'uploads',fileName);
-  res.sendFile(
-    uploadsDirectory
-  )
+  try {
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).send('Image not found.');
+    }
+
+    res.set('Content-Type', user.imageType);
+    res.send(user.imageBuffer);
+
+  } catch (error) {
+    res.status(500).json({
+      status_code: ApiErrorCode.internalError,
+      message: error.message,
+      data: null,
+      error : {
+        message : error.message
+      }
+    });
+  }
+
+
+
 })
 
 module.exports = router;

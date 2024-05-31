@@ -32,10 +32,16 @@ const userSchema =new mongoose.Schema({
         type:String,
         required:false
     },
-    avatar:{
-        type:String,
+    imageBuffer :{
+        type: Buffer || null,
         required:false
-    }
+    },
+    imageType : {
+        type: String || null,
+        required:false
+    },
+
+
 })
 
 

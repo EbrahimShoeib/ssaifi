@@ -43,11 +43,15 @@ const ClientSchema = mongoose.Schema({
         required : false,
         default : []
     },
-    avatar : {
-        type : String || null,
-        required : false,
-        default : null
+    imageBuffer :{
+        type: Buffer || null,
+        required:false
     },
+    imageType : {
+        type: String || null,
+        required:false
+    },
+
     activity :{
         type : Number,
         required: false,

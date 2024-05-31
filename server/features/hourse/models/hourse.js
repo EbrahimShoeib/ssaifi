@@ -40,10 +40,13 @@ const hourseSchema = mongoose.Schema({
     required: false,
     default : []
   },
-  avatar: {
-    type: null || String,
-    required: false,
-    value: null
+  imageBuffer :{
+    type: Buffer || null,
+    required:false
+},
+  imageType : {
+      type: String || null,
+      required:false
   },
 });
 const Hourse = mongoose.model("Hourse", hourseSchema);

@@ -378,29 +378,36 @@ class ClientController {
     
     static async uploadClientImage(req,res){
       try{
-        Client.findByIdAndUpdate(
-          { _id: req.params.id },
-          { avatar : "/"+req.file.path.replace(/\\/g, '/') },
-          { new: true } )
-          .select("-__v")
-          .then((docs)=> {
-            if(docs){
-              res.status(200).json({
-                status_code: 1,
-                message: "Got the client successfuly",
-                data: docs,
-              });
-            }else {
-              res.status(404).json({
-                status_code: ApiErrorCode.notFound,
-                message: "Didnt found the client in our records",
-                data: null,
-                error: {
-                  message: "Didnt found the client in our records",
-                },
-              });
-            }
-          })
+
+        const client = await Client.findById(req.params.id )
+
+        client.imageBuffer = req.file.buffer
+        client.imageType = req.file.mimetype
+
+        client.save()
+        .then((docs)=> {
+          if(docs){
+        
+            const {password,__v,token,...other} = docs._doc
+        
+            res.status(200).json({
+              status_code: 1,
+              message: "This is a hashed password",
+              data: {
+                ...other,
+              },
+            });
+          }else {
+            res.status(404).json({
+              status_code: ApiErrorCode.notFound,
+              message: "User not found",
+              data: null,
+              error : {
+                message : "didn't find the user you are looking for"
+              }
+            });
+          }
+        })
           .catch((error)=> {
             res.status(500).json({
               status_code: ApiErrorCode.internalError,
@@ -422,6 +429,30 @@ class ClientController {
         });
       }
       
+    }
+
+    static async getClientImage(req,res){
+      try {
+
+        const client = await Client.findById(req.params.id);
+    
+        if (!client) {
+          return res.status(404).send('Image not found.');
+        }
+    
+        res.set('Content-Type', client.imageType);
+        res.send(client.imageBuffer);
+    
+      } catch (error) {
+        res.status(500).json({
+          status_code: ApiErrorCode.internalError,
+          message: error.message,
+          data: null,
+          error : {
+            message : error.message
+          }
+        });
+      }
     }
 
 }
