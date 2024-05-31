@@ -33,13 +33,14 @@ function ResourcesCard({imgUrl,title,titles,_id,route,refetch,inquiryRoute}:Reso
 
     const [img,setImg] = useState('')
 
-    useEffect(()=>{
-        checkImgUrl(imgUrl,()=>setImg(imgUrl))
-    },[imgUrl])
+    // useEffect(()=>{
+    //     checkImgUrl(imgUrl,()=>setImg(imgUrl))
+
+    // },[imgUrl])
+    console.log(imgUrl );
 
     const {mutate} = useMutation({
         mutationFn: async () => httpDeleteService(`${route}/${_id}`),
-        mutationKey:["delete","resourceItem",_id],
         onSuccess:async () => {
             refetch()
             popUp({
@@ -79,9 +80,9 @@ function ResourcesCard({imgUrl,title,titles,_id,route,refetch,inquiryRoute}:Reso
             <div className='h-[150px] w-full px-4 pt-4'>
                 <div className={`w-full h-full  rounded-2xl overflow-hidden ${!img && "bg-light-grey bg-opacity-40"}`}>
                     {
-                        !Boolean(img) ? (<BiSolidImageAlt className='w-full text-4xl h-full text-dark-grey opacity-30' />) :(
+                        !Boolean(imgUrl) ? (<BiSolidImageAlt className='w-full text-4xl h-full text-dark-grey opacity-30' />) :(
                             <img 
-                                src={`${BASE_URL}${authRoute}${img}`} 
+                                src={imgUrl} 
                                 className='w-full bg-light-grey h-[180px] object-cover' 
                                 alt="image not found"
                             />)

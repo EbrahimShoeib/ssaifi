@@ -56,6 +56,7 @@ function SettingsPageContent({
 
         file && reader.readAsDataURL(file)
     }
+    
 
     const [avatarUrl,setAvatarUrl] = useState<string>('')
 
