@@ -109,7 +109,7 @@ class packageController {
           },
         });
       } else {
-        await new Package({
+      const p =  new  Package({
           category: req.body.category,
           lessons: req.body.lessons,
           startDate: req.body.startDate,
@@ -119,22 +119,12 @@ class packageController {
 
         })
           .save()
-          .then((docs) => {
             res.status(200).json({
               status_code: 1,
               message: "Package is created successfuly",
-              data: docs,
+              data: p,
             });
-          })
-          .catch((error) => {
-            res.status(400).json({
-              status_code: ApiErrorCode.internalError,
-              message: "Package is Already Found",
-              error: {
-                error: error.message,
-              },
-            });
-          });
+          
       }
     
   }

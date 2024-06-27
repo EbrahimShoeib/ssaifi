@@ -100,7 +100,7 @@ class caveteriaController {
             res.status(400).json({
               status_code: ApiErrorCode.validation,
               message: "menuItemName is already found",
-              data: null,
+              data: docs,
             });
           } else {
             new Caveteria({
