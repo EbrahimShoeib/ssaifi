@@ -14,6 +14,7 @@ const packageSchema = mongoose.Schema({
   },
   lessons: {
     type: String,
+    enum:["1","2","3","4","5","6","7","8","9","10"],
     required: true,
   },
   startDate: {
@@ -48,7 +49,7 @@ function createNewPackage(obj) {
 function updatePackage(obj) {
   const schema = joi.object({
     category:joi.string().required().min(1).max(20),
-    lessons:joi.string().required().min(1).max(20),
+    lessons:joi.string().required().min(1).max(20).valid("1","2","3","4","5","6","7","8","9","10"),
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","active").min(1).max(20),
