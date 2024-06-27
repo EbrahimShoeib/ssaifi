@@ -119,14 +119,22 @@ class packageController {
 
         })
           .save()
-          
+          .then((docs) => {
             res.status(200).json({
               status_code: 1,
               message: "Package is created successfuly",
               data: docs,
             });
-         
-         
+          })
+          .catch((error) => {
+            res.status(400).json({
+              status_code: ApiErrorCode.internalError,
+              message: "Package  Already Found",
+              error: {
+                error: error.message,
+              },
+            });
+          });
       }
     } catch (error) {
       res.status(500).json({

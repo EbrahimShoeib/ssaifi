@@ -13,7 +13,7 @@ const packageSchema = mongoose.Schema({
     required: true,
   },
   lessons: {
-    type: Number,
+    type: String,
     required: true,
   },
   startDate: {
@@ -36,7 +36,7 @@ const Package = mongoose.model("Package", packageSchema);
 function createNewPackage(obj) {
   const schema = joi.object({
     category:joi.string().required().min(1).max(20),
-    lessons:joi.number().required().min(1).max(20),
+    lessons:joi.string().required().min(1).max(20),
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","active").min(1).max(20),
@@ -48,7 +48,7 @@ function createNewPackage(obj) {
 function updatePackage(obj) {
   const schema = joi.object({
     category:joi.string().required().min(1).max(20),
-    lessons:joi.number().required().min(1).max(20),
+    lessons:joi.string().required().min(1).max(20),
     startDate:joi.string().required().min(1).max(20),
     endDate:joi.string().required().min(1).max(20),
     status:joi.string().required().valid("expired","active").min(1).max(20),
