@@ -97,7 +97,7 @@ class packageController {
       });
   }
   static async createNawPackage(req, res) {
-    try {
+    
       const { error } = createNewPackage(req.body);
       if (error) {
         res.status(400).json({
@@ -129,21 +129,14 @@ class packageController {
           .catch((error) => {
             res.status(400).json({
               status_code: ApiErrorCode.internalError,
-              message: "Package  Already Found",
+              message: "Package is Already Found",
               error: {
                 error: error.message,
               },
             });
           });
       }
-    } catch (error) {
-      res.status(500).json({
-        status_code: ApiErrorCode.internalError,
-        error: {
-          error: error.message,
-        },
-      });
-    }
+    
   }
   static async updatePackage(req, res) {
     const { error } = updatePackage(req.body);
