@@ -98,41 +98,61 @@ class packageController {
   }
   static async createNawPackage(req, res) {
     
-    const {error}= createNewPackage(req.body);
-    if(error){
-      res.status().json({
-        status_code:ApiErrorCode.validation,
-        error:{
-          error:error.message
-        }
-      })
-    }else{
-      try{
-        await new Package ({
+    try {
+      
+      const { error } = createNewPackage(req.body);
+      
+      if (error) {
+        res.status(400).json({
+          status_code: ApiErrorCode.validation,
+          message:" Validation error",
+          data: null,
+          error: {
+            message: error.message,
+          },
+        });
+      } else {
+         new Package({
           category: req.body.category,
           lessons: req.body.lessons,
           startDate: req.body.startDate,
           endDate: req.body.endDate,
           status: req.body.status,
           name: req.body.name,
+         })
+          .save()
+          .then((docs) => {
+            const { __v, ...other } = docs._doc;
   
-        })
-        .save()
-        res.status(200).json({
-          status_code:1,
-          message:"Added "
+            res.status(200).json({
+              status_code: 1,
+              message: "The Package is created successfuly",
+              data: {
+                ...other,
+              },
+            });
           })
-      }catch{
-        res.status(500).json({
-          status_code:ApiErrorCode.internalError,
-          error:{
-            error:error.message
-          }
-        })
+          .catch((error) => {
+            res.status(500).json({
+              status_code: ApiErrorCode.internalError,
+              message: "There was an error when creating the package, please try again",
+              data: null,
+              error: {
+                message: error.message,
+              },
+            });
+          });
       }
-      
 
-
+    } catch (error) {
+      res.status(500).json({
+        status_code: ApiErrorCode.internalError,
+        message: "There was a server internal error, please try again",
+        data: null,
+        error: {
+          message: error.message,
+        },
+      });
     }
      
     
